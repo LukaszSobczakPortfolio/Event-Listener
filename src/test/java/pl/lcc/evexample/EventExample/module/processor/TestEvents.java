@@ -5,6 +5,7 @@
  */
 package pl.lcc.evexample.EventExample.module.processor;
 
+import java.io.Serializable;
 import lombok.extern.slf4j.Slf4j;
 import pl.lcc.evexample.module.interfaces.LccEvent;
 
@@ -43,6 +44,12 @@ public class TestEvents {
         
     }
     
-     public static class EmptyEvent implements LccEvent{}
+     public static class EmptyEvent implements LccEvent,Serializable{}
+     
+     interface AdvancedLccEvent extends LccEvent{}
+     
+     public static class AdvancedEmptyEvent implements AdvancedLccEvent {}
+     
+     }
     
-}
+
