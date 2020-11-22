@@ -5,6 +5,8 @@
  */
 package pl.lcc.evexample.EventExample.module.processor;
 
+import java.util.stream.Stream;
+
 /**
  *
  * @author piko
@@ -12,5 +14,7 @@ package pl.lcc.evexample.EventExample.module.processor;
 public interface IClassGraphResolver {
     
     public Class<?>[] resolve(Object subject);
+
+    Stream<Class<?>> resolveToStream(Object subject);
     
 }

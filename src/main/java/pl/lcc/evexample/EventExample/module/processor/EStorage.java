@@ -6,18 +6,17 @@
 package pl.lcc.evexample.EventExample.module.processor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import static java.util.stream.Collectors.toList;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ClassUtils;
 import pl.lcc.evexample.module.interfaces.LccEvent;
 import pl.lcc.evexample.module.interfaces.LccEventListener;
 import pl.lcc.evexample.module.interfaces.LccListenerClass;
@@ -62,19 +61,15 @@ public class EStorage implements IEventStorage{
     
     @Override
     public List<LccEventListener<? extends LccEvent>> getListenersForEvent(LccEvent event) {
-        Set<Class<? extends LccEvent>> superClassesAndInterfaces = new HashSet<>();
-        var interfaces = getAllInterfaces(event);
-        var superClasses = getAllSuperclasses(event);        
-        return new ArrayList<> (map.get(event.getClass()));
-    }
-
-    private Stream<Class<?>> getAllSuperclasses(LccEvent event) {
-         return null;/// event.getClass().getSuperclass();
-    }
-
-    Stream<Class<?>> getAllInterfaces(LccEvent event) {
-        return Arrays.stream(ClassUtils.getAllInterfaces(event))
-                .filter(LccEvent.class::isAssignableFrom);
+     
+        List<LccEventListener<? extends LccEvent>> result = new ClassGraphResolver()
+                .resolveToStream(event)
+                .filter(LccEvent.class::isAssignableFrom)
+                .map(klazz -> map.get(klazz))
+                .filter(Objects::nonNull)
+                .flatMap(Collection::stream)
+                .collect(toList());
+        return result;
     }
 
     @Override
@@ -86,7 +81,6 @@ public class EStorage implements IEventStorage{
         return map.entrySet()
                 .stream()
                 .flatMap(makeListenerDescription());
-       
     }
 
     private static Function<Map.Entry<Class<? extends LccEvent>, List<LccEventListener<? extends LccEvent>>>, Stream<String>> makeListenerDescription() {

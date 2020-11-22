@@ -99,6 +99,7 @@ public class EventsDispatcherTest {
     @Test
     public void FireOneEventToOneCatchAllStorage() {
         var listener = new TestListeners.CatchAllListener();
+        dispatcher.addListener(listener);
         dispatcher.dispatch(new TestEvents.PlantEvent(10));
 
         assertThat(listener.getInfo()).as("OneHit").isEqualTo("1");
