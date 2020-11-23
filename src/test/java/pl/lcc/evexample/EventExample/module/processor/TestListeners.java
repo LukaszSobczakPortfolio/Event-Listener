@@ -6,6 +6,9 @@
 package pl.lcc.evexample.EventExample.module.processor;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 import pl.lcc.evexample.module.interfaces.LccEvent;
 import pl.lcc.evexample.module.interfaces.LccEventListener;
 import pl.lcc.evexample.module.interfaces.LccListenerClass;
@@ -20,7 +23,7 @@ public class TestListeners {
     @LccListenerClass(targetEvent = LccEvent.class)
     public static class CatchAllListener implements LccEventListener<LccEvent>{
 
-        public static int count =0;
+        int count =0;
         
         @Override
         public String getInfo() {
@@ -38,7 +41,7 @@ public class TestListeners {
     @LccListenerClass(targetEvent = LccEvent.class)
     public static class CatchAllSecondListener implements LccEventListener<LccEvent>{
 
-        public static int count =0;
+        int count =0;
         
         @Override
         public String getInfo() {
@@ -56,7 +59,7 @@ public class TestListeners {
     @LccListenerClass(targetEvent = LccEvent.class)
     public static class CatchAllThirdListener implements LccEventListener<LccEvent>{
 
-        public static int count =0;
+        int count =0;
         
         @Override
         public String getInfo() {
@@ -74,7 +77,7 @@ public class TestListeners {
      @LccListenerClass(targetEvent = TestEvents.PlantEvent.class)
     public static class PlantListener implements LccEventListener<TestEvents.PlantEvent>{
 
-         public static int count =0;
+        int count =0;
          
         @Override
         public String getInfo() {
@@ -92,7 +95,7 @@ public class TestListeners {
     @LccListenerClass(targetEvent = TestEvents.AnimalEvent.class)
     public static class AnimalListener implements LccEventListener<TestEvents.AnimalEvent>{
 
-        public static int count =0;
+        int count =0;
         
         @Override
         public String getInfo() {
@@ -107,5 +110,24 @@ public class TestListeners {
         
     }
       
+    @TestConfiguration
+    public static class ListenersConfiguration{
+        
+        @Bean
+        TestListeners.CatchAllListener catchAll(){
+            return new TestListeners.CatchAllListener();
+        }
+        
+        @Bean
+        TestListeners.AnimalListener catchAnimal(){
+            return new TestListeners.AnimalListener();
+        }
+        
+        @Bean
+        TestListeners.PlantListener catchPlant(){
+            return new TestListeners.PlantListener();
+        }
+        
+    }
       
 }

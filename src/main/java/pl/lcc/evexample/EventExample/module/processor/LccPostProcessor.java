@@ -39,9 +39,9 @@ class LccPostProcessor implements ILccPostProcessor {
         
         if(Arrays.asList(bean.getClass().getInterfaces()).contains(LccEventListener.class)){
             var listener = (LccEventListener) bean;
+            dispatcher.addListener(listener);
             log.info("lcc post processor - listener: " + bean.getClass().toGenericString());
         }
-        //displayDebugData(bean, beanName);
         return bean;
     }
 

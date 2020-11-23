@@ -5,8 +5,6 @@
  */
 package pl.lcc.evexample.module.interfaces;
 
-import java.util.List;
-
 /**
  *
  * @author piko
