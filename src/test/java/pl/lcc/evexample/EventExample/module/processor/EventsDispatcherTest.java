@@ -10,7 +10,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
-import pl.lcc.evexample.EventExample.module.processor.TestEvents.EmptyEvent;
 import pl.lcc.evexample.module.interfaces.DispatcherInterface;
 import pl.lcc.evexample.module.interfaces.LccEvent;
 import pl.lcc.evexample.module.interfaces.LccEventListener;
