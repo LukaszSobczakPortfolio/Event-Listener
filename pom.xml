@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>pl.lcc.evexample</groupId>
-	<artifactId>EventExample</artifactId>
+	<artifactId>ListenerExample</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>EventExample</name>
+	<name>ListenerExample</name>
 	<description>Example for Event</description>
 
 	<properties>
