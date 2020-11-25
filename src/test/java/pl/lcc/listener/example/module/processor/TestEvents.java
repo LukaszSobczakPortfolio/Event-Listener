@@ -50,6 +50,8 @@ public class TestEvents {
      
      public static class AdvancedEmptyEvent implements AdvancedLccEvent {}
      
+     
+     
      }
     
 

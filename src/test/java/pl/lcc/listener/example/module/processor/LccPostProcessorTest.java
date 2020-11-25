@@ -54,7 +54,6 @@ public class LccPostProcessorTest {
     public void testOneEvent() {
         dispatcher.dispatch( new TestEvents.EmptyEvent());
      
-       
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(catched.getInfo()).as("got one Event").contains("1");
         softly.assertThat(anime.getInfo()).as("should be 0").isEqualTo("0");
