@@ -17,13 +17,21 @@ import pl.lcc.listener.module.interfaces.LccEventListener;
  *
  * @author piko
  */
-@Component
 @Slf4j
-//@Primary
-public class EStorage extends EStorageMapWrapper{
+@Component
+@Primary
+public class WeakEStorage extends EStorageMapWrapper{
 
-    public EStorage() {
-        super(new HashMap<Class<? extends LccEvent>, List<LccEventListener<? extends LccEvent>>> ());
+    public WeakEStorage( ) {
+        
+       super( new HashMap<Class<? extends LccEvent>, List<LccEventListener<? extends LccEvent>>> () );
     }
-   
+    
+    @Override
+    protected List<LccEventListener<? extends LccEvent>> newList(LccEventListener<? extends LccEvent> listener) {
+       WeakArrayList<LccEventListener<? extends LccEvent>> list = new WeakArrayList<LccEventListener<? extends LccEvent>>();
+       list.add(listener);
+       return list;
+    }
+    
 }
