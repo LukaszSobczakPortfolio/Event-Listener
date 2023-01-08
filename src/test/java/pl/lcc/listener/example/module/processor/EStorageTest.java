@@ -5,9 +5,7 @@
  */
 package pl.lcc.listener.example.module.processor;
 
-import pl.lcc.listener.example.module.processor.EStorage;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +31,7 @@ public class EStorageTest {
     }
 
     @Test
-    public void testgetAllInterfacesOne() {
+    public void testGetAllInterfacesOne() {
         store.addListener(new TestListeners.CatchAllListener());
         List<LccEventListener<? extends LccEvent>> result = store
                 .getListenersForEvent(new TestEvents.EmptyEvent());
@@ -46,7 +44,7 @@ public class EStorageTest {
     }
 
     @Test
-    public void testgetAllInterfacesTwo() {
+    public void testGetAllInterfacesTwo() {
         store.addListener(new TestListeners.CatchAllListener());
         store.addListener(new TestListeners.CatchAllSecondListener());
         store.addListener(new TestListeners.CatchAllThirdListener());
@@ -62,7 +60,7 @@ public class EStorageTest {
     }
 
     @Test
-    public void testgetAllInterfacesNoListener() {
+    public void testGetAllInterfacesNoListener() {
 
         List<LccEventListener<? extends LccEvent>> result = store
                 .getListenersForEvent(new TestEvents.EmptyEvent());
@@ -76,7 +74,7 @@ public class EStorageTest {
     }
 
     @Test
-    public void testgetAllInterfacesWrongListener() {
+    public void testGetAllInterfacesWrongListener() {
         store.addListener(new TestListeners.AnimalListener());
         List<LccEventListener<? extends LccEvent>> result = store
                 .getListenersForEvent(new TestEvents.PlantEvent(2));
@@ -88,7 +86,7 @@ public class EStorageTest {
     }
 
     @Test
-    public void testgetAllInterfacesSomeListeners() {
+    public void testGetAllInterfacesSomeListeners() {
         store.addListener(new TestListeners.AnimalListener());
         store.addListener(new TestListeners.AnimalListener());
         store.addListener(new TestListeners.PlantListener());
@@ -104,7 +102,7 @@ public class EStorageTest {
     }
 
     @Test
-    public void testgetAllInterfacesSomeListeners2() {
+    public void testGetAllInterfacesSomeListeners2() {
         store.addListener(new TestListeners.AnimalListener());
         store.addListener(new TestListeners.AnimalListener());
         store.addListener(new TestListeners.PlantListener());
@@ -120,7 +118,7 @@ public class EStorageTest {
     }
 
     @Test
-    public void testgetAllInterfacesSomeListeners3() {
+    public void testGetAllInterfacesSomeListeners3() {
         store.addListener(new TestListeners.AnimalListener());
         store.addListener(new TestListeners.CatchAllListener());
         store.addListener(new TestListeners.PlantListener());

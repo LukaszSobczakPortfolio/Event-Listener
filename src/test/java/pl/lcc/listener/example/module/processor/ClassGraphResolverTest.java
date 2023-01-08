@@ -5,7 +5,6 @@
  */
 package pl.lcc.listener.example.module.processor;
 
-import pl.lcc.listener.example.module.processor.ClassGraphResolver;
 import java.io.Closeable;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -14,7 +13,6 @@ import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import org.springframework.core.AliasRegistry;
 import org.springframework.web.context.support.GenericWebApplicationContext;
 

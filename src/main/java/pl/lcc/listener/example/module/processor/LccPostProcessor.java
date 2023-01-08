@@ -7,16 +7,9 @@ package pl.lcc.listener.example.module.processor;
 
 import pl.lcc.listener.module.interfaces.ILccPostProcessor;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import pl.lcc.listener.module.interfaces.LccEvent;
 import pl.lcc.listener.module.interfaces.LccEventListener;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
 
 /**

@@ -7,7 +7,6 @@ package pl.lcc.listener.example.module.processor;
 
 import java.lang.ref.WeakReference;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

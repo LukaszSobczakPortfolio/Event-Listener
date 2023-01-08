@@ -5,8 +5,6 @@
  */
 package pl.lcc.listener.example.module.processor;
 
-import pl.lcc.listener.example.module.processor.EStorage;
-import pl.lcc.listener.example.module.processor.EventsDispatcher;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
