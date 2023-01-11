@@ -71,8 +71,8 @@ public class LccPostProcessorTest {
         
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(catched.getInfo()).as("got one Event").contains("3");
-        softly.assertThat(anime.getInfo()).as("should be 0").isEqualTo("1");
-        softly.assertThat(planty.getInfo()).as("should be 0").isEqualTo("1");
+        softly.assertThat(anime.getInfo()).as("should be 1").isEqualTo("1");
+        softly.assertThat(planty.getInfo()).as("should be 1").isEqualTo("1");
         softly.assertAll();
         
         
