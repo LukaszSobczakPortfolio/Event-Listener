@@ -28,6 +28,7 @@ public class WebController {
 
     @GetMapping("/")
     public String index() {
+       
         return "Greetings";
     }
 

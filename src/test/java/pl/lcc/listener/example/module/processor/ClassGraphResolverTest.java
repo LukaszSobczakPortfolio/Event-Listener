@@ -5,6 +5,7 @@
  */
 package pl.lcc.listener.example.module.processor;
 
+import pl.lcc.listener.module.processor.ClassGraphResolver;
 import java.io.Closeable;
 import java.util.Arrays;
 import java.util.LinkedList;

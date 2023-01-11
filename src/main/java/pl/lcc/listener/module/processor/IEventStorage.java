@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.lcc.listener.example.module.processor;
+package pl.lcc.listener.module.processor;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -17,9 +17,9 @@ import pl.lcc.listener.module.interfaces.LccEventListener;
  */
 public interface IEventStorage {
 
-    void addListener(LccEventListener<? extends LccEvent> listener);
+    public void addListener(LccEventListener<? extends LccEvent> listener);
 
-    List<LccEventListener<? extends LccEvent>> getListenersForEvent(LccEvent event);
+    public List<LccEventListener<? extends LccEvent>> getListenersForEvent(LccEvent event);
 
     public Stream<String> getStreamOfListenersDescription();
 }

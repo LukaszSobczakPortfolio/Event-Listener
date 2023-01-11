@@ -3,14 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.lcc.listener.example.module.processor;
+package pl.lcc.listener.module.processor;
+
+import java.util.stream.Stream;
 
 /**
  *
  * @author piko
  */
-public interface IIdentifier {
+public interface IClassGraphResolver {
+    
+    public Class<?>[] resolve(Object subject);
 
-    String getId();
+    Stream<Class<?>> resolveToStream(Object subject);
     
 }

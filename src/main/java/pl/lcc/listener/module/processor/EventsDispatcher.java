@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.lcc.listener.example.module.processor;
+package pl.lcc.listener.module.processor;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,8 +42,7 @@ public class EventsDispatcher implements DispatcherInterface{
     @Override
     public String getAllListenersInfo() {
        var x = eventMapper.getStreamOfListenersDescription()
-               .collect(Collectors.joining("\n"));
-                
+               .collect(Collectors.joining("\n"));                
        return x;
     }
     

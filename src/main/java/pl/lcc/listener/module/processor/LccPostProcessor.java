@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.lcc.listener.example.module.processor;
+package pl.lcc.listener.module.processor;
 
 import pl.lcc.listener.module.interfaces.ILccPostProcessor;
 import java.util.Arrays;

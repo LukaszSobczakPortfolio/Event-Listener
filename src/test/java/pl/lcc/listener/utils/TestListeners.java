@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.lcc.listener.example.module.processor;
+package pl.lcc.listener.utils;
 
+import pl.lcc.listener.utils.TestEvents;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Scope;
 import pl.lcc.listener.module.interfaces.LccEvent;
 import pl.lcc.listener.module.interfaces.LccEventListener;
 import pl.lcc.listener.module.interfaces.LccListenerClass;
+
 
 /**
  *
@@ -134,15 +136,15 @@ public class TestListeners {
             }
         }
 
-        int getCount() {
+        public int getCount() {
             return count;
         }
 
-        static void resetStaticCount() {
+        public static void resetStaticCount() {
             staticCount = 0;
         }
 
-        static synchronized int getStaticCount() {
+        public static synchronized int getStaticCount() {
             return staticCount;
         }
 

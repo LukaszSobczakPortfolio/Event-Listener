@@ -3,32 +3,34 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.lcc.listener.example.module.processor;
+package pl.lcc.listener.module.processor.storage;
 
 import java.lang.ref.WeakReference;
 import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 /**
  *
  * @author piko
+ * @param <E>
  */
-public class WeakArrayList<E> extends AbstractList<E>{
+public class WeakArrayList<E> extends AbstractList<E> {
 
     ArrayList<WeakReference<E>> container = new ArrayList<>();
-    
+
     @Override
-    public boolean add (E element){
+    public boolean add(E element) {
         container.add(new WeakReference<>(element));
         return true;
     }
-    
+
     @Override
     public E get(int index) {
-      var item = container.get(index);
-      return item.get();
+        var item = container.get(index);
+        return item.get();
     }
 
     @Override
@@ -39,32 +41,30 @@ public class WeakArrayList<E> extends AbstractList<E>{
 
     @Override
     public Stream<E> stream() {
-        purge();
-        return super.stream(); 
+        return container.stream()
+                .map(e -> e.get())
+                .filter(Objects::nonNull);
+
     }
 
     @Override
     public void forEach(Consumer<? super E> action) {
         purge();
-        super.forEach(action); 
+        super.forEach(action);
     }
 
     @Override
     public void add(int index, E element) {
-        super.add(index, element); //To change body of generated methods, choose Tools | Templates.
+        container.add(index, new WeakReference<>(element));
     }
 
     @Override
     public String toString() {
         return super.toString(); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
 
-    private void purge(){
-        container.removeIf(reference -> reference.get()==null);
+    private void purge() {
+        container.removeIf(reference -> reference.get() == null);
     }
 
-    
-    
 }

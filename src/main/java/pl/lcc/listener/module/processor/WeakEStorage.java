@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.lcc.listener.example.module.processor;
+package pl.lcc.listener.module.processor;
 
+import pl.lcc.listener.module.processor.storage.WeakArrayList;
 import java.util.HashMap;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,7 @@ public class WeakEStorage extends EStorageMapWrapper{
     
     @Override
     protected List<LccEventListener<? extends LccEvent>> newList(LccEventListener<? extends LccEvent> listener) {
-       WeakArrayList<LccEventListener<? extends LccEvent>> list = new WeakArrayList<LccEventListener<? extends LccEvent>>();
+       WeakArrayList<LccEventListener<? extends LccEvent>> list = new WeakArrayList<>();
        list.add(listener);
        return list;
     }

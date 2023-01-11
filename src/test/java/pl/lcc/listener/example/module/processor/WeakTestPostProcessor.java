@@ -5,6 +5,8 @@
  */
 package pl.lcc.listener.example.module.processor;
 
+import pl.lcc.listener.utils.TestListeners;
+import pl.lcc.listener.utils.TestEvents;
 import java.lang.ref.WeakReference;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -40,8 +42,8 @@ public class WeakTestPostProcessor {
         
         dispatcher.dispatch(new TestEvents.EmptyEvent());
         
-        assertThat(listener.count).as("should be 1").isEqualTo(1);
-        assertThat(listener2.count).as("should be 1").isEqualTo(1);
+        assertThat(listener.getCount()).as("should be 1").isEqualTo(1);
+        assertThat(listener2.getCount()).as("should be 1").isEqualTo(1);
         
     }
     
@@ -59,8 +61,8 @@ public class WeakTestPostProcessor {
         log.info(listener.getInfo());
         log.info(listener2.getInfo());
         
-        assertThat(listener.count).as("should be 1").isEqualTo(1);
-        assertThat(listener2.count).as("should be 1").isEqualTo(1);
+        assertThat(listener.getCount()).as("should be 1").isEqualTo(1);
+        assertThat(listener2.getCount()).as("should be 1").isEqualTo(1);
         assertThat(TestListeners.SingletonListener.getStaticCount())
                 .as("total calls should be 2")
                 .isEqualTo(2);
@@ -72,7 +74,7 @@ public class WeakTestPostProcessor {
         
         dispatcher.dispatch(new TestEvents.EmptyEvent());
          
-         assertThat(listener.count).as("should be 2").isEqualTo(2);
+         assertThat(listener.getCount()).as("should be 2").isEqualTo(2);
           assertThat(TestListeners.SingletonListener.getStaticCount())
                 .as("total calls should be 3")
                 .isEqualTo(3);

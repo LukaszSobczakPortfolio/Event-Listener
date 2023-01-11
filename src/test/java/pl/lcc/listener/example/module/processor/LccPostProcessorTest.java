@@ -5,6 +5,8 @@
  */
 package pl.lcc.listener.example.module.processor;
 
+import pl.lcc.listener.utils.TestListeners;
+import pl.lcc.listener.utils.TestEvents;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

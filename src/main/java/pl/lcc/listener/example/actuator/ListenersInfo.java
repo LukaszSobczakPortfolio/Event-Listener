@@ -5,7 +5,6 @@
  */
 package pl.lcc.listener.example.actuator;
 
-import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
@@ -13,7 +12,7 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.stereotype.Component;
-import pl.lcc.listener.example.module.processor.EventsDispatcher;
+import pl.lcc.listener.module.processor.EventsDispatcher;
 
 /**
  *

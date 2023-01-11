@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.lcc.listener.example.module.processor;
+package pl.lcc.listener.utils;
 
 import java.io.Serializable;
 import lombok.extern.slf4j.Slf4j;
