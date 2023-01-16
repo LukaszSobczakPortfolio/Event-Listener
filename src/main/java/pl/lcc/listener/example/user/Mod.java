@@ -18,29 +18,25 @@ import pl.lcc.listener.module.interfaces.LccEventListener;
  */
 @Component
 @SessionScope
-public class Mod implements LccEventListener<BombModEvent>{
+public class Mod{
 
-    private final VerificationService service;
+   private final VerificationService service;
+   private Message messageForVerification;
+   private String name;
     
-    private final Queue<Message> toDecide;
-
     public Mod(VerificationService service) {
-        toDecide = new ConcurrentLinkedQueue<>();
+        
         this.service = service;
     }
     
     @Override
-    public String getInfo() {
-        return toDecide.toString();
-    }
-
-    @Override
-    public void listenToEvent(BombModEvent event) {
-        toDecide.add(event.getMsg());
+    public String toString() {
+        return name + " :message: " + messageForVerification.toString();
     }
 
     public boolean okMessage(Message msg){
-        return toDecide.remove(msg);
+        service.removeMessage(msg);
+        return true;
     }
     
     public boolean itIsBomb(Message msg){

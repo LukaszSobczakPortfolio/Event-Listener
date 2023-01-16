@@ -4,6 +4,8 @@
  */
 package pl.lcc.listener.example.service;
 
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import pl.lcc.listener.example.service.VerificationService;
 import org.springframework.stereotype.Service;
 import pl.lcc.listener.example.events.BombModEvent;
@@ -17,18 +19,20 @@ import pl.lcc.listener.module.interfaces.DispatcherInterface;
 @Service
 public class ModService implements VerificationService{
 
-    DispatcherInterface dispatcher;
+    private final DispatcherInterface dispatcher;
     
-    @Override
-    public void checkMessage(String user, Message msg) {
-        if (msg.getMessage().toLowerCase().contains("bomb")){
-            dispatcher.dispatch(new BombModEvent(user, msg));
-        }
+    private final Queue<Message> toDecide;
+
+    public ModService(DispatcherInterface dispatcher) {
+        this.dispatcher = dispatcher;
+        toDecide = new ConcurrentLinkedQueue<>();
     }
+    
+   
 
     @Override
     public void banUser(String name) {
-       
+         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -40,5 +44,14 @@ public class ModService implements VerificationService{
     public void listenToEvent(BombModEvent event) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
+    @Override
+    public Message getMessageForModeration() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void removeMessage(Message msg) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

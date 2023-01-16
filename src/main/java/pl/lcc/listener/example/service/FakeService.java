@@ -13,6 +13,7 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 import pl.lcc.listener.example.events.BanEvent;
 import pl.lcc.listener.example.user.Message;
+import pl.lcc.listener.module.interfaces.DispatcherInterface;
 
 /**
  *
@@ -21,19 +22,19 @@ import pl.lcc.listener.example.user.Message;
 @Component
 public class FakeService implements MessageService {
 
-    private final VerificationService verificator;
+    private final DispatcherInterface dispatcher;
     private final Map<String, List<Message>> db;
     private final List<Message> DEFAULT_MESSAGE_LIST = List.of(new Message(LocalDateTime.now(), "Write some messages", ""));
 
-    public FakeService(VerificationService ver) {
-        verificator = ver;
+    public FakeService(DispatcherInterface dis) {
+        dispatcher = dis;
         db = new HashMap<>();
     }
 
     @Override
     public MessageService addMessage( Message msg) {
         var user = msg.getUserName();
-        verificator.checkMessage(user, msg);
+        autoCheckMessageService(msg);
         db.merge(user,
                 ListWithMsg(msg),
                 (prev, next) -> {
@@ -61,6 +62,12 @@ public class FakeService implements MessageService {
 
     @Override
     public void listenToEvent(BanEvent event) {
+        //ban given user
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void autoCheckMessageService(Message msg) {
+        //if bomb go to moderation
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

@@ -14,7 +14,9 @@ import pl.lcc.listener.module.interfaces.LccEventListener;
  */
 public interface VerificationService extends LccEventListener<BombModEvent>{
     
-    void checkMessage(String user, Message msg);
+    Message getMessageForModeration();
+    
+    void removeMessage(Message msg);
     
     void banUser(String name);
     
