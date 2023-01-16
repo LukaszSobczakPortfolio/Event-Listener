@@ -31,11 +31,13 @@ public class User implements LccEventListener<BanEvent>{
         flagged = false;
     } 
     
+    @Deprecated
     public User put(){
         values.add(LocalDateTime.now());
         return this;
     }
     
+    @Deprecated
     public List<LocalDateTime> get(){
         return values;
     }

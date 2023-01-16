@@ -27,8 +27,7 @@ public class WebController {
     }
 
     @GetMapping("/")
-    public String index() {
-       
+    public String index() {       
         return "Greetings";
     }
 

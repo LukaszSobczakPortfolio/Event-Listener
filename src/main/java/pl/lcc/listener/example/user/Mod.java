@@ -8,7 +8,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
-import pl.lcc.listener.example.controller.VerificationService;
+import pl.lcc.listener.example.service.VerificationService;
 import pl.lcc.listener.example.events.BombModEvent;
 import pl.lcc.listener.module.interfaces.LccEventListener;
 

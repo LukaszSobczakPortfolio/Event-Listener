@@ -4,6 +4,7 @@
  */
 package pl.lcc.listener.example.controller;
 
+import pl.lcc.listener.example.service.MessageService;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +43,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String index(Model model) {
-         log.info("login/get: " + Thread.currentThread().getName());
+        log.info("login/get: " + Thread.currentThread().getName());
         user.put();
         log.info(user.get().stream().map(d -> d.toString()).collect(Collectors.joining(" : ")));
         model.addAttribute("user", user);
@@ -55,7 +56,7 @@ public class UserController {
         log.info("login/post: " + Thread.currentThread().getName());
         model.addAttribute("name", user.getName());
         this.user.setName(user.getName());
-        makeUserPanelModel(model);
+        prepareModerForNewMessage(model);
         log.info("second User: " + this.user.toString());
         return "UserPanel";
     }
@@ -64,11 +65,11 @@ public class UserController {
      public String addMessage(@ModelAttribute Message msg, Model model){
          log.info("addMessage/post: " + Thread.currentThread().getName());
          service.addMessage(new Message(LocalDateTime.now(), msg.getMessage(),user.getName()));
-         makeUserPanelModel(model);
+         prepareModerForNewMessage(model);
          return "UserPanel";
      }       
     
-    void makeUserPanelModel(Model model){
+    void prepareModerForNewMessage(Model model){
         model.addAttribute("name", user.getName());
         model.addAttribute("messages", service.getMessages(user.getName()));
         model.addAttribute("flagged", user.isFlagged());
