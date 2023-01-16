@@ -13,10 +13,12 @@ import java.time.LocalDateTime;
 public class Message {
     LocalDateTime createTime;
     String message;
+    String userName;
 
-    public Message(LocalDateTime createTime, String message) {
+    public Message(LocalDateTime createTime, String message, String user) {
         this.createTime = createTime;
         this.message = message;
+        this.userName = user;
     }
 
     public LocalDateTime getCreateTime() {
@@ -25,6 +27,10 @@ public class Message {
 
     public String getMessage() {
         return message;
+    }
+
+    public String getUserName() {
+        return userName;
     }
     
     

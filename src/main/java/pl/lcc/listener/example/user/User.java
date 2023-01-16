@@ -11,13 +11,15 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 import org.springframework.web.context.annotation.SessionScope;
+import pl.lcc.listener.example.events.BanEvent;
+import pl.lcc.listener.module.interfaces.LccEventListener;
 /**
  *
  * @author Nauczyciel
  */
 @Component
 @SessionScope
-public class User {
+public class User implements LccEventListener<BanEvent>{
     
     List<LocalDateTime> values;
     String name;
@@ -58,5 +60,19 @@ public class User {
     public void setFlagged(boolean flagged) {
         this.flagged = flagged;
     }
+
+    @Override
+    public String getInfo() {
+        return toString();
+    }
+
+    @Override
+    public void listenToEvent(BanEvent event) {
+       if (event.getName().equals(getName())){
+           setFlagged(true);
+       }
+    }
+
+    
     
 }

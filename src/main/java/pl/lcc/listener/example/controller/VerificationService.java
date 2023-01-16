@@ -4,17 +4,16 @@
  */
 package pl.lcc.listener.example.controller;
 
-import java.util.List;
 import pl.lcc.listener.example.user.Message;
 
 /**
  *
  * @author Nauczyciel
  */
-public interface MessageService {
-
-    MessageService addMessage(Message msg);
-
-    List<Message> getMessages(String user);
+public interface VerificationService {
+    
+    void checkMessage(String user, Message msg);
+    
+    void banUser(String name);
     
 }

@@ -36,8 +36,8 @@ public class UserController {
         log.info("WebController Constructor");
         this.ctx = ctx;
         this.service = service;
-        this.service.addMessage("test", new Message(LocalDateTime.MIN, "Minimum minimorum"))
-                .addMessage("test", new Message(LocalDateTime.now(), "Tester created"));
+        this.service.addMessage( new Message(LocalDateTime.MIN, "Minimum minimorum", "test"))
+                .addMessage( new Message(LocalDateTime.now(), "Tester created", "test"));
     }
 
     @GetMapping("/login")
@@ -63,7 +63,7 @@ public class UserController {
      @PostMapping("/addMessage")
      public String addMessage(@ModelAttribute Message msg, Model model){
          log.info("addMessage/post: " + Thread.currentThread().getName());
-         service.addMessage(user.getName(), new Message(LocalDateTime.now(), msg.getMessage()));
+         service.addMessage(new Message(LocalDateTime.now(), msg.getMessage(),user.getName()));
          makeUserPanelModel(model);
          return "UserPanel";
      }       
@@ -72,6 +72,6 @@ public class UserController {
         model.addAttribute("name", user.getName());
         model.addAttribute("messages", service.getMessages(user.getName()));
         model.addAttribute("flagged", user.isFlagged());
-        model.addAttribute("newMessage", new Message(null, null));
+        model.addAttribute("newMessage", new Message(null, null,user.getName()));
     }
 }

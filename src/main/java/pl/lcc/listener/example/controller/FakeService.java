@@ -19,15 +19,19 @@ import pl.lcc.listener.example.user.Message;
 @Component
 public class FakeService implements MessageService {
 
-    Map<String, List<Message>> db;
-    private final List<Message> DEFAULT_MESSAGE_LIST = List.of(new Message(LocalDateTime.now(), "Write some messages"));
+    private final VerificationService verificator;
+    private final Map<String, List<Message>> db;
+    private final List<Message> DEFAULT_MESSAGE_LIST = List.of(new Message(LocalDateTime.now(), "Write some messages", ""));
 
-    public FakeService() {
+    public FakeService(VerificationService ver) {
+        verificator = ver;
         db = new HashMap<>();
     }
 
     @Override
-    public MessageService addMessage(String user, Message msg) {
+    public MessageService addMessage( Message msg) {
+        var user = msg.getUserName();
+        verificator.checkMessage(user, msg);
         db.merge(user,
                 ListWithMsg(msg),
                 (prev, next) -> {
