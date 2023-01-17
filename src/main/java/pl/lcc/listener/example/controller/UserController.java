@@ -69,7 +69,7 @@ public class UserController {
          return "UserPanel";
      }       
     
-    void prepareModerForNewMessage(Model model){
+    private void prepareModerForNewMessage(Model model){
         model.addAttribute("name", user.getName());
         model.addAttribute("messages", service.getMessages(user.getName()));
         model.addAttribute("flagged", user.isFlagged());

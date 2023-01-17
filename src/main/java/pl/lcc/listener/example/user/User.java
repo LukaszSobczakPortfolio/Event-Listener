@@ -7,19 +7,15 @@ package pl.lcc.listener.example.user;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 import org.springframework.web.context.annotation.SessionScope;
-import pl.lcc.listener.example.events.BanEvent;
-import pl.lcc.listener.module.interfaces.LccEventListener;
 /**
  *
  * @author Nauczyciel
  */
 @Component
 @SessionScope
-public class User implements LccEventListener<BanEvent>{
+public class User{
     
     List<LocalDateTime> values;
     String name;
@@ -63,18 +59,4 @@ public class User implements LccEventListener<BanEvent>{
         this.flagged = flagged;
     }
 
-    @Override
-    public String getInfo() {
-        return toString();
-    }
-
-    @Override
-    public void listenToEvent(BanEvent event) {
-       if (event.getName().equals(getName())){
-           setFlagged(true);
-       }
-    }
-
-    
-    
 }
