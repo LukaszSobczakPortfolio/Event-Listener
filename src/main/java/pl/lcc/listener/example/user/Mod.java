@@ -20,6 +20,7 @@ import pl.lcc.listener.module.interfaces.LccEventListener;
 @SessionScope
 public class Mod{
 
+  
    private final VerificationService service;
    private Message messageForVerification;
    private String name;
@@ -43,4 +44,18 @@ public class Mod{
        service.banUser(msg.getUserName());
        return false;
     }
+
+    public Message getMessageForVerification() {
+        return messageForVerification;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setMessageForVerification(Message messageForVerification) {
+        this.messageForVerification = messageForVerification;
+    }
+    
+    
 }

@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import pl.lcc.listener.example.events.BanEvent;
+import pl.lcc.listener.example.events.BombModEvent;
 import pl.lcc.listener.example.user.Message;
 import pl.lcc.listener.module.interfaces.DispatcherInterface;
 
@@ -19,14 +21,15 @@ import pl.lcc.listener.module.interfaces.DispatcherInterface;
  *
  * @author Nauczyciel
  */
+@Slf4j
 @Component
-public class FakeService implements MessageService {
+public class FakeUserService implements MessageService {
 
     private final DispatcherInterface dispatcher;
     private final Map<String, List<Message>> db;
     private final List<Message> DEFAULT_MESSAGE_LIST = List.of(new Message(LocalDateTime.now(), "Write some messages", ""));
 
-    public FakeService(DispatcherInterface dis) {
+    public FakeUserService(DispatcherInterface dis) {
         dispatcher = dis;
         db = new HashMap<>();
     }
@@ -67,8 +70,10 @@ public class FakeService implements MessageService {
     }
 
     private void autoCheckMessageService(Message msg) {
-        //if bomb go to moderation
-     //  throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            log.info("dispatched possible Bomb Event for: " + msg.getUserName());
+            if (msg.getMessage().toLowerCase().contains("bomb")){
+                dispatcher.dispatch(new BombModEvent(msg.getUserName(), msg));
+            }
     }
 
 }

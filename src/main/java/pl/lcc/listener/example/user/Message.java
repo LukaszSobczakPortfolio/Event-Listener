@@ -32,6 +32,11 @@ public class Message {
     public String getUserName() {
         return userName;
     }
+
+    @Override
+    public String toString() {
+        return "Message{" + "createTime=" + createTime + ", message=" + message + ", userName=" + userName + '}';
+    }
     
     
 }

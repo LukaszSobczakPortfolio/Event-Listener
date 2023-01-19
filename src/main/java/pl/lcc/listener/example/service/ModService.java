@@ -27,8 +27,6 @@ public class ModService implements VerificationService{
         this.dispatcher = dispatcher;
         toDecide = new ConcurrentLinkedQueue<>();
     }
-    
-   
 
     @Override
     public void banUser(String name) {
@@ -47,11 +45,11 @@ public class ModService implements VerificationService{
 
     @Override
     public Message getMessageForModeration() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return toDecide.peek();
     }
 
     @Override
     public void removeMessage(Message msg) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+      toDecide.remove(msg);
     }
 }
