@@ -4,76 +4,42 @@
  */
 package pl.lcc.listener.example.service;
 
-import pl.lcc.listener.example.service.MessageService;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
-import pl.lcc.listener.example.events.BanEvent;
-import pl.lcc.listener.example.events.BombModEvent;
-import pl.lcc.listener.example.user.Message;
-import pl.lcc.listener.module.interfaces.DispatcherInterface;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import pl.lcc.listener.example.user.UserCore;
 
 /**
  *
  * @author Nauczyciel
  */
-@Slf4j
-@Component
-public class FakeUserService implements MessageService {
+public class FakeUserService implements UserService{
 
-    private final DispatcherInterface dispatcher;
-    private final Map<String, List<Message>> db;
-    private final List<Message> DEFAULT_MESSAGE_LIST = List.of(new Message(LocalDateTime.now(), "Write some messages", ""));
-
-    public FakeUserService(DispatcherInterface dis) {
-        dispatcher = dis;
-        db = new HashMap<>();
+    Map<String, String> passwords = new ConcurrentHashMap<>();
+    Map<String, UserCore> users = new ConcurrentHashMap<>();
+    
+    
+    @Override
+    public UserCore CreateUser(String name, String password) {
+        if (passwords.get(name) == null){        
+            passwords.put(name, password);
+            UserCore user = new UserCore(name);
+            users.put(name, user);
+            return user;
+        } else{
+            throw new IllegalArgumentException("User " + name +" already exist!");
+        }
+        
     }
 
     @Override
-    public MessageService addMessage( Message msg) {
-        var user = msg.getUserName();
-        autoCheckMessageService(msg);
-        db.merge(user,
-                ListWithMsg(msg),
-                (prev, next) -> {
-                    prev.add(msg);
-                    return prev;
-                });
-        return this;
-    }
-
-    List<Message> ListWithMsg(Message msg) {
-        var list = new ArrayList<Message>();
-        list.add(msg);
-        return list;
-    }
-
-    @Override
-    public List<Message> getMessages(String user) {
-        return db.getOrDefault(user, DEFAULT_MESSAGE_LIST);
-    }
-
-    @Override
-    public String getInfo() {
+    public boolean hasExist(String name) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void listenToEvent(BanEvent event) {
-        //ban given user
+    public Optional<UserCore> getUserCore(String name, String password) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    private void autoCheckMessageService(Message msg) {
-            log.info("dispatched possible Bomb Event for: " + msg.getUserName());
-            if (msg.getMessage().toLowerCase().contains("bomb")){
-                dispatcher.dispatch(new BombModEvent(msg.getUserName(), msg));
-            }
-    }
-
+    
 }

@@ -18,7 +18,9 @@ import org.springframework.web.context.annotation.SessionScope;
 public class User{
     
     List<LocalDateTime> values;
+    
     String name;
+    
     boolean flagged;
 
     public User() {

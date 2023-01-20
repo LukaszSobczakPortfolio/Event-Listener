@@ -4,19 +4,20 @@
  */
 package pl.lcc.listener.example.service;
 
+import java.util.List;
 import pl.lcc.listener.example.events.BombModEvent;
 import pl.lcc.listener.example.user.Message;
 import pl.lcc.listener.module.interfaces.LccEventListener;
-import pl.lcc.listener.module.interfaces.LccListenerClass;
+
 
 /**
  *
  * @author Nauczyciel
  */
-@LccListenerClass(targetEvent = BombModEvent.class)
+
 public interface VerificationService extends LccEventListener<BombModEvent>{
     
-    Message getMessageForModeration();
+    List<Message> getMessageForModeration();
     
     void removeMessage(Message msg);
     

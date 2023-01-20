@@ -4,33 +4,40 @@
  */
 package pl.lcc.listener.example.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import pl.lcc.listener.example.service.VerificationService;
 import org.springframework.stereotype.Service;
+import pl.lcc.listener.example.events.BanEvent;
 import pl.lcc.listener.example.events.BombModEvent;
 import pl.lcc.listener.example.user.Message;
 import pl.lcc.listener.module.interfaces.DispatcherInterface;
-
+import pl.lcc.listener.module.interfaces.LccEventListener;
+import pl.lcc.listener.module.interfaces.LccListenerClass;
 /**
  *
  * @author Nauczyciel
  */
 @Service
-public class ModService implements VerificationService{
+@LccListenerClass(targetEvent = BombModEvent.class)
+public class ModService implements VerificationService, LccEventListener<BombModEvent>{
 
     private final DispatcherInterface dispatcher;
     
     private final Queue<Message> toDecide;
 
     public ModService(DispatcherInterface dispatcher) {
+        
         this.dispatcher = dispatcher;
         toDecide = new ConcurrentLinkedQueue<>();
     }
 
     @Override
+    @Deprecated
     public void banUser(String name) {
-         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        dispatcher.dispatch(new BanEvent(name));
     }
 
     @Override
@@ -40,12 +47,12 @@ public class ModService implements VerificationService{
 
     @Override
     public void listenToEvent(BombModEvent event) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        toDecide.offer(event.getMsg());
     }
 
     @Override
-    public Message getMessageForModeration() {
-        return toDecide.peek();
+    public List<Message> getMessageForModeration() {
+        return new ArrayList<>(toDecide);
     }
 
     @Override

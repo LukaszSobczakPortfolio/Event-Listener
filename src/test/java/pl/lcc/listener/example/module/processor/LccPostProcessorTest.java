@@ -69,7 +69,7 @@ public class LccPostProcessorTest {
     public void ThreeEvents() {
         
         dispatcher.dispatch(new TestEvents.AnimalEvent("boo"));
-        dispatcher.dispatch( new TestEvents.EmptyEvent());
+        dispatcher.dispatch(new TestEvents.EmptyEvent());
         dispatcher.dispatch(new TestEvents.PlantEvent(1));
         
         SoftAssertions softly = new SoftAssertions();

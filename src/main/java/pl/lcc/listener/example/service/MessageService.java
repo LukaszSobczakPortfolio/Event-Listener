@@ -14,8 +14,8 @@ import pl.lcc.listener.module.interfaces.LccListenerClass;
  *
  * @author Nauczyciel
  */
-@LccListenerClass(targetEvent = BanEvent.class)
-public interface MessageService extends LccEventListener<BanEvent>{
+
+public interface MessageService {
 
     MessageService addMessage(Message msg);
 

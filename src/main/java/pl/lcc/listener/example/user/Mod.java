@@ -4,6 +4,7 @@
  */
 package pl.lcc.listener.example.user;
 
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.springframework.stereotype.Component;
@@ -22,12 +23,15 @@ public class Mod{
 
   
    private final VerificationService service;
-   private Message messageForVerification;
+   
+   private List<Message> messageForVerification;
+   
    private String name;
     
     public Mod(VerificationService service) {
         
         this.service = service;
+        messageForVerification = service.getMessageForModeration();
     }
     
     @Override
@@ -45,15 +49,19 @@ public class Mod{
        return false;
     }
 
-    public Message getMessageForVerification() {
+    public List<Message> getMessageForVerification() {
         return messageForVerification;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    } 
+    
     public String getName() {
         return name;
     }
 
-    public void setMessageForVerification(Message messageForVerification) {
+    public void setMessageForVerification(List<Message> messageForVerification) {
         this.messageForVerification = messageForVerification;
     }
     

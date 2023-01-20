@@ -30,7 +30,9 @@ public class EventsDispatcher implements DispatcherInterface{
 
     @Override
     public void dispatch(LccEvent event) {
+        log.info("looking for dispatch " + event.toString());
         List<LccEventListener<? extends LccEvent>> listeners = eventMapper.getListenersForEvent(event);
+        log.info("found : " + listeners.size() + " : " + listeners.toString());
         listeners.forEach(listener->((LccEventListener<LccEvent>)listener).listenToEvent(event));
     }
 

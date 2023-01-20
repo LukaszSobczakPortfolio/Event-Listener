@@ -26,6 +26,7 @@ public class ModController {
     VerificationService service;
 
     public ModController(VerificationService service) {
+        log.info("Mod Controller");
         this.service = service;
     }
     
