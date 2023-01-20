@@ -16,12 +16,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import pl.lcc.listener.module.interfaces.DispatcherInterface;
 
 /**
  *
  * @author piko
  */
+@ActiveProfiles("test")
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @Import( TestListeners.ListenersConfiguration.class)
@@ -51,6 +53,7 @@ public class LccPostProcessorTest {
     public void tearDown() {
     }
 
+    
     @Test
     public void testOneEvent() {
         dispatcher.dispatch( new TestEvents.EmptyEvent());
@@ -73,8 +76,7 @@ public class LccPostProcessorTest {
         softly.assertThat(catched.getInfo()).as("got one Event").contains("3");
         softly.assertThat(anime.getInfo()).as("should be 1").isEqualTo("1");
         softly.assertThat(planty.getInfo()).as("should be 1").isEqualTo("1");
-        softly.assertAll();
-        
+        softly.assertAll();  
         
     }
     

@@ -29,8 +29,6 @@ public class ModController {
         this.service = service;
     }
     
-    
-    
     @GetMapping("/mod")
     public String index(Model model) {
         mod.setMessageForVerification(service.getMessageForModeration());

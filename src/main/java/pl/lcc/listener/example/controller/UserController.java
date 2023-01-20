@@ -37,8 +37,7 @@ public class UserController {
         log.info("WebController Constructor");
         this.ctx = ctx;
         this.service = service;
-        this.service.addMessage( new Message(LocalDateTime.MIN, "Minimum minimorum", "test"))
-                .addMessage( new Message(LocalDateTime.now(), "Tester created", "test"));
+       
     }
 
     @GetMapping("/login")
