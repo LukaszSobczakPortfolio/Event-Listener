@@ -10,7 +10,28 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>Hi Admin, here are dangerous mods</div>
-        <div><p th:text= "'Hello '  + ${mod.name} "/></div>
+        <div>
+            <p> Hi <span th:text= " ${name} "/>
+            <p> There are
+                <span th:text=" ${list.size()>0 ? 'some' : 'not'}" /> suspicious messages
+            </p>    
+            <div><p>Here Are Messages</p>
+                <!---form action="#" th:action="@{/verified}" th:object="${output}" method="post"--->
+                <ul>
+                    <li th:each="msg : ${list}">
+                        <span th:text="${msg.message} + ' by ' + ${msg.userName}">message text</span>
+                        <form action="#" th:action="@{/verified(id=${msg.message})}" method="post">
+                            <input type="submit" value="It is OK" />
+                        </form>
+                        <form action="#" th:action="@{/verified(id=${msg.message}, ban=true)}" method="post">
+                            <input type="submit" value="Send Warning" />
+                        </form>
+                    </li>
+                </ul>
+                <div>
+                    <input type="submit" value="Done" />
+                </div>   
+            </div>
+        </div>
     </body>
 </html>

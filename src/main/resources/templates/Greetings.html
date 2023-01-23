@@ -12,7 +12,20 @@ and open the template in the editor.
     </head>
     <body>
         <div><h1>Greetings, My Friend</h1></div>
-    
-    <footer><a href="/down">Close app</a></footer>
+
+        <ul>
+            <li th:each="dta : ${datax}">
+                <form action="#" th:action="@{/(nname=${dta.name})}"  method="post">
+                    <span th:text="${dta.name} + ' with id ' + ${dta.id}">message text</span>
+
+                    <input type='hidden' th:value="${dta.id}" name="id" />
+                    <input type="submit" value="Post Message" />
+                </form>
+            </li>
+        </ul>
+
+        <footer><a href="/down">Close app</a></footer>
     </body>
 </html>
+<!---th:object="${dta}"-->
+<!---https://www.thymeleaf.org/doc/articles/standardurlsyntax.html#adding-parameters--->

@@ -57,6 +57,7 @@ public class ModService implements VerificationService, LccEventListener<BombMod
 
     @Override
     public void removeMessage(Message msg) {
+        System.out.println("removed " + msg.toString());  
       toDecide.remove(msg);
     }
 }
