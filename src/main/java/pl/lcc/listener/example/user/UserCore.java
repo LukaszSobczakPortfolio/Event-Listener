@@ -10,8 +10,47 @@ package pl.lcc.listener.example.user;
  */
 public class UserCore {
 
+   private String name;
+   
+   private boolean banned;
+   
+   private boolean admin; 
+
     public UserCore(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.name = name;
+        banned = false;
+        admin = false;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isBanned() {
+        return banned;
+    }
+
+    public void setBanned(boolean banned) {
+        this.banned = banned;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
+    @Override
+    public String toString() {
+        return "UserCore{" + "name=" + name + ", banned=" + banned + ", admin=" + admin + '}';
+    }
+    
+    
     
 }

@@ -5,15 +5,11 @@
 package pl.lcc.listener.example.controller;
 
 import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -23,14 +19,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import pl.lcc.listener.example.user.User;
 import pl.lcc.listener.module.interfaces.DispatcherInterface;
+import static org.hamcrest.Matchers.*;
+import org.springframework.test.context.ActiveProfiles;
+import pl.lcc.listener.example.events.BanEvent;
 
 /**
  *
  * @author Nauczyciel
  */
 //@SpringBootTest
+@ActiveProfiles("test")
 @WebMvcTest
 public class UserControllerTest {
 
@@ -65,33 +64,34 @@ public class UserControllerTest {
     @Test
     void testLogin2() throws Exception {
 
-        User user = new User();
-        user.setName("Otto");
-
         MockHttpSession mocksession = new MockHttpSession();
         var result = mockMvc
                 .perform(post("/login").session(mocksession)
                         .param("name", "Otto"))
                 .andExpect(view().name("UserPanel"))
                 .andExpect(model().attributeExists("user"))
+                .andExpect(model().attribute("user", hasProperty("name", is("Otto")) ))
                 .andReturn();
 
-        System.out.println(result.getResponse().getContentAsString());
-        System.out.println(result.getModelAndView().getModel());
+//        System.out.println(result.getResponse().getContentAsString());
+//        System.out.println(result.getModelAndView().getModel());
 
         var result2 = mockMvc
                 .perform(post("/addMessage").session(mocksession)
                         .param("message", "Goyy you"))
                 .andExpect(view().name("UserPanel"))
-                .andReturn();
-
-        System.out.println(result2.getResponse().getContentAsString());
-        System.out.println(result2.getModelAndView().getModel());
+                .andExpect(model().attribute("messages", hasSize(1)))
+                .andExpect(model().attribute("message", hasProperty("message", is("Goyy you"))))
+                .andReturn();       
+        
+//        System.out.println(result2.getResponse().getContentAsString());
+//        System.out.println(result2.getModelAndView().getModel());    
 
         var result3 = mockMvc
                 .perform(post("/addMessage").session(mocksession)
                         .param("message", "I bomb you"))
                 .andExpect(view().name("UserPanel"))
+                .andExpect(model().attribute("messages", hasSize(2)))
                 .andReturn();
 
         Mockito.verify(dispatcher, Mockito.times(1)).dispatch(Mockito.any());
@@ -101,4 +101,45 @@ public class UserControllerTest {
 
     }
 
+    @Test
+    void banRunningTest() throws Exception{
+         MockHttpSession sessionOKUser = new MockHttpSession();
+         MockHttpSession sessionBombUser = new MockHttpSession();
+         
+         var result = mockMvc
+                .perform(post("/login").session(sessionOKUser)
+                        .param("name", "OK"))
+                 .andExpect(model().attribute("banned",false))
+                 .andReturn();
+         
+         mockMvc
+                .perform(post("/addMessage").session(sessionOKUser)
+                        .param("message", "ok"))
+                 .andReturn();
+         
+         var result3 = mockMvc
+                .perform(post("/login").session(sessionBombUser)
+                        .param("name", "bomber"))
+                 .andExpect(model().attribute("banned",false))
+                 .andReturn();
+         
+         mockMvc
+                .perform(post("/addMessage").session(sessionBombUser)
+                        .param("message", "not ok"))
+                 .andReturn();
+         
+         dispatcher.dispatch(new BanEvent("bomber"));
+         
+//         var result5 = mockMvc
+//                .perform(post("/login").session(sessionBombUser)
+//                        .param("name", "bomber"))
+//                 .andExpect(model().attribute("banned",true))
+//                 .andReturn();
+//         
+    }
+    
+    @Test
+    void banTest(){
+        
+    }
 }

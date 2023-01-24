@@ -71,7 +71,7 @@ public class UserController {
     private void prepareModerForNewMessage(Model model){
         model.addAttribute("name", user.getName());
         model.addAttribute("messages", service.getMessages(user.getName()));
-        model.addAttribute("flagged", user.isFlagged());
+        model.addAttribute("banned", user.isFlagged());
         model.addAttribute("newMessage", new Message(null, null,user.getName()));
     }
 }

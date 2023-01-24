@@ -53,7 +53,7 @@ public class FakeMsgService implements MessageService, LccEventListener<BanEvent
         return this;
     }
 
-    List<Message> ListWithMsg(Message msg) {
+    private List<Message> ListWithMsg(Message msg) {
         var list = new ArrayList<Message>();
         list.add(msg);
         return list;
@@ -77,11 +77,18 @@ public class FakeMsgService implements MessageService, LccEventListener<BanEvent
     }
 
     private void autoCheckMessageService(Message msg) {
-            log.info("dispatched possible Bomb Event for: " + msg.getUserName());
+            log.info("testing for possible Illegal Bomb: " + msg.getUserName());
             if (msg.getMessage().toLowerCase().contains("bomb")){
                 log.info("!!!!!!!!!!!BOMB!!!!!!!!!!!!! in message " + msg.toString());
                 dispatcher.dispatch(new BombModEvent(msg.getUserName(), msg));
             }
     }
+
+    @Deprecated(since="for testing noly")
+    public void resetDB() {
+        db.clear();
+    }
+    
+    
 
 }

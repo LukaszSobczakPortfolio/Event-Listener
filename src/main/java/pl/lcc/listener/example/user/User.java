@@ -21,12 +21,12 @@ public class User{
     
     String name;
     
-    boolean flagged;
+    boolean banned;
 
     public User() {
         System.out.println("new User");
         values = new ArrayList<>();
-        flagged = false;
+        banned = false;
     } 
     
     @Deprecated
@@ -54,11 +54,11 @@ public class User{
     }
 
     public boolean isFlagged() {
-        return flagged;
+        return banned;
     }
     
     public void setFlagged(boolean flagged) {
-        this.flagged = flagged;
+        this.banned = flagged;
     }
 
 }
