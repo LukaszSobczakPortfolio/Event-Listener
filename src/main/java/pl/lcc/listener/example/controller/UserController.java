@@ -6,17 +6,18 @@ package pl.lcc.listener.example.controller;
 
 import pl.lcc.listener.example.service.MessageService;
 import java.time.LocalDateTime;
-import java.util.stream.Collectors;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import pl.lcc.listener.example.service.UserService;
 import pl.lcc.listener.example.user.Message;
 import pl.lcc.listener.example.user.User;
+import pl.lcc.listener.example.user.UserCore;
 
 /**
  *
@@ -26,52 +27,114 @@ import pl.lcc.listener.example.user.User;
 @Controller
 public class UserController {
 
-    private final ApplicationContext ctx;
-
     @Autowired
     private User user;
-    
-    private final MessageService service;
 
-    public UserController(ApplicationContext ctx, MessageService service) {
+    private final MessageService mService;
+
+    private final UserService uService;
+
+    public UserController(MessageService mService, UserService uService) {
         log.info("WebController Constructor");
-        this.ctx = ctx;
-        this.service = service;
-       
+        this.mService = mService;
+        this.uService = uService;
     }
 
     @GetMapping("/login")
-    public String index(Model model) {
+    public String index(@ModelAttribute("udto") UDTO udto, Model model) {
         log.info("login/get: " + Thread.currentThread().getName());
-        user.put();
-        log.info(user.get().stream().map(d -> d.toString()).collect(Collectors.joining(" : ")));
-        model.addAttribute("user", user);
-        log.info("First User" + user.toString());
         return "Login";
     }
 
     @PostMapping("/login")
-    public String greetingSubmit(@ModelAttribute User user, Model model) {
+    public String greetingSubmit(@ModelAttribute("udto") UDTO udto, Model model) {
         log.info("login/post: " + Thread.currentThread().getName());
-        model.addAttribute("name", user.getName());
-        this.user.setName(user.getName());
+        log.info(udto.toString());
+        Optional<UserCore> core;
+        if (udto.isCreate() || udto.isAdmin()) {
+            core = uService.tryCreateUser(udto.name, udto.password, udto.isAdmin());
+        } else {
+            core = uService.tryGetUserCore(udto.name, udto.password);
+        }
+        
+        if (core.isEmpty()) {
+            return repeatLogin(udto, model);
+        } else {
+            user.setCore(core.get());
+            prepareModerForNewMessage(model);
+            return "UserPanel";
+        }
+
+    }
+
+    private String repeatLogin(UDTO udto, Model model) {
+        model.addAttribute("udto", new UDTO().setName(udto.getName()));
+        return "Login";
+    }
+
+    @PostMapping("/addMessage")
+    public String addMessage(@ModelAttribute Message msg, Model model) {
+        log.info("addMessage/post: " + Thread.currentThread().getName());
+        mService.addMessage(new Message(LocalDateTime.now(), msg.getMessage(), user.getName()));
         prepareModerForNewMessage(model);
-        log.info("second User: " + this.user.toString());
         return "UserPanel";
     }
-    
-     @PostMapping("/addMessage")
-     public String addMessage(@ModelAttribute Message msg, Model model){
-         log.info("addMessage/post: " + Thread.currentThread().getName());
-         service.addMessage(new Message(LocalDateTime.now(), msg.getMessage(),user.getName()));
-         prepareModerForNewMessage(model);
-         return "UserPanel";
-     }       
-    
-    private void prepareModerForNewMessage(Model model){
+
+    private void prepareModerForNewMessage(Model model) {
         model.addAttribute("name", user.getName());
-        model.addAttribute("messages", service.getMessages(user.getName()));
+        model.addAttribute("messages", mService.getMessages(user.getName()));
         model.addAttribute("banned", user.isFlagged());
-        model.addAttribute("newMessage", new Message(null, null,user.getName()));
+        model.addAttribute("newMessage", new Message(null, null, user.getName()));
+
     }
+}
+
+class UDTO {
+
+    String name;
+    String password;
+    boolean admin = false;
+    boolean create = false;
+
+    public String getName() {
+        return name;
+    }
+
+    public UDTO setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public UDTO setPassword(String password) {
+        this.password = password;
+        return this;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public UDTO setAdmin(boolean admin) {
+        this.admin = admin;
+        return this;
+    }
+
+    public boolean isCreate() {
+        return create;
+    }
+
+    public UDTO setCreate(boolean create) {
+        this.create = create;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "UDTO{" + "name=" + name + ", password=" + password + ", admin=" + admin + ", create=" + create + '}';
+    }
+
 }

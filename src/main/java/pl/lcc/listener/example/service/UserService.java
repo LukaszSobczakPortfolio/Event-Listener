@@ -14,9 +14,13 @@ import pl.lcc.listener.example.user.UserCore;
 
 public interface UserService {
     
-    Optional<UserCore> CreateUser (String name, String password);
+    Optional<UserCore> tryCreateUser (String name, String password);
+    
+    Optional<UserCore>  tryCreateUser  (String name, String password, boolean isAdmin);
     
     boolean hasExist(String name);
     
-    Optional<UserCore> getUserCore (String name, String password);
+    Optional<UserCore> tryGetUserCore (String name, String password);
+    
+    
 }

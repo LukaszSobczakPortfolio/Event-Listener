@@ -19,46 +19,36 @@ public class User{
     
     List<LocalDateTime> values;
     
-    String name;
-    
-    boolean banned;
+    UserCore core;
 
     public User() {
         System.out.println("new User");
         values = new ArrayList<>();
-        banned = false;
     } 
     
-    @Deprecated
-    public User put(){
-        values.add(LocalDateTime.now());
+    public User setCore (UserCore core){
+        this.core = core;
         return this;
     }
     
-    @Deprecated
-    public List<LocalDateTime> get(){
-        return values;
-    }
-
     public String getName() {
-        return name;
+        return core.getName();
     }
 
     public void setName(String name) {
-        this.name = name;
-    }
+        throw new RuntimeException("to do");    }
 
     @Override
     public String toString() {
-        return "User{" + "values=" + values + ", name=" + name + '}';
+        return "User{" + "name=" + getName() + '}';
     }
 
     public boolean isFlagged() {
-        return banned;
+        return core.isBanned();
     }
     
     public void setFlagged(boolean flagged) {
-        this.banned = flagged;
+         throw new RuntimeException("to do");
     }
 
 }

@@ -11,8 +11,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </head>
     <body>
         <h1>Form</h1>
-        <form action="#" th:action="@{/login}" th:object="${user}" method="post">
-            <p>Name: <input type="text" th:field="*{name}" /></p>       
+        <form action="#" th:action="@{/login}" th:object="${udto}" method="post">
+            <p>Name: <input type="text" th:field="*{name}" /></p>
+            <p>Password: <input type="text" th:field="*{password}" /></p>
+            <p>Create New: <input type="checkbox" th:field="*{create}" /></p>    
+            <p>Create Admin: <input type="checkbox" th:field="*{admin}" /></p>    
             <p><input type="submit" value="Login" /> <input type="reset" value="Reset" /></p>
         </form>
     </body>

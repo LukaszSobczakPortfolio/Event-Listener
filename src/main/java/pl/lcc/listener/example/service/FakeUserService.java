@@ -7,12 +7,14 @@ package pl.lcc.listener.example.service;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import org.springframework.stereotype.Component;
 import pl.lcc.listener.example.user.UserCore;
 
 /**
  *
  * @author Nauczyciel
  */
+@Component
 public class FakeUserService implements UserService{
 
     Map<String, String> passwords = new ConcurrentHashMap<>();
@@ -20,7 +22,7 @@ public class FakeUserService implements UserService{
     
     
     @Override
-    public Optional<UserCore> CreateUser(String name, String password) {
+    public Optional<UserCore> tryCreateUser(String name, String password, boolean isAdmin) {
         if (!hasExist(name)){        
             passwords.put(name, password);
             UserCore user = new UserCore(name);
@@ -38,11 +40,18 @@ public class FakeUserService implements UserService{
     }
 
     @Override
-    public Optional<UserCore> getUserCore(String name, String password) {
+    public Optional<UserCore> tryGetUserCore(String name, String password) {
       return password.equals(passwords.get(name)) 
               ? Optional.of(users.get(name)) 
               : Optional.empty();
 
     }
+
+    @Override
+    public Optional<UserCore> tryCreateUser(String name, String password) {
+        return tryCreateUser(name, password, false);
+    }
+
+  
     
 }
