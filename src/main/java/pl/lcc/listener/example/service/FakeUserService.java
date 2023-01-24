@@ -20,26 +20,29 @@ public class FakeUserService implements UserService{
     
     
     @Override
-    public UserCore CreateUser(String name, String password) {
-        if (passwords.get(name) == null){        
+    public Optional<UserCore> CreateUser(String name, String password) {
+        if (!hasExist(name)){        
             passwords.put(name, password);
             UserCore user = new UserCore(name);
             users.put(name, user);
-            return user;
+            return Optional.of(user);
         } else{
-            throw new IllegalArgumentException("User " + name +" already exist!");
+           return Optional.empty();
         }
         
     }
 
     @Override
     public boolean hasExist(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       return users.containsKey(name);
     }
 
     @Override
     public Optional<UserCore> getUserCore(String name, String password) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+      return password.equals(passwords.get(name)) 
+              ? Optional.of(users.get(name)) 
+              : Optional.empty();
+
     }
     
 }

@@ -5,10 +5,7 @@
 package pl.lcc.listener.example.service;
 
 import java.util.List;
-import pl.lcc.listener.example.events.BanEvent;
 import pl.lcc.listener.example.user.Message;
-import pl.lcc.listener.module.interfaces.LccEventListener;
-import pl.lcc.listener.module.interfaces.LccListenerClass;
 
 /**
  *
