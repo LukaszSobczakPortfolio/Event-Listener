@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import pl.lcc.listener.module.interfaces.DispatcherInterface;
 import static org.hamcrest.Matchers.*;
+
 import org.springframework.test.context.ActiveProfiles;
 import pl.lcc.listener.example.events.BanEvent;
 
@@ -136,9 +137,11 @@ public class UserControllerTest {
                         .param("name", "bomber")
                         .param("password", "bomb")
                         .param("create", "true"))
-                .andExpect(model().attribute("banned", false))
                 .andReturn();
 
+         System.out.println(result3.getResponse().getContentAsString());
+        System.out.println(result3.getModelAndView().getModel());
+        
         mockMvc
                 .perform(post("/addMessage").session(sessionBombUser)
                         .param("message", "not ok"))

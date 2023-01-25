@@ -32,6 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.hamcrest.Matchers.*;
 import org.springframework.mock.web.MockHttpSession;
 import pl.lcc.listener.example.events.BanEvent;
+import pl.lcc.listener.example.service.UserService;
 
 /**
  *
@@ -46,6 +47,9 @@ public class ModControllerTest {
 
     @Autowired
     MessageService mService;
+    
+    @Autowired
+    UserService uService;
     
     @Autowired
     VerificationService vService;
@@ -65,10 +69,18 @@ public class ModControllerTest {
 
        applicationContext.getBean(FakeMsgService.class).resetDB();
        vService.getMessageForModeration().forEach(vService::removeMessage);
+       
+       uService.tryCreateUser("innocent", "inno");
+       uService.tryCreateUser("bomber", "bomb");
+       uService.tryCreateUser("san_ticlaws", "st");
+       uService.tryCreateUser("normals", "ok");
+       uService.tryCreateUser("outlaw", "fugitive");
+       uService.tryCreateUser("admin", "admin", true);
+       
        mService.addMessage(new Message (LocalDateTime.now(), "normal message", "innocent" ));
        mService.addMessage(new Message (LocalDateTime.now(), "bomb message", "bomber" ));
        mService.addMessage(new Message (LocalDateTime.now(), "second normal message", "innocent" ));
-       mService.addMessage(new Message (LocalDateTime.now(), "glass_christmas_bombka", "san ticlaws" ));
+       mService.addMessage(new Message (LocalDateTime.now(), "glass_christmas_bombka", "san_ticlaws" ));
        mService.addMessage(new Message (LocalDateTime.now(), "second bomb message", "bomber" ));
        mService.addMessage(new Message (LocalDateTime.now(), "other message", "normals" ));
        mService.addMessage(new Message (LocalDateTime.now(), "did_bomb", "outlaw" ));
