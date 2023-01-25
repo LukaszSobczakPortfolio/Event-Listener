@@ -52,6 +52,7 @@ public class UserController {
         log.info(udto.toString());
         Optional<UserCore> core;
         if (udto.isCreate() || udto.isAdmin()) {
+            System.out.println("cr " + udto.create + " ");
             core = uService.tryCreateUser(udto.name, udto.password, udto.isAdmin());
         } else {
             core = uService.tryGetUserCore(udto.name, udto.password);
@@ -87,6 +88,8 @@ public class UserController {
                 .addAttribute("banned", user.isFlagged())
                 .addAttribute("admin", user.isAdmin())
                 .addAttribute("newMessage", new Message(null, null, user.getName()));
+        System.out.println("admin: " + user.isAdmin() + ", banned" + user.isFlagged());
+        System.out.println(user);
     }
 }
 

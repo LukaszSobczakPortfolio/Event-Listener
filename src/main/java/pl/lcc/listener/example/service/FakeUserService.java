@@ -32,7 +32,9 @@ public class FakeUserService implements UserService, LccEventListener<BanEvent>{
         if (!hasExist(name)){        
             passwords.put(name, password);
             UserCore user = new UserCore(name);
+                    user.setAdmin(isAdmin);
             users.put(name, user);
+           
             return Optional.of(user);
         } else{
            return Optional.empty();

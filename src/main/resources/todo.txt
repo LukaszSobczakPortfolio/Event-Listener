@@ -1,0 +1,18 @@
+(x) MessagesService -> check if user exist -> throw
+
+(x) Th:UserPanel -> display "th:if Banned"
+
+(x) Th:userPanel -> switch th:if mod
+
+(x) Fix commandLineRunner
+
+Fix ModTests
+
+Fix Listener Structure
+
+Fix Listener tests Structure
+
+Fix Component Scan (scan one configuration file in EExampleApplication)
+
+Fix "look for listeners" -> if interface is annotatated subclasses are picked up;
+

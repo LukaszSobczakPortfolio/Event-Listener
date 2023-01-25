@@ -30,19 +30,27 @@ import pl.lcc.listener.module.interfaces.LccListenerClass;
 public class FakeMsgService implements MessageService {
 
     private final DispatcherInterface dispatcher;
+    
+    private final UserService uService;
+    
     private final Map<String, List<Message>> db;
+    
     private final List<Message> DEFAULT_MESSAGE_LIST = List.of(new Message(LocalDateTime.now(), "Write some messages", ""));
 
-    public FakeMsgService(DispatcherInterface dis) {
+    public FakeMsgService(DispatcherInterface dis, UserService uService) {
         dispatcher = dis;
+        this.uService = uService;
         db = new HashMap<>();
         log.info("Fake msg service");
         log.info(Arrays.toString(this.getClass().getAnnotations()));
     }
 
     @Override
-    public MessageService addMessage( Message msg) {
+    public MessageService addMessage(Message msg) {
         var user = msg.getUserName();
+        if(!uService.hasExist(user)){
+            throw new SecurityException("Message with illegal user: " + user);
+        }
         autoCheckMessageService(msg);
         db.merge(user,
                 ListWithMsg(msg),
@@ -61,6 +69,9 @@ public class FakeMsgService implements MessageService {
 
     @Override
     public List<Message> getMessages(String user) {
+         if(!uService.hasExist(user)){
+            throw new SecurityException("Request for messages for illegal user: " + user);
+        }
         return db.getOrDefault(user, DEFAULT_MESSAGE_LIST);
     }
 

@@ -12,7 +12,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <body>
         <div>TODO write content</div>
         <p>
-        <p th:text= "'Hello '  + ${name} "/>
+
+        <p th:if="${admin}" th:text= "'You have admin rights, '  + ${name} " />
+        <p th:unless="${admin}" th:text= "'Hello '  + ${name} " />
+        <p th:if="${banned}" th:text="'You Are Banned!!!'" />
         <div> Your Messages:
             <table>
                 <tr th:each="message : ${messages}">
@@ -21,11 +24,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </tr>
             </table>
         </div>
-        <h1>New Message:</h1>
-        <form action="#" th:action="@{/addMessage}" th:object="${newMessage}" method="post">
-            <p>Name: <input type="text" th:field="*{message}" /></p>       
-            <p><input type="submit" value="Post Message" /> <input type="reset" value="Clear Message" /></p>
-        </form>
+        <div th:unless="${banned}">
+            <h1>New Message:</h1>
+            <form action="#" th:action="@{/addMessage}" th:object="${newMessage}" method="post">
+                <p>Name: <input type="text" th:field="*{message}" /></p>       
+                <p><input type="submit" value="Post Message" /> <input type="reset" value="Clear Message" /></p>
+            </form>
+        </div> 
+        <a th:if="${admin}" href="/mod"> <button>  Mod </button>  </a>
         <a href="/login"> <button>  Logout </button>  </a>
 
     </body>
