@@ -13,20 +13,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <div>TODO write content</div>
         <p>
         <p th:text= "'Hello '  + ${name} "/>
-        <p> Your Messages:
-        <table>
-            <tr th:each="message : ${messages}">
-                <td th:text="${message.createTime}"></td>
-                <td th:text="${message.message}"></td>
-            </tr>
-        </table>
-    </p>
-    <h1>New Message:</h1>
-    <form action="#" th:action="@{/addMessage}" th:object="${newMessage}" method="post">
-        <p>Name: <input type="text" th:field="*{message}" /></p>       
-        <p><input type="submit" value="Post Message" /> <input type="reset" value="Clear Message" /></p>
-    </form>
-    <a href="/login"> <button>  Logout </button>  </a>
-</p>
-</body>
+        <div> Your Messages:
+            <table>
+                <tr th:each="message : ${messages}">
+                    <td th:text="${message.createTime}"></td>
+                    <td th:text="${message.message}"></td>
+                </tr>
+            </table>
+        </div>
+        <h1>New Message:</h1>
+        <form action="#" th:action="@{/addMessage}" th:object="${newMessage}" method="post">
+            <p>Name: <input type="text" th:field="*{message}" /></p>       
+            <p><input type="submit" value="Post Message" /> <input type="reset" value="Clear Message" /></p>
+        </form>
+        <a href="/login"> <button>  Logout </button>  </a>
+
+    </body>
 </html>

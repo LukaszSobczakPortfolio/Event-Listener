@@ -81,11 +81,12 @@ public class UserController {
     }
 
     private void prepareModerForNewMessage(Model model) {
-        model.addAttribute("name", user.getName());
-        model.addAttribute("messages", mService.getMessages(user.getName()));
-        model.addAttribute("banned", user.isFlagged());
-        model.addAttribute("newMessage", new Message(null, null, user.getName()));
-
+        model
+                .addAttribute("name", user.getName())
+                .addAttribute("messages", mService.getMessages(user.getName()))
+                .addAttribute("banned", user.isFlagged())
+                .addAttribute("admin", user.isAdmin())
+                .addAttribute("newMessage", new Message(null, null, user.getName()));
     }
 }
 

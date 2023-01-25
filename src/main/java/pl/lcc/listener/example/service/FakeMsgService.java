@@ -26,8 +26,8 @@ import pl.lcc.listener.module.interfaces.LccListenerClass;
  */
 @Slf4j
 @Component
-@LccListenerClass(targetEvent = BanEvent.class)
-public class FakeMsgService implements MessageService, LccEventListener<BanEvent> {
+
+public class FakeMsgService implements MessageService {
 
     private final DispatcherInterface dispatcher;
     private final Map<String, List<Message>> db;
@@ -62,18 +62,6 @@ public class FakeMsgService implements MessageService, LccEventListener<BanEvent
     @Override
     public List<Message> getMessages(String user) {
         return db.getOrDefault(user, DEFAULT_MESSAGE_LIST);
-    }
-
-    @Override
-    public String getInfo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void listenToEvent(BanEvent event) {
-        //ban given user
-        
-        log.info("got Ban event for: " + event.getName());
     }
 
     private void autoCheckMessageService(Message msg) {

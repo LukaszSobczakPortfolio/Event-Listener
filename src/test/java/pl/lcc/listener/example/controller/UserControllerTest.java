@@ -62,19 +62,32 @@ public class UserControllerTest {
     }
 
     @Test
-    void testLogin2() throws Exception {
+    void testLoginWrongUser() throws Exception {
+        MockHttpSession mocksession = new MockHttpSession();
+        var result = mockMvc
+                .perform(post("/login").session(mocksession)
+                        .param("name", "Otto")
+                        .param("password", "Hahn"))
+                .andExpect(view().name("Login"))
+                .andReturn();
+    }
+
+    @Test
+    void testLoginExistingUser() throws Exception {
 
         MockHttpSession mocksession = new MockHttpSession();
         var result = mockMvc
                 .perform(post("/login").session(mocksession)
-                        .param("name", "Otto"))
+                        .param("name", "Stas")
+                        .param("password", "Ulam")
+                        .param("create", "true"))
                 .andExpect(view().name("UserPanel"))
-                .andExpect(model().attributeExists("user"))
-                .andExpect(model().attribute("user", hasProperty("name", is("Otto")) ))
+                .andExpect(model().attribute("name", is("Stas")))
+                .andExpect(model().attribute("admin", is(false)))
                 .andReturn();
 
-//        System.out.println(result.getResponse().getContentAsString());
-//        System.out.println(result.getModelAndView().getModel());
+       // System.out.println(result.getResponse().getContentAsString());
+       // System.out.println(result.getModelAndView().getModel());
 
         var result2 = mockMvc
                 .perform(post("/addMessage").session(mocksession)
@@ -82,11 +95,10 @@ public class UserControllerTest {
                 .andExpect(view().name("UserPanel"))
                 .andExpect(model().attribute("messages", hasSize(1)))
                 .andExpect(model().attribute("message", hasProperty("message", is("Goyy you"))))
-                .andReturn();       
-        
+                .andReturn();
+
 //        System.out.println(result2.getResponse().getContentAsString());
 //        System.out.println(result2.getModelAndView().getModel());    
-
         var result3 = mockMvc
                 .perform(post("/addMessage").session(mocksession)
                         .param("message", "I bomb you"))
@@ -102,44 +114,45 @@ public class UserControllerTest {
     }
 
     @Test
-    void banRunningTest() throws Exception{
-         MockHttpSession sessionOKUser = new MockHttpSession();
-         MockHttpSession sessionBombUser = new MockHttpSession();
-         
-         var result = mockMvc
+    void banRunningTest() throws Exception {
+        MockHttpSession sessionOKUser = new MockHttpSession();
+        MockHttpSession sessionBombUser = new MockHttpSession();
+
+        var result = mockMvc
                 .perform(post("/login").session(sessionOKUser)
-                        .param("name", "OK"))
-                 .andExpect(model().attribute("banned",false))
-                 .andReturn();
-         
-         mockMvc
+                        .param("name", "OK")
+                        .param("password", "OK")
+                        .param("create", "true"))
+                .andExpect(model().attribute("banned", false))
+                .andReturn();
+
+        mockMvc
                 .perform(post("/addMessage").session(sessionOKUser)
                         .param("message", "ok"))
-                 .andReturn();
-         
-         var result3 = mockMvc
+                .andReturn();
+
+        var result3 = mockMvc
                 .perform(post("/login").session(sessionBombUser)
-                        .param("name", "bomber"))
-                 .andExpect(model().attribute("banned",false))
-                 .andReturn();
-         
-         mockMvc
+                        .param("name", "bomber")
+                        .param("password", "bomb")
+                        .param("create", "true"))
+                .andExpect(model().attribute("banned", false))
+                .andReturn();
+
+        mockMvc
                 .perform(post("/addMessage").session(sessionBombUser)
                         .param("message", "not ok"))
-                 .andReturn();
-         
-         dispatcher.dispatch(new BanEvent("bomber"));
-         
-//         var result5 = mockMvc
-//                .perform(post("/login").session(sessionBombUser)
-//                        .param("name", "bomber"))
-//                 .andExpect(model().attribute("banned",true))
-//                 .andReturn();
-//         
+                .andReturn();
+
+        dispatcher.dispatch(new BanEvent("bomber"));
+
+        var result5 = mockMvc
+                .perform(post("/login").session(sessionBombUser)
+                        .param("name", "bomber")
+                        .param("password", "bomb"))
+                .andExpect(model().attribute("banned", true))
+                .andReturn();
+
     }
-    
-    @Test
-    void banTest(){
-        
-    }
+
 }

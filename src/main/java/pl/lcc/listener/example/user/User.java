@@ -51,4 +51,12 @@ public class User{
          throw new RuntimeException("to do");
     }
 
+     public boolean isAdmin() {
+        return core.isAdmin();
+    }
+    
+    public void setAdmin(boolean admin) {
+         throw new RuntimeException("to do");
+    }
+    
 }

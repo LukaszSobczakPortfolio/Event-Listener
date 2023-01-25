@@ -7,15 +7,21 @@ package pl.lcc.listener.example.service;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import pl.lcc.listener.example.events.BanEvent;
 import pl.lcc.listener.example.user.UserCore;
+import pl.lcc.listener.module.interfaces.LccEventListener;
+import pl.lcc.listener.module.interfaces.LccListenerClass;
 
 /**
  *
  * @author Nauczyciel
  */
 @Component
-public class FakeUserService implements UserService{
+@Slf4j
+@LccListenerClass(targetEvent = BanEvent.class)
+public class FakeUserService implements UserService, LccEventListener<BanEvent>{
 
     Map<String, String> passwords = new ConcurrentHashMap<>();
     Map<String, UserCore> users = new ConcurrentHashMap<>();
@@ -52,6 +58,16 @@ public class FakeUserService implements UserService{
         return tryCreateUser(name, password, false);
     }
 
-  
+    @Override
+    public String getInfo() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void listenToEvent(BanEvent event) {
+            
+        log.info("got Ban event for: " + event.getName());
+        users.get(event.getName()).setBanned(true);
+    }
     
 }

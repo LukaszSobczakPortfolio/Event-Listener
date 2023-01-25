@@ -36,7 +36,7 @@ public class LoadFakeDataRunner implements CommandLineRunner {
                 .addMessage(new Message(LocalDateTime.now(), "This is calorimetric bomb!", "thermochemistry-enthusiast"))
                 .addMessage(new Message(LocalDateTime.now(), "I made a Bomb!", "bomber-man"));
         
-        modService.banUser("bomber-man");
+       // modService.banUser("bomber-man");
 
     }
 
