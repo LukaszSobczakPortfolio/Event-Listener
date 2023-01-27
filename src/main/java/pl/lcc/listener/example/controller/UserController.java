@@ -63,7 +63,7 @@ public class UserController {
         } else {
             user.setCore(core.get());
             prepareModerForNewMessage(model);
-            return "UserPanel";
+            return "redirect:/addMessage";
         }
 
     }
@@ -71,6 +71,13 @@ public class UserController {
     private String repeatLogin(UDTO udto, Model model) {
         model.addAttribute("udto", new UDTO().setName(udto.getName()));
         return "Login";
+    }
+    
+    @GetMapping("/addMessage")
+    public String showUserPanel(@ModelAttribute Message msg, Model model) {
+        log.info("addMessage/post: " + Thread.currentThread().getName());
+        prepareModerForNewMessage(model);
+        return "UserPanel";
     }
 
     @PostMapping("/addMessage")
@@ -82,6 +89,7 @@ public class UserController {
     }
 
     private void prepareModerForNewMessage(Model model) {
+        System.out.println("preparing model for user: " + user.getName());
         model
                 .addAttribute("name", user.getName())
                 .addAttribute("messages", mService.getMessages(user.getName()))

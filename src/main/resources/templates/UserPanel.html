@@ -5,13 +5,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Perfect App!</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>TODO write content</div>
-        <p>
+        <div>Perfect App !!!</div>
 
         <p th:if="${admin}" th:text= "'You have admin rights, '  + ${name} " />
         <p th:unless="${admin}" th:text= "'Hello '  + ${name} " />
@@ -19,7 +18,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <div> Your Messages:
             <table>
                 <tr th:each="message : ${messages}">
-                    <td th:text="${message.createTime}"></td>
+                    <td th:text="${{message.createTime}}"></td>
                     <td th:text="${message.message}"></td>
                 </tr>
             </table>
