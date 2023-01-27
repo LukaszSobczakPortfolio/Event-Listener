@@ -119,6 +119,8 @@ public class UserControllerTest {
         MockHttpSession sessionOKUser = new MockHttpSession();
         MockHttpSession sessionBombUser = new MockHttpSession();
 
+        System.out.println("--------------------------------------------------------");
+        
         var result = mockMvc
                 .perform(post("/login").session(sessionOKUser)
                         .param("name", "OK")
@@ -132,11 +134,14 @@ public class UserControllerTest {
                         .param("message", "ok"))
                 .andReturn();
 
+        System.out.println("##################################################");
+        
         var result3 = mockMvc
                 .perform(post("/login").session(sessionBombUser)
-                        .param("name", "bomber")
+                        .param("name", "Bomber-wtf")
                         .param("password", "bomb")
                         .param("create", "true"))
+                .andExpect(view().name("UserPanel"))
                 .andReturn();
 
          System.out.println(result3.getResponse().getContentAsString());
@@ -145,13 +150,14 @@ public class UserControllerTest {
         mockMvc
                 .perform(post("/addMessage").session(sessionBombUser)
                         .param("message", "not ok"))
+                .andExpect(view().name("UserPanel"))
                 .andReturn();
 
-        dispatcher.dispatch(new BanEvent("bomber"));
+        dispatcher.dispatch(new BanEvent("Bomber-wtf"));
 
         var result5 = mockMvc
                 .perform(post("/login").session(sessionBombUser)
-                        .param("name", "bomber")
+                        .param("name", "Bomber-wtf")
                         .param("password", "bomb"))
                 .andExpect(model().attribute("banned", true))
                 .andReturn();

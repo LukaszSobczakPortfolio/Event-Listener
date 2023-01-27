@@ -49,9 +49,8 @@ public abstract class EStorageMapWrapper implements IEventStorage {
         return listener.getClass().getAnnotation(LccListenerClass.class).targetEvent();
     }
 
-    //TODO change ArrayList to List
     protected List<LccEventListener<? extends LccEvent>> newList(LccEventListener<? extends LccEvent> listener) {
-        ArrayList<LccEventListener<? extends LccEvent>> list = new ArrayList<LccEventListener<? extends LccEvent>>();
+        List<LccEventListener<? extends LccEvent>> list = new ArrayList<>();
         list.add(listener);
         return list;
     }

@@ -6,11 +6,17 @@
 
 (x) Fix commandLineRunner
 
-Fix ModTests
+(x) Fix ModTests
 
 Fix Listener Structure
 
 Fix Listener tests Structure
+
+Project Description
+
+onetBootstrap css
+https://docs.spring.io/spring-boot/docs/1.5.22.RELEASE/reference/html/howto-hotswapping.html
+https://stackoverflow.com/questions/58275418/live-reload-for-thymeleaf-template
 
 Fix Component Scan (scan one configuration file in EExampleApplication)
 
