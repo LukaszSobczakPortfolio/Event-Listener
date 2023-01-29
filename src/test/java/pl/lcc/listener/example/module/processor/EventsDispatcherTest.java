@@ -8,13 +8,14 @@ package pl.lcc.listener.example.module.processor;
 import pl.lcc.listener.utils.TestListeners;
 import pl.lcc.listener.utils.TestEvents;
 import pl.lcc.listener.module.processor.EventsDispatcher;
-import pl.lcc.listener.module.processor.EStorage;
+import pl.lcc.listener.module.processor.storage.EStorage;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
 import pl.lcc.listener.module.interfaces.DispatcherInterface;
+import pl.lcc.listener.module.interfaces.InternalDispatcherInterface;
 import pl.lcc.listener.module.interfaces.LccEvent;
 import pl.lcc.listener.module.interfaces.LccEventListener;
 
@@ -24,7 +25,7 @@ import pl.lcc.listener.module.interfaces.LccEventListener;
  */
 public class EventsDispatcherTest {
 
-    DispatcherInterface dispatcher;
+    InternalDispatcherInterface dispatcher;
 
     @BeforeEach
     public void setUp() {

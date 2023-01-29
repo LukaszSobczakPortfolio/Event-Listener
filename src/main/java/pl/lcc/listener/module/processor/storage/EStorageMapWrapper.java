@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.lcc.listener.module.processor;
+package pl.lcc.listener.module.processor.storage;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,6 +17,7 @@ import java.util.stream.Stream;
 import pl.lcc.listener.module.interfaces.LccEvent;
 import pl.lcc.listener.module.interfaces.LccEventListener;
 import pl.lcc.listener.module.interfaces.LccListenerClass;
+import pl.lcc.listener.module.processor.ClassGraphResolver;
 
 /**
  *

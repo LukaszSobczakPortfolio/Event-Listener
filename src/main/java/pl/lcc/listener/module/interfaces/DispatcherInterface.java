@@ -13,7 +13,5 @@ public interface DispatcherInterface {
 
     public void dispatch(LccEvent e);
 
-    void addListener(LccEventListener<?> listener);
-
-    public String getAllListenersInfo();
+   
 }
