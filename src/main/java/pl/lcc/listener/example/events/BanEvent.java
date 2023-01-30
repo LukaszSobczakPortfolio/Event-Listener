@@ -32,18 +32,18 @@ public class BanEvent implements LccEvent{
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+    public boolean equals(Object other) {
+        if (this == other) {
             return true;
         }
-        if (obj == null) {
+        if (other == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != other.getClass()) {
             return false;
         }
-        final BanEvent other = (BanEvent) obj;
-        return Objects.equals(this.name, other.name);
+        final BanEvent otherBanEvent = (BanEvent) other;
+        return Objects.equals(this.name, otherBanEvent.name);
     }
     
     

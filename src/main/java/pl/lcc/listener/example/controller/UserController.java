@@ -42,17 +42,16 @@ public class UserController {
 
     @GetMapping("/login")
     public String index(@ModelAttribute("udto") UDTO udto, Model model) {
-        log.info("login/get: " + Thread.currentThread().getName());
+        log.info("login/get on thread: " + Thread.currentThread().getName());
         return "Login";
     }
 
     @PostMapping("/login")
     public String greetingSubmit(@ModelAttribute("udto") UDTO udto, Model model) {
-        log.info("login/post: " + Thread.currentThread().getName());
+        log.info("login/post on thread:" + Thread.currentThread().getName());
         log.info(udto.toString());
         Optional<UserCore> core;
         if (udto.isCreate() || udto.isAdmin()) {
-            System.out.println("cr " + udto.create + " ");
             core = uService.tryCreateUser(udto.name, udto.password, udto.isAdmin());
         } else {
             core = uService.tryGetUserCore(udto.name, udto.password);
@@ -75,32 +74,30 @@ public class UserController {
     
     @GetMapping("/addMessage")
     public String showUserPanel(@ModelAttribute Message msg, Model model) {
-        log.info("addMessage/post: " + Thread.currentThread().getName());
+        log.info("addMessage/get on thread: " + Thread.currentThread().getName());
         prepareModerForNewMessage(model);
         return "UserPanel";
     }
 
     @PostMapping("/addMessage")
     public String addMessage(@ModelAttribute Message msg, Model model) {
-        log.info("addMessage/post: " + Thread.currentThread().getName());
+        log.info("addMessage/post on thread: " + Thread.currentThread().getName());
         mService.addMessage(new Message(LocalDateTime.now(), msg.getMessage(), user.getName()));
         prepareModerForNewMessage(model);
         return "UserPanel";
     }
 
     private void prepareModerForNewMessage(Model model) {
-        System.out.println("preparing model for user: " + user.getName());
+        log.info("preparing model for user: " + user.getName());
         model
                 .addAttribute("name", user.getName())
                 .addAttribute("messages", mService.getMessages(user.getName()))
                 .addAttribute("banned", user.isFlagged())
                 .addAttribute("admin", user.isAdmin())
                 .addAttribute("newMessage", new Message(null, null, user.getName()));
-        System.out.println("admin: " + user.isAdmin() + ", banned" + user.isFlagged());
-        System.out.println(user);
     }
 }
-
+//User DTO for catching data from login form
 class UDTO {
 
     String name;

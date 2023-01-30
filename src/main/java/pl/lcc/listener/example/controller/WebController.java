@@ -14,10 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.lcc.listener.example.user.User;
 
 /**
- *
+ * Fake Controller for testing, for Removal
  * @author piko
  */
 class dataPart {
@@ -61,10 +60,9 @@ class dataPart {
         return "dataPart{" + "name=" + name + ", id=" + id + ", check=" + check + '}';
     }
 
-    
-    
 }
 
+@Deprecated
 @Slf4j
 @Controller
 public class WebController {
@@ -89,7 +87,7 @@ public class WebController {
         model.addAttribute("datax", data);
         return "Greetings";
     }
-    
+
     @PostMapping("/")
     public String postIndex(@ModelAttribute dataPart data1, Model model) {
         System.out.println("post called");
@@ -99,8 +97,6 @@ public class WebController {
         return "Greetings";
     }
 
-    
-    
     @GetMapping("/down")
     public void shutdownApp() {
         log.info("Shutdown started...");

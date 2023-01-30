@@ -5,6 +5,7 @@
 package pl.lcc.listener.example.configuration;
 
 import java.time.LocalDateTime;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,7 @@ import pl.lcc.listener.example.user.Message;
  *
  * @author Nauczyciel
  */
+@Slf4j
 @Profile("!test")
 @Component
 public class LoadFakeDataRunner implements CommandLineRunner {
@@ -33,6 +35,8 @@ public class LoadFakeDataRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        
+        log.info("Fake Data Runner Supplied database");
         
         uService.tryCreateUser("test", "pass");
         uService.tryCreateUser("enthalpy", "entropy");

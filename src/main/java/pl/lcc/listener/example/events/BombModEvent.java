@@ -20,7 +20,7 @@ public class BombModEvent implements LccEvent{
     String user;
 
     public BombModEvent(String user, Message msg) {
-        log.info("new event of : " + msg.toString());
+        log.info("Event send to moderation: " + msg.toString());
         this.msg = msg;
         this.user = user;
     }
