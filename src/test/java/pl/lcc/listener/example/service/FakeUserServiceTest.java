@@ -16,7 +16,7 @@ public class FakeUserServiceTest {
     
    
     @Test
-    public void testSimpleCreateUser() {
+    void testSimpleCreateUser() {
         
         var service = new FakeUserService();
         
@@ -26,7 +26,7 @@ public class FakeUserServiceTest {
     }
     
     @Test
-    public void testDoExist(){
+    void testDoExist(){
         var service = new FakeUserService();
         
        var result = service.tryCreateUser("kilo", "kolo");
@@ -37,7 +37,7 @@ public class FakeUserServiceTest {
     }
     
     @Test
-    public void testSimpleGetUser(){
+    void testSimpleGetUser(){
        var service = new FakeUserService();
        service.tryCreateUser("kilo", "kolo");
        
