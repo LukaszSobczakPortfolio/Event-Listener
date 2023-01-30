@@ -35,7 +35,7 @@ public abstract class EStorageMapWrapper implements IEventStorage {
         };
     }
 
-    public EStorageMapWrapper(Map<Class<? extends LccEvent>, List<LccEventListener<? extends LccEvent>>> map) {
+    protected EStorageMapWrapper(Map<Class<? extends LccEvent>, List<LccEventListener<? extends LccEvent>>> map) {
         this.map = map;
     }
 
@@ -65,14 +65,13 @@ public abstract class EStorageMapWrapper implements IEventStorage {
 
     @Override
     public List<LccEventListener<? extends LccEvent>> getListenersForEvent(LccEvent event) {
-        List<LccEventListener<? extends LccEvent>> result = new ClassGraphResolver()
+        return new ClassGraphResolver()
                 .resolveToStream(event)
                 .filter(LccEvent.class::isAssignableFrom)
                 .map((klazz) -> map.get(klazz))
                 .filter(Objects::nonNull)
                 .flatMap(Collection::stream)
                 .collect(toList());
-        return result;
     }
 
     @Override

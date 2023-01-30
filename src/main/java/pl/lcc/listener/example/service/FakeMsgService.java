@@ -4,7 +4,6 @@
  */
 package pl.lcc.listener.example.service;
 
-import pl.lcc.listener.example.service.MessageService;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,12 +12,9 @@ import java.util.List;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import pl.lcc.listener.example.events.BanEvent;
 import pl.lcc.listener.example.events.BombModEvent;
 import pl.lcc.listener.example.user.Message;
 import pl.lcc.listener.module.interfaces.DispatcherInterface;
-import pl.lcc.listener.module.interfaces.LccEventListener;
-import pl.lcc.listener.module.interfaces.LccListenerClass;
 
 /**
  *

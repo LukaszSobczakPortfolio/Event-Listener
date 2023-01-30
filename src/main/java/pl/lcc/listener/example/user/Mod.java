@@ -21,7 +21,7 @@ public class Mod {
 
     private final VerificationService service;
 
-    private List<Message> messageForVerification;
+    private List<Message> messagesForVerification;
 
     private String name;
 
@@ -31,12 +31,12 @@ public class Mod {
         name = "mod";
         this.service = service;
         this.dispatcher = dispatcher;
-        messageForVerification = service.getMessageForModeration();
+        messagesForVerification = service.getMessageForModeration();
     }
 
     @Override
     public String toString() {
-        return name + " :message: " + messageForVerification.toString();
+        return name + " :message: " + messagesForVerification.toString();
     }
 
     public boolean okMessage(Message msg) {
@@ -61,13 +61,13 @@ public class Mod {
     }
 
     private Message processId(String messageAsId) {
-        var targetMessage = messageForVerification.stream().filter(m -> m.message.equals(messageAsId)).findFirst().get();
-        messageForVerification.remove(targetMessage);
+        var targetMessage = messagesForVerification.stream().filter(m -> m.message.equals(messageAsId)).findFirst().get();
+        messagesForVerification.remove(targetMessage);
         return targetMessage;
     }
 
     public List<Message> getMessageForVerification() {
-        return messageForVerification;
+        return messagesForVerification;
     }
 
     public void setName(String name) {
@@ -79,7 +79,7 @@ public class Mod {
     }
 
     public void setMessageForVerification(List<Message> messageForVerification) {
-        this.messageForVerification = messageForVerification;
+        this.messagesForVerification = messageForVerification;
     }
 
 }
