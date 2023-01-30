@@ -45,8 +45,7 @@ public class ModController {
     
     @PostMapping("/verified")
     public String verified(@RequestParam("id") String messageTextAsId, @RequestParam("ban") Optional<Boolean> banned, Model model){
-        ///System.out.println(output);
-       // System.out.println(output.getClass().getCanonicalName());
+
         System.out.println(messageTextAsId);
         System.out.println(banned);
         

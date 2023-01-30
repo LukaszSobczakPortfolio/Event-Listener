@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author piko
  */
-@Configuration
+//@Configuration
 public class PostProcessorConfiguration {
     
 }

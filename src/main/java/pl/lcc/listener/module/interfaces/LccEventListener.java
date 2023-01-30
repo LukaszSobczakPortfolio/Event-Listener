@@ -23,9 +23,4 @@ public interface LccEventListener <A extends LccEvent> extends EventListener {
     
     public void listenToEvent(A event);
     
-    @PreDestroy
-    private void removeMyselfFromDispatcher(){
-        System.out.println("pre Destroy for Listener");
-    }
-    
 }

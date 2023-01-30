@@ -5,11 +5,13 @@
  */
 package pl.lcc.listener.module.processor;
 
+import pl.lcc.listener.module.processor.storage.IEventStorage;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import pl.lcc.listener.module.interfaces.DispatcherInterface;
+import pl.lcc.listener.module.interfaces.InternalDispatcherInterface;
 import pl.lcc.listener.module.interfaces.LccEvent;
 import pl.lcc.listener.module.interfaces.LccEventListener;
 
@@ -19,7 +21,7 @@ import pl.lcc.listener.module.interfaces.LccEventListener;
  */
 @Slf4j
 @Component
-public class EventsDispatcher implements DispatcherInterface{
+public class EventsDispatcher implements InternalDispatcherInterface{
 
     private final IEventStorage eventMapper;
     

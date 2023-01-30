@@ -14,5 +14,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan
 public class DispatcherModuleConfiguration {
-    
+    //empty for component scan -> @Import handle
+    //TODO :
+    //test it
 }

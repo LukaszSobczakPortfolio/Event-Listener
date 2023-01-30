@@ -7,7 +7,7 @@ package pl.lcc.listener.example.module.processor;
 
 import pl.lcc.listener.utils.TestListeners;
 import pl.lcc.listener.utils.TestEvents;
-import pl.lcc.listener.module.processor.EStorage;
+import pl.lcc.listener.module.processor.storage.EStorage;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

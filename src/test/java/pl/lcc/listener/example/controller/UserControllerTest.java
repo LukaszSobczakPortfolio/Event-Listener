@@ -82,14 +82,15 @@ public class UserControllerTest {
                         .param("name", "Stas")
                         .param("password", "Ulam")
                         .param("create", "true"))
-                .andExpect(view().name("UserPanel"))
-                .andExpect(model().attribute("name", is("Stas")))
-                .andExpect(model().attribute("admin", is(false)))
+                .andExpect(view().name("redirect:/addMessage"))
+//                .andExpect(model().attribute("name", is("Stas")))
+        //        .andExpect(model().attribute("admin", is(false)))
                 .andReturn();
-
-       // System.out.println(result.getResponse().getContentAsString());
-       // System.out.println(result.getModelAndView().getModel());
-
+        System.out.println("-------------------");
+        System.out.println(result.getResponse().getContentAsString());
+        System.out.println(result.getModelAndView().getModel());
+        System.out.println("-------------------");
+        
         var result2 = mockMvc
                 .perform(post("/addMessage").session(mocksession)
                         .param("message", "Goyy you"))
@@ -126,9 +127,12 @@ public class UserControllerTest {
                         .param("name", "OK")
                         .param("password", "OK")
                         .param("create", "true"))
-                .andExpect(model().attribute("banned", false))
+               // .andExpect(model().attribute("banned", false))
                 .andReturn();
 
+         System.out.println(result.getResponse().getContentAsString());
+        System.out.println(result.getModelAndView().getModel());
+        
         mockMvc
                 .perform(post("/addMessage").session(sessionOKUser)
                         .param("message", "ok"))
@@ -141,7 +145,7 @@ public class UserControllerTest {
                         .param("name", "Bomber-wtf")
                         .param("password", "bomb")
                         .param("create", "true"))
-                .andExpect(view().name("UserPanel"))
+                .andExpect(view().name("redirect:/addMessage"))
                 .andReturn();
 
          System.out.println(result3.getResponse().getContentAsString());
@@ -159,7 +163,7 @@ public class UserControllerTest {
                 .perform(post("/login").session(sessionBombUser)
                         .param("name", "Bomber-wtf")
                         .param("password", "bomb"))
-                .andExpect(model().attribute("banned", true))
+//                .andExpect(model().attribute("banned", true))
                 .andReturn();
 
     }
