@@ -5,7 +5,6 @@
  */
 package pl.lcc.listener.module.processor.storage;
 
-import pl.lcc.listener.module.processor.storage.WeakArrayList;
 import java.util.HashMap;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;

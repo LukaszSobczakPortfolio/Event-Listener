@@ -7,23 +7,22 @@ package pl.lcc.listener.example.user;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 /**
  *
  * @author Nauczyciel
  */
+@Slf4j
 @Component
 @SessionScope
 public class User{
     
-    List<LocalDateTime> values;
-    
     UserCore core;
 
     public User() {
-        System.out.println("new User");
-        values = new ArrayList<>();
+        log.info("new User");
     } 
     
     public User setCore (UserCore core){

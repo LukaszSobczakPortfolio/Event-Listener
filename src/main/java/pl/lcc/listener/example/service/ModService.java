@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import pl.lcc.listener.example.service.VerificationService;
 import org.springframework.stereotype.Service;
 import pl.lcc.listener.example.events.BanEvent;
 import pl.lcc.listener.example.events.BombModEvent;
