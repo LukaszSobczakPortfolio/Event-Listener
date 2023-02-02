@@ -28,9 +28,6 @@ public class EStorageTest {
         store = new EStorage();
     }
 
-    @AfterEach
-    void tearDown() {
-    }
 
     @Test
     void testGetAllInterfacesOne() {

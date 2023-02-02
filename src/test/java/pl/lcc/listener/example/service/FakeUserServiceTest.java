@@ -6,7 +6,7 @@ package pl.lcc.listener.example.service;
 
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
-import pl.lcc.listener.example.user.UserCore;
+import pl.lcc.listener.example.user.UserDetails;
 
 /**
  *
@@ -18,16 +18,16 @@ public class FakeUserServiceTest {
     @Test
     void testSimpleCreateUser() {
         
-        var service = new FakeUserService();
+        var service = new InMemoryUnsafeUserService();
         
        var result = service.tryCreateUser("kilo", "kolo");
         
-       assertThat(result.get()).isEqualTo(new UserCore("kilo"));
+       assertThat(result.get()).isEqualTo(new UserDetails("kilo"));
     }
     
     @Test
     void testDoExist(){
-        var service = new FakeUserService();
+        var service = new InMemoryUnsafeUserService();
         
        var result = service.tryCreateUser("kilo", "kolo");
        
@@ -38,12 +38,12 @@ public class FakeUserServiceTest {
     
     @Test
     void testSimpleGetUser(){
-       var service = new FakeUserService();
+       var service = new InMemoryUnsafeUserService();
        service.tryCreateUser("kilo", "kolo");
        
        assertThat(service.tryGetUserCore("wrong", "kolo")).isEmpty();
        assertThat(service.tryGetUserCore("kilo", "wrong")).isEmpty();
        assertThat(service.tryGetUserCore("wrong", "wrong")).isEmpty();
-       assertThat(service.tryGetUserCore("kilo", "kolo").get()).isEqualTo(new UserCore("kilo"));
+       assertThat(service.tryGetUserCore("kilo", "kolo").get()).isEqualTo(new UserDetails("kilo"));
     }
 }

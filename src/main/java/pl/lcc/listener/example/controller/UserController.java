@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import pl.lcc.listener.example.service.UserService;
 import pl.lcc.listener.example.user.Message;
 import pl.lcc.listener.example.user.User;
-import pl.lcc.listener.example.user.UserCore;
+import pl.lcc.listener.example.user.UserDetails;
 
 /**
- *
+ * Login and user (not mod) interactions
  * @author Nauczyciel
  */
 @Slf4j
@@ -40,17 +40,19 @@ public class UserController {
         this.uService = uService;
     }
 
+    //Display Login Screen
     @GetMapping("/login")
     public String index(@ModelAttribute("udto") UDTO udto, Model model) {
         log.info("login/get on thread: " + Thread.currentThread().getName());
         return "Login";
     }
 
+    //can be 1) login action, 2) create new user, 3) create new Admin 
     @PostMapping("/login")
     public String greetingSubmit(@ModelAttribute("udto") UDTO udto, Model model) {
         log.info("login/post on thread:" + Thread.currentThread().getName());
         log.info(udto.toString());
-        Optional<UserCore> core;
+        Optional<UserDetails> core;
         if (udto.isCreate() || udto.isAdmin()) {
             core = uService.tryCreateUser(udto.name, udto.password, udto.isAdmin());
         } else {
@@ -72,6 +74,7 @@ public class UserController {
         return "Login";
     }
     
+    //display user panel
     @GetMapping("/addMessage")
     public String showUserPanel(@ModelAttribute Message msg, Model model) {
         log.info("addMessage/get on thread: " + Thread.currentThread().getName());
@@ -79,6 +82,7 @@ public class UserController {
         return "UserPanel";
     }
 
+    //new messagre created
     @PostMapping("/addMessage")
     public String addMessage(@ModelAttribute Message msg, Model model) {
         log.info("addMessage/post on thread: " + Thread.currentThread().getName());

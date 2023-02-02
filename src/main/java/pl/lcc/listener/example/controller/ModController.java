@@ -10,15 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.lcc.listener.example.service.VerificationService;
-import pl.lcc.listener.example.user.Message;
 import pl.lcc.listener.example.user.Mod;
 
 /**
- *
+ * Controller for a Mod panel
  * @author Nauczyciel
  */
 @Slf4j
@@ -27,40 +25,36 @@ public class ModController {
 
     @Autowired
     private Mod mod;
-    
+
     VerificationService service;
 
     public ModController(VerificationService service) {
         log.info("Mod Controller");
         this.service = service;
     }
-    
+
     @GetMapping("/mod")
     public String index(Model model) {
         prepareModel(model);
         return "Mod";
     }
 
-    
-    
     @PostMapping("/verified")
-    public String verified(@RequestParam("id") String messageTextAsId, @RequestParam("ban") Optional<Boolean> banned, Model model){
+    public String verified(@RequestParam("id") String messageTextAsId, @RequestParam("ban") Optional<Boolean> banned, Model model) {
 
-        System.out.println(messageTextAsId);
-        System.out.println(banned);
-        
-        if(banned.isEmpty()||banned.get()==false){
+        log.info("message " + messageTextAsId + "moderated. Effect: " + banned);
+
+        if (banned.isEmpty() || banned.get() == false) {
             mod.okMessage(messageTextAsId);
-        } else{
+        } else {
             mod.itIsBomb(messageTextAsId);
         }
-            
-        
+
         prepareModel(model);
         return "redirect:/mod";
     }
-    
-private void prepareModel(Model model) {
+
+    private void prepareModel(Model model) {
         mod.setMessageForVerification(service.getMessageForModeration());
         model.addAttribute("name", mod.getName());
         model.addAttribute("list", mod.getMessageForVerification());
