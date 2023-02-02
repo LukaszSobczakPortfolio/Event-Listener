@@ -5,6 +5,7 @@
  */
 package pl.lcc.listener.module.processor;
 
+import pl.lcc.listener.module.interfaces.IClassGraphResolver;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -26,7 +27,7 @@ public class ClassGraphResolver implements IClassGraphResolver {
     Set<Class<?>> directInterfaces = new HashSet<>();
 
     @Override
-    public Class<?>[] resolve(Object subject) {
+    public Class<?>[] findAllInterfaces(Object subject) {
         if (Objects.isNull(subject)) {
             return new Class<?>[0];
         }
@@ -37,8 +38,8 @@ public class ClassGraphResolver implements IClassGraphResolver {
     }
     
     @Override
-    public Stream<Class<?>> resolveToStream (Object subject){
-        return Arrays.stream(resolve(subject));
+    public Stream<Class<?>> findAllInterfacesToStream (Object subject){
+        return Arrays.stream(findAllInterfaces(subject));
     }
 
     private void getAllInterfaces(Class<?> subject) {

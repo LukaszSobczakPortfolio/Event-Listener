@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ActiveProfiles;
@@ -30,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.hamcrest.Matchers.*;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpSession;
 import pl.lcc.listener.example.events.BanEvent;
 import pl.lcc.listener.example.service.UserService;
@@ -40,7 +40,7 @@ import pl.lcc.listener.example.service.UserService;
  */
 
 @ActiveProfiles("test")
-@WebMvcTest
+@SpringBootTest
 public class ModControllerTest {
     
     private MockMvc mockMvc;

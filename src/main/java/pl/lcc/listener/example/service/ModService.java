@@ -8,26 +8,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.lcc.listener.example.events.BanEvent;
 import pl.lcc.listener.example.events.BombModEvent;
 import pl.lcc.listener.example.user.Message;
 import pl.lcc.listener.module.interfaces.DispatcherInterface;
 import pl.lcc.listener.module.interfaces.LccListenerClass;
+
 /**
  * includes in Memory storarge
+ *
  * @author Nauczyciel
  */
+@Slf4j
 @Service
 @LccListenerClass(targetEvent = BombModEvent.class)
-public class ModService implements VerificationService{
+public class ModService implements VerificationService {
 
     private final DispatcherInterface dispatcher;
-    
+
     private final Queue<Message> toDecide;
 
     public ModService(DispatcherInterface dispatcher) {
-        
+
         this.dispatcher = dispatcher;
         toDecide = new ConcurrentLinkedQueue<>();
     }
@@ -55,7 +59,7 @@ public class ModService implements VerificationService{
 
     @Override
     public void removeMessageFromModeration(Message msg) {
-        System.out.println("removed " + msg.toString());  
-      toDecide.remove(msg);
+        log.info("removed " + msg.toString());
+        toDecide.remove(msg);
     }
 }

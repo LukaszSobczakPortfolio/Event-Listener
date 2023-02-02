@@ -1,9 +1,6 @@
 package pl.lcc.listener.module.interfaces;
 
 import java.util.EventListener;
-import javax.annotation.PreDestroy;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -12,7 +9,7 @@ import org.springframework.context.ApplicationContext;
  */
 
 /**
- * / TODO: - should 
+ * / Listener, listen for  event, kind of lccEvent.class
  * @author piko
  * @param <A>
  */

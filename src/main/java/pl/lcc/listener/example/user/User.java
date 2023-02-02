@@ -32,8 +32,10 @@ public class User{
     }
 
     public void setName(String name) {
-        throw new RuntimeException("to do");    }
+        throw new UnsupportedOperationException("to do");    }
 
+        
+    
     @Override
     public String toString() {
         return "User{" + "name=" + getName() + '}';
@@ -44,7 +46,7 @@ public class User{
     }
     
     public void setFlagged(boolean flagged) {
-         throw new RuntimeException("to do");
+         throw new UnsupportedOperationException("to do");
     }
 
      public boolean isAdmin() {
@@ -52,7 +54,7 @@ public class User{
     }
     
     public void setAdmin(boolean admin) {
-         throw new RuntimeException("to do");
+         throw new UnsupportedOperationException("to do");
     }
     
 }

@@ -24,7 +24,7 @@ class LccPostProcessor implements ILccPostProcessor {
     private final IEventStorage storage;
 
     public LccPostProcessor(IEventStorage storage) {
-        log.info("lccPP constructor");
+        log.info("LccPostProcessor constructor");
         this.storage = storage;
     }
     

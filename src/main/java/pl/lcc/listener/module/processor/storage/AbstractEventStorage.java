@@ -60,7 +60,7 @@ public abstract class AbstractEventStorage implements IEventStorage {
         return list;
     }
 
-    protected BiFunction<? super List<LccEventListener<? extends LccEvent>>, ? super List<LccEventListener<? extends LccEvent>>, ? extends List<LccEventListener<? extends LccEvent>>> addNewValueToList() {
+    protected BiFunction<List<LccEventListener<? extends LccEvent>>, List<LccEventListener<? extends LccEvent>>, ? extends List<LccEventListener<? extends LccEvent>>> addNewValueToList() {
         return (oldList, newList) -> {
             oldList.addAll(newList);
             return oldList;
@@ -70,12 +70,12 @@ public abstract class AbstractEventStorage implements IEventStorage {
     @Override
     public List<LccEventListener<? extends LccEvent>> getListenersForEvent(LccEvent event) {
         return new ClassGraphResolver()
-                .resolveToStream(event)
+                .findAllInterfacesToStream(event)
                 .filter(LccEvent.class::isAssignableFrom)
                 .map((klazz) -> map.get(klazz))
                 .filter(Objects::nonNull)
                 .flatMap(Collection::stream)
-                .collect(toList());
+                .toList();
     }
 
     @Override
