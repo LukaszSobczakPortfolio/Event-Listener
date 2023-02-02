@@ -14,16 +14,15 @@ import pl.lcc.listener.module.interfaces.LccEvent;
 import pl.lcc.listener.module.interfaces.LccEventListener;
 
 /**
- *
+ * 
  * @author piko
  */
 @Slf4j
 @Component
 @Primary
-public class WeakEStorage extends EStorageMapWrapper{
+public class WeakEventStorage extends AbstractEventStorage{
 
-    public WeakEStorage( ) {
-        
+    public WeakEventStorage( ) {        
        super( new HashMap<Class<? extends LccEvent>, List<LccEventListener<? extends LccEvent>>> () );
     }
     

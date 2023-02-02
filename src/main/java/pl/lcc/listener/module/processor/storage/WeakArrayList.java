@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 /**
- *
+ * Wrapper for ArrayList<WeakReference<E>>. return solid reference or null
  * @author piko
  * @param <E>
  */

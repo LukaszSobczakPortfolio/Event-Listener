@@ -20,22 +20,26 @@ import pl.lcc.listener.module.interfaces.LccListenerClass;
 import pl.lcc.listener.module.processor.ClassGraphResolver;
 
 /**
- *
+ * implements all required methods, but newList method depends on type of lisr used (array list, weak list, etc
+ * TODO : can I have Generics instead of abstracct class?
+ * like EventStorage <Map.class, List.class>
  * @author piko
  */
-public abstract class EStorageMapWrapper implements IEventStorage {
+public abstract class AbstractEventStorage implements IEventStorage {
 
     private final Map<Class<? extends LccEvent>, List<LccEventListener<? extends LccEvent>>> map;
 
     protected static Function<Map.Entry<Class<? extends LccEvent>, List<LccEventListener<? extends LccEvent>>>, Stream<String>> makeListenerDescription() {
-        return (entry) -> {
-            String key = entry.getKey().toGenericString();
-            Stream<String> values = entry.getValue().stream().map((listener) -> listener.getClass().toGenericString()).map((listenerDesc) -> listenerDesc + " : " + key);
-            return values;
+        return (mapEntry) -> {
+            String key = mapEntry.getKey().toGenericString();
+            return mapEntry.getValue()
+                    .stream()
+                    .map((listener) -> listener.getClass().toGenericString())
+                    .map((listenerDesc) -> listenerDesc + " : " + key);            
         };
     }
 
-    protected EStorageMapWrapper(Map<Class<? extends LccEvent>, List<LccEventListener<? extends LccEvent>>> map) {
+    protected AbstractEventStorage(Map<Class<? extends LccEvent>, List<LccEventListener<? extends LccEvent>>> map) {
         this.map = map;
     }
 

@@ -3,26 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.lcc.listener.module.processor.storage;
+package pl.lcc.listener.utils;
 
 import java.util.HashMap;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import pl.lcc.listener.module.interfaces.LccEvent;
 import pl.lcc.listener.module.interfaces.LccEventListener;
+import pl.lcc.listener.module.processor.storage.AbstractEventStorage;
 
 /**
- *
+ * is used for testing only, in case weak LIst gives strange results.
  * @author piko
  */
 @Component
 @Slf4j
-//@Primary
-public class EStorage extends EStorageMapWrapper{
+public class HashMapEventStorageStorage extends AbstractEventStorage{
 
-    public EStorage() {
+    public HashMapEventStorageStorage() {
         super(new HashMap<Class<? extends LccEvent>, List<LccEventListener<? extends LccEvent>>> ());
     }
    

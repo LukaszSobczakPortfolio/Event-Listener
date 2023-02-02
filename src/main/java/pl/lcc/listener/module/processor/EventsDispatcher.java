@@ -32,11 +32,11 @@ public class EventsDispatcher implements InternalDispatcherInterface{
     @Override
     public void dispatch(LccEvent event) {
         log.info("looking for dispatch " + event.toString());
-        List<LccEventListener<? extends LccEvent>> listeners = eventMapper.getListenersForEvent(event);
+        var listeners = eventMapper.getListenersForEvent(event);
         log.info("found : " + listeners.size() + " : " + listeners.toString());
         listeners.forEach(listener->((LccEventListener<LccEvent>)listener).listenToEvent(event));
     }
-
+    
     @Override
     public void addListener(LccEventListener<?> listener) {
         eventMapper.addListener(listener);
