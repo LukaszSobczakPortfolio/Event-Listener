@@ -93,7 +93,7 @@ public class UserControllerTest {
         
         var result2 = mockMvc
                 .perform(post("/addMessage").session(mocksession)
-                        .param("message", "Goyy you"))
+                        .param("messageBody", "Goyy you"))
                 .andExpect(view().name("UserPanel"))
                 .andExpect(model().attribute("messages", hasSize(1)))
                 .andExpect(model().attribute("message", hasProperty("message", is("Goyy you"))))
@@ -103,7 +103,7 @@ public class UserControllerTest {
 //        System.out.println(result2.getModelAndView().getModel());    
         var result3 = mockMvc
                 .perform(post("/addMessage").session(mocksession)
-                        .param("message", "I bomb you"))
+                        .param("messageBody", "I bomb you"))
                 .andExpect(view().name("UserPanel"))
                 .andExpect(model().attribute("messages", hasSize(2)))
                 .andReturn();
@@ -135,7 +135,7 @@ public class UserControllerTest {
         
         mockMvc
                 .perform(post("/addMessage").session(sessionOKUser)
-                        .param("message", "ok"))
+                        .param("messageBody", "ok"))
                 .andReturn();
 
         System.out.println("##################################################");
@@ -153,7 +153,7 @@ public class UserControllerTest {
         
         mockMvc
                 .perform(post("/addMessage").session(sessionBombUser)
-                        .param("message", "not ok"))
+                        .param("messageBody", "not ok"))
                 .andExpect(view().name("UserPanel"))
                 .andReturn();
 

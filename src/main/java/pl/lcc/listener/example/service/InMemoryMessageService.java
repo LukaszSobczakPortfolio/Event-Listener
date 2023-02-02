@@ -48,7 +48,7 @@ public class InMemoryMessageService implements MessageService {
         }
         autoCheckMessageService(msg);
         db.merge(user,
-                ListWithMsg(msg),
+                arrayListWith(msg),
                 (prev, next) -> {
                     prev.add(msg);
                     return prev;
@@ -56,7 +56,7 @@ public class InMemoryMessageService implements MessageService {
         return this;
     }
 
-    private List<Message> ListWithMsg(Message msg) {
+    private List<Message> arrayListWith(Message msg) {
         var list = new ArrayList<Message>();
         list.add(msg);
         return list;

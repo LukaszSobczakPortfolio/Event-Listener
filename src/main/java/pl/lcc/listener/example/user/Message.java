@@ -7,20 +7,20 @@ package pl.lcc.listener.example.user;
 import java.time.LocalDateTime;
 
 /**
- * value class, message
+ * value class, messageBody
  * @author Nauczyciel
  */
 public class Message {
     
     private final LocalDateTime createTime;
     
-    private final String message;
+    private final String messageBody;
     
     private final String userName;
 
-    public Message(LocalDateTime createTime, String message, String user) {
+    public Message(LocalDateTime createTime, String messageBody, String user) {
         this.createTime = createTime;
-        this.message = message;
+        this.messageBody = messageBody;
         this.userName = user;
     }
 
@@ -29,7 +29,7 @@ public class Message {
     }
 
     public String getMessage() {
-        return message;
+        return messageBody;
     }
 
     public String getUserName() {
@@ -38,7 +38,7 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Message{" + "createTime=" + createTime + ", message=" + message + ", userName=" + userName + '}';
+        return "Message{" + "createTime=" + createTime + ", message=" + messageBody + ", userName=" + userName + '}';
     }
     
     

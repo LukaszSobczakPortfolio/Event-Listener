@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.PostMapping;
  * Controller for testing, for Removal in final
  * @author piko
  */
-class dataPart {
+class InputDataDTO {
 
     String name;
     Long id;
     Boolean check;
 
-    public dataPart(String name, Long id, Boolean check) {
+    public InputDataDTO(String name, Long id, Boolean check) {
         this.name = name;
         this.id = id;
         this.check = check;
@@ -69,16 +69,15 @@ public class WebController {
 
     private final ApplicationContext ctx;
 
-    List<dataPart> data;
+    List<InputDataDTO> data;
 
     public WebController(ApplicationContext ctx) {
         log.info("WebController Constructor");
         this.ctx = ctx;
-        data = List.of(
-                new dataPart("kilo", 1l, false),
-                new dataPart("foxtrot", 2l, false),
-                new dataPart("typhoon", 100l, false),
-                new dataPart("victor 3", 10l, false)
+        data = List.of(new InputDataDTO("kilo", 1l, false),
+                new InputDataDTO("foxtrot", 2l, false),
+                new InputDataDTO("typhoon", 100l, false),
+                new InputDataDTO("victor 3", 10l, false)
         );
     }
 
@@ -89,7 +88,7 @@ public class WebController {
     }
 
     @PostMapping("/")
-    public String postIndex(@ModelAttribute dataPart data1, Model model) {
+    public String postIndex(@ModelAttribute InputDataDTO data1, Model model) {
         System.out.println("post called");
         System.out.println(data);
         System.out.println("one: " + data1);
