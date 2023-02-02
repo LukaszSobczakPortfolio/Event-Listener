@@ -21,6 +21,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import pl.lcc.listener.module.interfaces.DispatcherInterface;
 import static org.hamcrest.Matchers.*;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 
 import org.springframework.test.context.ActiveProfiles;
 import pl.lcc.listener.example.events.BanEvent;
@@ -29,9 +31,9 @@ import pl.lcc.listener.example.events.BanEvent;
  *
  * @author Nauczyciel
  */
-//@SpringBootTest
+
 @ActiveProfiles("test")
-@WebMvcTest
+@SpringBootTest
 public class UserControllerTest {
 
     private MockMvc mockMvc;

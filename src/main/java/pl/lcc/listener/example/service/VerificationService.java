@@ -9,7 +9,6 @@ import pl.lcc.listener.example.events.BombModEvent;
 import pl.lcc.listener.example.user.Message;
 import pl.lcc.listener.module.interfaces.LccEventListener;
 
-
 /**
  * store messages for moderation, sends them to moderators, sends ban event
  * @author Nauczyciel

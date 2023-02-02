@@ -36,7 +36,7 @@ public class ClassGraphResolverTest {
 
     @Test
     public void testSomeMethod() {
-        var result = resolver.resolve(new LinkedList<String>());
+        var result = resolver.findAllInterfaces(new LinkedList<String>());
         System.out.println(result.length);
         assertThat(result).as("Linked List Resolved")
                 .hasSizeGreaterThan(11)
@@ -45,7 +45,7 @@ public class ClassGraphResolverTest {
     
     @Test
     void testContext(){
-        var result = resolver.resolve( new GenericWebApplicationContext());
+        var result = resolver.findAllInterfaces( new GenericWebApplicationContext());
          assertThat(result).as("Linked List Resolved")
                  .hasSizeGreaterThan(20)
                  .contains(Object.class, AliasRegistry.class, Closeable.class);

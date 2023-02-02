@@ -13,8 +13,8 @@ import java.util.stream.Stream;
  */
 public interface IClassGraphResolver {
     
-    public Class<?>[] resolve(Object subject);
+    public Class<?>[] findAllInterfaces(Object subject);
 
-    Stream<Class<?>> resolveToStream(Object subject);
+    Stream<Class<?>> FindAllInterfacesToStream(Object subject);
     
 }

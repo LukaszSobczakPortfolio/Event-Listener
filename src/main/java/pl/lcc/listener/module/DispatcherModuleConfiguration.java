@@ -8,13 +8,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 
+ * Handle @Import => for Componenet Scan 
  * @author Nauczyciel
  */
 @Configuration
 @ComponentScan
 public class DispatcherModuleConfiguration {
     //empty for component scan -> @Import handle
-    //TODO :
-    //test it
 }

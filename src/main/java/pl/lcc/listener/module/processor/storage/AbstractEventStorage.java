@@ -70,12 +70,12 @@ public abstract class AbstractEventStorage implements IEventStorage {
     @Override
     public List<LccEventListener<? extends LccEvent>> getListenersForEvent(LccEvent event) {
         return new ClassGraphResolver()
-                .resolveToStream(event)
+                .FindAllInterfacesToStream(event)
                 .filter(LccEvent.class::isAssignableFrom)
                 .map((klazz) -> map.get(klazz))
                 .filter(Objects::nonNull)
                 .flatMap(Collection::stream)
-                .collect(toList());
+                .toList();
     }
 
     @Override

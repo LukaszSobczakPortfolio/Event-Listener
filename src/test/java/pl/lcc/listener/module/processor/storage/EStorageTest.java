@@ -9,7 +9,6 @@ import pl.lcc.listener.utils.HashMapEventStorageStorage;
 import pl.lcc.listener.utils.TestListeners;
 import pl.lcc.listener.utils.TestEvents;
 import java.util.List;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
@@ -28,7 +27,6 @@ public class EStorageTest {
     void setUp() {
         store = new HashMapEventStorageStorage();
     }
-
 
     @Test
     void testGetAllInterfacesOne() {
