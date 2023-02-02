@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.lcc.listener.module.processor;
+package pl.lcc.listener.module.interfaces;
 
 import java.util.stream.Stream;
 
@@ -15,6 +15,6 @@ public interface IClassGraphResolver {
     
     public Class<?>[] findAllInterfaces(Object subject);
 
-    Stream<Class<?>> FindAllInterfacesToStream(Object subject);
+    Stream<Class<?>> findAllInterfacesToStream(Object subject);
     
 }

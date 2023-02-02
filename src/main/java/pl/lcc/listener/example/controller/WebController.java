@@ -89,9 +89,7 @@ public class WebController {
 
     @PostMapping("/")
     public String postIndex(@ModelAttribute InputDataDTO data1, Model model) {
-        System.out.println("post called");
-        System.out.println(data);
-        System.out.println("one: " + data1);
+
         model.addAttribute("datax", data);
         return "Greetings";
     }
