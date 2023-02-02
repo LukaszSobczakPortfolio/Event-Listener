@@ -11,7 +11,7 @@ import pl.lcc.listener.module.interfaces.LccEventListener;
 
 
 /**
- *
+ * store messages for moderation, sends them to moderators, sends ban event
  * @author Nauczyciel
  */
 
@@ -19,7 +19,7 @@ public interface VerificationService extends LccEventListener<BombModEvent>{
     
     List<Message> getMessageForModeration();
     
-    void removeMessage(Message msg);
+    void removeMessageFromModeration(Message msg);
     
     void banUser(String name);
     

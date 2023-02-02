@@ -7,13 +7,16 @@ package pl.lcc.listener.example.user;
 import java.time.LocalDateTime;
 
 /**
- *
+ * value class, message
  * @author Nauczyciel
  */
 public class Message {
-    LocalDateTime createTime;
-    String message;
-    String userName;
+    
+    private final LocalDateTime createTime;
+    
+    private final String message;
+    
+    private final String userName;
 
     public Message(LocalDateTime createTime, String message, String user) {
         this.createTime = createTime;

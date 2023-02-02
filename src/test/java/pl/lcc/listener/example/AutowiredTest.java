@@ -6,8 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import pl.lcc.listener.example.actuator.AllMetricsInfo;
 import pl.lcc.listener.example.actuator.ListenersInfo;
-import pl.lcc.listener.example.controller.WebController;
+import pl.lcc.listener.example.controller.UserController;
 import pl.lcc.listener.module.interfaces.DispatcherInterface;
 import pl.lcc.listener.module.interfaces.ILccPostProcessor;
 
@@ -25,8 +26,9 @@ class AutowiredTest {
         List.<Class<?>>of(
                 DispatcherInterface.class,
                 ILccPostProcessor.class,
-                WebController.class,
-                ListenersInfo.class)
+                UserController.class,
+                ListenersInfo.class,
+                AllMetricsInfo.class)
                 .forEach(klazz -> softly
                         .assertThat(ctx.getBeanNamesForType(klazz))
                         .as("Bean should Exist: " + klazz.toGenericString())

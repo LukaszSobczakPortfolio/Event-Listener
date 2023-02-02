@@ -9,14 +9,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
 import org.springframework.boot.actuate.metrics.MetricsEndpoint;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 /**
- *
+ * get all default metrics combined in one file. Pure curiosity from my side
  * @author Nauczyciel
  */
 @Slf4j
 @Component
+@Profile("!test")
 @WebEndpoint(id = "metriks")
 public class AllMetricsInfo {
 

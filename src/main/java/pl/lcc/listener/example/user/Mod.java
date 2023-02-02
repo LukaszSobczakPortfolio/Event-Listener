@@ -12,7 +12,7 @@ import pl.lcc.listener.example.service.VerificationService;
 import pl.lcc.listener.module.interfaces.DispatcherInterface;
 
 /**
- *
+ * stores data required to display UserPanel
  * @author Nauczyciel
  */
 @Component
@@ -40,12 +40,12 @@ public class Mod {
     }
 
     public boolean okMessage(Message msg) {
-        service.removeMessage(msg);
+        service.removeMessageFromModeration(msg);
         return true;
     }
 
     public boolean itIsBomb(Message message) {
-        service.removeMessage(message);
+        service.removeMessageFromModeration(message);
         dispatcher.dispatch(new BanEvent(message.getUserName()));
         return false;
     }
@@ -61,7 +61,7 @@ public class Mod {
     }
 
     private Message processId(String messageAsId) {
-        var targetMessage = messagesForVerification.stream().filter(m -> m.message.equals(messageAsId)).findFirst().get();
+        var targetMessage = messagesForVerification.stream().filter(m -> m.getMessage().equals(messageAsId)).findFirst().get();
         messagesForVerification.remove(targetMessage);
         return targetMessage;
     }

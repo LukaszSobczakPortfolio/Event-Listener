@@ -12,7 +12,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- *
+ * marker annotation for listener. 
+ * TODO - more here
  * @author piko
  */
 @Inherited
