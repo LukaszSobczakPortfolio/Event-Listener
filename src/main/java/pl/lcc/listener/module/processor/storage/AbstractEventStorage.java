@@ -30,10 +30,12 @@ public abstract class AbstractEventStorage implements IEventStorage {
     private final Map<Class<? extends LccEvent>, List<LccEventListener<? extends LccEvent>>> map;
 
     protected static Function<Map.Entry<Class<? extends LccEvent>, List<LccEventListener<? extends LccEvent>>>, Stream<String>> makeListenerDescription() {
-        return (entry) -> {
-            String key = entry.getKey().toGenericString();
-            Stream<String> values = entry.getValue().stream().map((listener) -> listener.getClass().toGenericString()).map((listenerDesc) -> listenerDesc + " : " + key);
-            return values;
+        return (mapEntry) -> {
+            String key = mapEntry.getKey().toGenericString();
+            return mapEntry.getValue()
+                    .stream()
+                    .map((listener) -> listener.getClass().toGenericString())
+                    .map((listenerDesc) -> listenerDesc + " : " + key);            
         };
     }
 
