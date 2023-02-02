@@ -30,6 +30,8 @@ class LccPostProcessor implements ILccPostProcessor {
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         
+       // System.out.println("name: " + beanName + " , class: " + bean.getClass());
+        
         if(Arrays.asList(bean.getClass().getInterfaces()).contains(LccEventListener.class)){
             var listener = (LccEventListener) bean;
             dispatcher.addListener(listener);

@@ -5,6 +5,7 @@
  */
 package pl.lcc.listener.module.processor.storage;
 
+import pl.lcc.listener.utils.HashMapEventStorageStorage;
 import pl.lcc.listener.utils.TestListeners;
 import pl.lcc.listener.utils.TestEvents;
 import java.util.List;
@@ -21,11 +22,11 @@ import pl.lcc.listener.module.interfaces.LccEventListener;
  */
 public class EStorageTest {
 
-    EStorage store;
+    HashMapEventStorageStorage store;
 
     @BeforeEach
     void setUp() {
-        store = new EStorage();
+        store = new HashMapEventStorageStorage();
     }
 
 

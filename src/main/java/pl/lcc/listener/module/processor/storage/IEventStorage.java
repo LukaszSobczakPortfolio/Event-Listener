@@ -11,7 +11,7 @@ import pl.lcc.listener.module.interfaces.LccEvent;
 import pl.lcc.listener.module.interfaces.LccEventListener;
 
 /**
- * Map For Listeners
+ * Map of lists for Event Listeners
  *
  * @author piko
  */
