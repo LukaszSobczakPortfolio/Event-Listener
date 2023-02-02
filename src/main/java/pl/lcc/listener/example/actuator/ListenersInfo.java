@@ -7,14 +7,12 @@ package pl.lcc.listener.example.actuator;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
-import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.endpoint.annotation.Selector;
-import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.stereotype.Component;
 import pl.lcc.listener.module.processor.EventsDispatcher;
 
 /**
+ * There are plans for it
  *
  * @author piko
  */
@@ -22,25 +20,17 @@ import pl.lcc.listener.module.processor.EventsDispatcher;
 @Component
 @WebEndpoint(id = "listeners")
 public class ListenersInfo {
-    
+
     private final EventsDispatcher dispatcher;
 
     public ListenersInfo(EventsDispatcher dispatcher) {
         log.info("actuator constructor");
         this.dispatcher = dispatcher;
-    }    
-        
+    }
+
     @ReadOperation
-    public String readOp(@Selector String param) {
-        return dispatcher.getAllListenersInfo();       
+    public String readOp() {
+        return dispatcher.getAllListenersInfo();
     }
-    
-    @WriteOperation
-    public void writeOp(@Selector String param, String value) {
-    }
-    
-    @DeleteOperation
-    public void deleteOp(@Selector String param) {
-    }
-    
+
 }
