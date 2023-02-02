@@ -13,7 +13,6 @@ import pl.lcc.listener.example.events.BanEvent;
 import pl.lcc.listener.example.events.BombModEvent;
 import pl.lcc.listener.example.user.Message;
 import pl.lcc.listener.module.interfaces.DispatcherInterface;
-import pl.lcc.listener.module.interfaces.LccEventListener;
 import pl.lcc.listener.module.interfaces.LccListenerClass;
 /**
  * includes in Memory storarge
@@ -21,7 +20,7 @@ import pl.lcc.listener.module.interfaces.LccListenerClass;
  */
 @Service
 @LccListenerClass(targetEvent = BombModEvent.class)
-public class ModService implements VerificationService, LccEventListener<BombModEvent>{
+public class ModService implements VerificationService{
 
     private final DispatcherInterface dispatcher;
     

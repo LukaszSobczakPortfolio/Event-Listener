@@ -11,30 +11,29 @@ import pl.lcc.listener.module.interfaces.LccEventListener;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.stereotype.Component;
+import pl.lcc.listener.module.processor.storage.IEventStorage;
 
 /**
- *
+ * Adds correct beans to 
  * @author piko
  */
 @Slf4j
 @Component
 class LccPostProcessor implements ILccPostProcessor {
 
-    EventsDispatcher dispatcher;
+    private final IEventStorage storage;
 
-    public LccPostProcessor(EventsDispatcher dispatcher) {
+    public LccPostProcessor(IEventStorage storage) {
         log.info("lccPP constructor");
-        this.dispatcher = dispatcher;
+        this.storage = storage;
     }
     
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        
-       // System.out.println("name: " + beanName + " , class: " + bean.getClass());
-        
-        if(Arrays.asList(bean.getClass().getInterfaces()).contains(LccEventListener.class)){
+   
+        if (bean instanceof LccEventListener){
             var listener = (LccEventListener) bean;
-            dispatcher.addListener(listener);
+            storage.addListener(listener);
             log.info("lcc post processor - listener: " + bean.getClass().toGenericString());
         }
         return bean;
