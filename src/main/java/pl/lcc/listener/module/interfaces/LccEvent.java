@@ -7,7 +7,7 @@ package pl.lcc.listener.module.interfaces;
 
 
 /**
- *
+ * Marker interface for Event emited by any bean, 
  * @author piko
  */
 public interface LccEvent {

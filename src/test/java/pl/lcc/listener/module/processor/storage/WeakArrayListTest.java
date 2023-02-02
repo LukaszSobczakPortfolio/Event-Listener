@@ -23,7 +23,7 @@ public class WeakArrayListTest {
     
     @BeforeEach
     void makeList(){
-        System.out.println("before earch");
+
         testList = new WeakArrayList<>();
         solidList.forEach(e -> testList.add(e));
     }
@@ -32,7 +32,7 @@ public class WeakArrayListTest {
     @Test
     public void testAdd_GenericType() {
         var newValue = Integer.valueOf(17);
-        testList.add(17);
+        testList.add(newValue);
         assertThat(testList.size()).isEqualTo(4);
         
     }
@@ -55,8 +55,7 @@ public class WeakArrayListTest {
     @Test
     public void testSize() {
         var softly = new SoftAssertions();
-        softly.assertThat(testList.size()).as("original solid 3").isEqualTo(3);
-        
+        softly.assertThat(testList.size()).as("original solid 3").isEqualTo(3);        
         softly.assertAll();
         
     }
@@ -67,7 +66,7 @@ public class WeakArrayListTest {
         var softly = new SoftAssertions();
         softly.assertThat(testList.stream().toList().size()).as("stream 3").isEqualTo(3);
         softly.assertThat(testList.stream().toList().toString()).as("stream 3").isEqualTo("[1, 2, 3]");
-        System.out.println(testList.stream().peek(System.out::println).toList());
+        
         softly.assertAll();
     }
 
@@ -76,8 +75,8 @@ public class WeakArrayListTest {
         var softly = new SoftAssertions();
         var list = new ArrayList<Integer>();
         testList.forEach(e -> list.add(e));
-        assertThat(list.size()).as("initial 3").isEqualTo(3);
-        assertThat(list.toString()).isEqualTo("[1, 2, 3]");
+        softly.assertThat(list.size()).as("initial 3").isEqualTo(3);
+        softly.assertThat(list.toString()).isEqualTo("[1, 2, 3]");
         softly.assertAll();
     }
     
@@ -88,18 +87,25 @@ public class WeakArrayListTest {
         var koko = new Object();
         softly.assertThat(list).as("No Elements").hasSize(0);
         softly.assertThat(list).as("is Empty check").isEmpty();
+        
         list.add(koko);
-        softly.assertThat(list).as("added one element").hasSize(1);
+        softly.assertThat(list).as("koko inside").hasSize(1);
         softly.assertThat(list).as("list not empty").isNotEmpty();
+        
         list.add(new Object());
-        softly.assertThat(list).as("added one element").hasSize(2);
+        softly.assertThat(list).as("koko and Object").hasSize(2);
         softly.assertThat(list).as("list not empty").isNotEmpty();
-        koko = null;
-        System.out.println("memory one: " + Runtime.getRuntime().freeMemory());             
+        
         System.gc();
-        System.out.println("memory two: " + Runtime.getRuntime().freeMemory());
-        softly.assertThat(list).as("added one element").hasSize(0);
-        softly.assertThat(list).as("list not empty").isEmpty();
+        
+        softly.assertThat(list).as("Object Garbaged, koko inside").hasSize(1);
+        softly.assertThat(list).as("list not empty").isNotEmpty();
+        
+        koko = null;
+        System.gc();
+
+        softly.assertThat(list).as("koko Garbaged too").hasSize(0);
+        softly.assertThat(list).as("should be empty again").isEmpty();
         softly.assertAll();
         }
 

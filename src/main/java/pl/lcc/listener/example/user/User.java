@@ -4,14 +4,11 @@
  */
 package pl.lcc.listener.example.user;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 /**
- *
+ * stores data required to display UserPanel
  * @author Nauczyciel
  */
 @Slf4j
@@ -19,13 +16,13 @@ import org.springframework.web.context.annotation.SessionScope;
 @SessionScope
 public class User{
     
-    UserCore core;
+    UserDetails core;
 
     public User() {
         log.info("new User");
     } 
     
-    public User setCore (UserCore core){
+    public User setCore (UserDetails core){
         this.core = core;
         return this;
     }

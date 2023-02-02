@@ -9,7 +9,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 
 /**
- *
+ * Bean scans new Beans, finds Listeners, Keeps them in collection. 
  * @author piko
  */
 public interface ILccPostProcessor extends BeanPostProcessor {

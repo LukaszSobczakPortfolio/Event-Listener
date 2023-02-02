@@ -9,7 +9,9 @@ import pl.lcc.listener.example.user.Message;
 import pl.lcc.listener.module.interfaces.LccEvent;
 
 /**
- *
+ * Receiver: Mod Service
+ * Reason: Post with suspitious words (BOMB)
+ * Sender: Message Service
  * @author Nauczyciel
  */
 @Slf4j

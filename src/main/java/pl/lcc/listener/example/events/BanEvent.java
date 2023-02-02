@@ -8,7 +8,9 @@ import java.util.Objects;
 import pl.lcc.listener.module.interfaces.LccEvent;
 
 /**
- *
+ * Receiver: UserService
+ * Meaning: User with given name got ban.
+ * Sender: Mod.class
  * @author Nauczyciel
  */
 

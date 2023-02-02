@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
- * Fake Controller for testing, for Removal
+ * Controller for testing, for Removal in final
  * @author piko
  */
 class dataPart {

@@ -16,7 +16,7 @@ import pl.lcc.listener.module.interfaces.DispatcherInterface;
 import pl.lcc.listener.module.interfaces.LccEventListener;
 import pl.lcc.listener.module.interfaces.LccListenerClass;
 /**
- *
+ * includes in Memory storarge
  * @author Nauczyciel
  */
 @Service
@@ -55,7 +55,7 @@ public class ModService implements VerificationService, LccEventListener<BombMod
     }
 
     @Override
-    public void removeMessage(Message msg) {
+    public void removeMessageFromModeration(Message msg) {
         System.out.println("removed " + msg.toString());  
       toDecide.remove(msg);
     }

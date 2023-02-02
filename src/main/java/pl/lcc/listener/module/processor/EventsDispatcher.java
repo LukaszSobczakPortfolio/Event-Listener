@@ -44,9 +44,10 @@ public class EventsDispatcher implements InternalDispatcherInterface{
 
     @Override
     public String getAllListenersInfo() {
-       var x = eventMapper.getStreamOfListenersDescription()
+       return eventMapper
+               .getStreamOfListenersDescription()
                .collect(Collectors.joining("\n"));                
-       return x;
+       
     }
     
     

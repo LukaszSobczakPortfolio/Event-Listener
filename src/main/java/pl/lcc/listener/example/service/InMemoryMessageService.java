@@ -17,13 +17,12 @@ import pl.lcc.listener.example.user.Message;
 import pl.lcc.listener.module.interfaces.DispatcherInterface;
 
 /**
- *
+ * includes in Memory storarge
  * @author Nauczyciel
  */
 @Slf4j
 @Component
-
-public class FakeMsgService implements MessageService {
+public class InMemoryMessageService implements MessageService {
 
     private final DispatcherInterface dispatcher;
     
@@ -33,7 +32,7 @@ public class FakeMsgService implements MessageService {
     
     private final List<Message> DEFAULT_MESSAGE_LIST = List.of(new Message(LocalDateTime.now(), "Write some messages", ""));
 
-    public FakeMsgService(DispatcherInterface dis, UserService uService) {
+    public InMemoryMessageService(DispatcherInterface dis, UserService uService) {
         dispatcher = dis;
         this.uService = uService;
         db = new HashMap<>();

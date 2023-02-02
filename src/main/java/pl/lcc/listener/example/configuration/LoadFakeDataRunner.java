@@ -15,7 +15,7 @@ import pl.lcc.listener.example.service.VerificationService;
 import pl.lcc.listener.example.user.Message;
 
 /**
- *
+ * Loads some data, for manual app testing
  * @author Nauczyciel
  */
 @Slf4j

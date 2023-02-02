@@ -6,12 +6,11 @@
 package pl.lcc.listener.module.interfaces;
 
 /**
- *
+ * Public interface of module. ONe mrthod for disptching events
  * @author piko
  */
 public interface DispatcherInterface {
 
     public void dispatch(LccEvent e);
-
-   
+    
 }

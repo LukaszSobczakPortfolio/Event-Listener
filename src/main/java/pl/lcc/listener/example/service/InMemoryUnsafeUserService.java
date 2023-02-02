@@ -10,28 +10,28 @@ import java.util.concurrent.ConcurrentHashMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import pl.lcc.listener.example.events.BanEvent;
-import pl.lcc.listener.example.user.UserCore;
+import pl.lcc.listener.example.user.UserDetails;
 import pl.lcc.listener.module.interfaces.LccEventListener;
 import pl.lcc.listener.module.interfaces.LccListenerClass;
 
 /**
- *
+ * includes in Memory storarge
  * @author Nauczyciel
  */
 @Component
 @Slf4j
 @LccListenerClass(targetEvent = BanEvent.class)
-public class FakeUserService implements UserService, LccEventListener<BanEvent>{
+public class InMemoryUnsafeUserService implements UserService, LccEventListener<BanEvent>{
 
     Map<String, String> passwords = new ConcurrentHashMap<>();
-    Map<String, UserCore> users = new ConcurrentHashMap<>();
+    Map<String, UserDetails> users = new ConcurrentHashMap<>();
     
     
     @Override
-    public Optional<UserCore> tryCreateUser(String name, String password, boolean isAdmin) {
+    public Optional<UserDetails> tryCreateUser(String name, String password, boolean isAdmin) {
         if (!hasExist(name)){        
             passwords.put(name, password);
-            UserCore user = new UserCore(name);
+            UserDetails user = new UserDetails(name);
                     user.setAdmin(isAdmin);
             users.put(name, user);
            
@@ -48,7 +48,7 @@ public class FakeUserService implements UserService, LccEventListener<BanEvent>{
     }
 
     @Override
-    public Optional<UserCore> tryGetUserCore(String name, String password) {
+    public Optional<UserDetails> tryGetUserCore(String name, String password) {
       return password.equals(passwords.get(name)) 
               ? Optional.of(users.get(name)) 
               : Optional.empty();
@@ -56,7 +56,7 @@ public class FakeUserService implements UserService, LccEventListener<BanEvent>{
     }
 
     @Override
-    public Optional<UserCore> tryCreateUser(String name, String password) {
+    public Optional<UserDetails> tryCreateUser(String name, String password) {
         return tryCreateUser(name, password, false);
     }
 

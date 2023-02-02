@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.lcc.listener.example.module.processor;
+package pl.lcc.listener.module.processor.storage;
 
 import pl.lcc.listener.utils.TestListeners;
 import pl.lcc.listener.utils.TestEvents;
-import pl.lcc.listener.module.processor.storage.EStorage;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,21 +24,16 @@ public class EStorageTest {
     EStorage store;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         store = new EStorage();
     }
 
-    @AfterEach
-    public void tearDown() {
-    }
 
     @Test
-    public void testGetAllInterfacesOne() {
+    void testGetAllInterfacesOne() {
         store.addListener(new TestListeners.CatchAllListener());
         List<LccEventListener<? extends LccEvent>> result = store
                 .getListenersForEvent(new TestEvents.EmptyEvent());
-
-        System.out.println(result);
 
         assertThat(result).as("Top LccEvent Only")
                 .hasSize(1)
@@ -47,7 +41,7 @@ public class EStorageTest {
     }
 
     @Test
-    public void testGetAllInterfacesTwo() {
+    void testGetAllInterfacesTwo() {
         store.addListener(new TestListeners.CatchAllListener());
         store.addListener(new TestListeners.CatchAllSecondListener());
         store.addListener(new TestListeners.CatchAllThirdListener());
@@ -63,7 +57,7 @@ public class EStorageTest {
     }
 
     @Test
-    public void testGetAllInterfacesNoListener() {
+    void testGetAllInterfacesNoListener() {
 
         List<LccEventListener<? extends LccEvent>> result = store
                 .getListenersForEvent(new TestEvents.EmptyEvent());
@@ -77,7 +71,7 @@ public class EStorageTest {
     }
 
     @Test
-    public void testGetAllInterfacesWrongListener() {
+    void testGetAllInterfacesWrongListener() {
         store.addListener(new TestListeners.AnimalListener());
         List<LccEventListener<? extends LccEvent>> result = store
                 .getListenersForEvent(new TestEvents.PlantEvent(2));
@@ -89,7 +83,7 @@ public class EStorageTest {
     }
 
     @Test
-    public void testGetAllInterfacesSomeListeners() {
+    void testGetAllInterfacesSomeListeners() {
         store.addListener(new TestListeners.AnimalListener());
         store.addListener(new TestListeners.AnimalListener());
         store.addListener(new TestListeners.PlantListener());
@@ -105,7 +99,7 @@ public class EStorageTest {
     }
 
     @Test
-    public void testGetAllInterfacesSomeListeners2() {
+    void testGetAllInterfacesSomeListeners2() {
         store.addListener(new TestListeners.AnimalListener());
         store.addListener(new TestListeners.AnimalListener());
         store.addListener(new TestListeners.PlantListener());
@@ -121,7 +115,7 @@ public class EStorageTest {
     }
 
     @Test
-    public void testGetAllInterfacesSomeListeners3() {
+    void testGetAllInterfacesSomeListeners3() {
         store.addListener(new TestListeners.AnimalListener());
         store.addListener(new TestListeners.CatchAllListener());
         store.addListener(new TestListeners.PlantListener());

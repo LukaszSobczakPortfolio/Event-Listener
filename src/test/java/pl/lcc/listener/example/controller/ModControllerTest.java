@@ -17,7 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import pl.lcc.listener.example.service.FakeMsgService;
+import pl.lcc.listener.example.service.InMemoryMessageService;
 import pl.lcc.listener.example.service.MessageService;
 import pl.lcc.listener.example.service.VerificationService;
 import pl.lcc.listener.example.user.Message;
@@ -67,8 +67,8 @@ public class ModControllerTest {
     public void setup() throws InterruptedException {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 
-       applicationContext.getBean(FakeMsgService.class).resetDB();
-       vService.getMessageForModeration().forEach(vService::removeMessage);
+       applicationContext.getBean(InMemoryMessageService.class).resetDB();
+       vService.getMessageForModeration().forEach(vService::removeMessageFromModeration);
        
        uService.tryCreateUser("innocent", "inno");
        uService.tryCreateUser("bomber", "bomb");

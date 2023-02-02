@@ -5,12 +5,13 @@
 package pl.lcc.listener.module.interfaces;
 
 /**
- *
+ * Functions for internal use.
+ * getAlllLIstenersInfo is for dabug mostly
  * @author Nauczyciel
  */
 public interface InternalDispatcherInterface extends DispatcherInterface{
     
-     void addListener(LccEventListener<?> listener);
+    void addListener(LccEventListener<?> listener);
 
     public String getAllListenersInfo();
     

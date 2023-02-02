@@ -7,10 +7,10 @@ package pl.lcc.listener.example.user;
 import java.util.Objects;
 
 /**
- *
+ * Value class. User name, password, privilaedges
  * @author Nauczyciel
  */
-public class UserCore {
+public class UserDetails {
 
    private String name;
    
@@ -18,7 +18,7 @@ public class UserCore {
    
    private boolean admin; 
 
-    public UserCore(String name) {
+    public UserDetails(String name) {
         this.name = name;
         banned = false;
         admin = false;
@@ -73,7 +73,7 @@ public class UserCore {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final UserCore other = (UserCore) obj;
+        final UserDetails other = (UserDetails) obj;
         if (this.banned != other.banned) {
             return false;
         }
