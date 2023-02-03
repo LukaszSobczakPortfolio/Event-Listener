@@ -40,11 +40,12 @@ public class ModController {
     }
 
     @PostMapping("/verified")
-    public String verified(@RequestParam("id") String messageTextAsId, @RequestParam("ban") Optional<Boolean> banned, Model model) {
+    public String verified(@RequestParam("id") String messageTextAsId, 
+            @RequestParam("ban") Optional<Boolean> banned, Model model) {
 
         log.info("message " + messageTextAsId + "moderated. Effect: " + banned);
 
-        if (banned.isEmpty() || banned.get() == false) {
+        if (banned.isEmpty() || !banned.get()) {
             mod.okMessage(messageTextAsId);
         } else {
             mod.itIsBomb(messageTextAsId);
