@@ -21,7 +21,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <div class="col gy-1"> Your Messages:
                     <table>
                         <tr class="border border-primary my-1" th:each="message : ${messages}">
-                            <td class="border border-primary p-1" th:text="${message.message}"></td>
+                            <td class="border border-primary p-1" th:text="${message.messageBody}"></td>
                             <td class="border border-primary m-1" th:text="${{message.createTime}}"></td>
                         </tr>
                     </table>
@@ -29,7 +29,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <div class="col gy-1" th:unless="${banned}">
                     <h1>New Message:</h1>
                     <form action="#" th:action="@{/addMessage}" th:object="${newMessage}" method="post">
-                        <p>Name: <input type="text" th:field="*{message}" /></p>       
+                        <p>Name: <input type="text" th:field="*{messageBody}" /></p>       
                         <p><input type="submit" value="Post Message" /> <input type="reset" value="Clear Message" /></p>
                     </form>
                 </div> 

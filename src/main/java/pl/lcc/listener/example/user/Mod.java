@@ -61,7 +61,7 @@ public class Mod {
     }
 
     private Message processId(String messageAsId) {
-        var targetMessage = messagesForVerification.stream().filter(m -> m.getMessage().equals(messageAsId)).findFirst().get();
+        var targetMessage = messagesForVerification.stream().filter(m -> m.getMessageBody().equals(messageAsId)).findFirst().get();
         messagesForVerification.remove(targetMessage);
         return targetMessage;
     }

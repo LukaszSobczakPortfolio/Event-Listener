@@ -86,7 +86,8 @@ public class UserController {
     @PostMapping("/addMessage")
     public String addMessage(@ModelAttribute Message msg, Model model) {
         log.info("addMessage/post on thread: " + Thread.currentThread().getName());
-        mService.addMessage(new Message(LocalDateTime.now(), msg.getMessage(), user.getName()));
+        log.info("addMessage: " + msg.toString());
+        mService.addMessage(new Message(LocalDateTime.now(), msg.getMessageBody(), user.getName()));
         prepareModerForNewMessage(model);
         return "UserPanel";
     }
