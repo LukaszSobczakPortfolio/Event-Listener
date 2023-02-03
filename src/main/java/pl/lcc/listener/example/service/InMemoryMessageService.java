@@ -72,7 +72,8 @@ public class InMemoryMessageService implements MessageService {
 
     private void autoCheckMessageService(Message msg) {
             log.info("testing for possible Illegal Bomb: " + msg.getUserName());
-            if (msg.getMessage().toLowerCase().contains("bomb")){
+            log.info("message is: " + msg.getMessageBody());
+            if (msg.getMessageBody().toLowerCase().contains("bomb")){
                 log.info("!!!!!!!!!!!BOMB!!!!!!!!!!!!! in message " + msg.toString());
                 dispatcher.dispatch(new BombModEvent(msg.getUserName(), msg));
             }

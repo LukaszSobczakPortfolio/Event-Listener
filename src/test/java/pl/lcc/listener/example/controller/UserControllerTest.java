@@ -98,7 +98,7 @@ public class UserControllerTest {
                         .param("messageBody", "Goyy you"))
                 .andExpect(view().name("UserPanel"))
                 .andExpect(model().attribute("messages", hasSize(1)))
-                .andExpect(model().attribute("message", hasProperty("message", is("Goyy you"))))
+                .andExpect(model().attribute("message", hasProperty("messageBody", is("Goyy you"))))
                 .andReturn();
 
 //        System.out.println(result2.getResponse().getContentAsString());

@@ -36,17 +36,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <li class="mx-auto" th:each="msg : ${list}">
                         <div class="row py-1 mx-auto">                            
                             <div class = "col-1 mx-auto" > 
-                                <form action="#" th:action="@{/verified(id=${msg.message})}" method="post">
+                                <form action="#" th:action="@{/verified(id=${msg.messageBody})}" method="post">
                                     <input class="btn btn-primary" type="submit" value="It is OK" />
                                 </form>
                             </div> 
                             <div class = "col-2" >
-                                <form action="#" th:action="@{/verified(id=${msg.message}, ban=true)}" method="post">
+                                <form action="#" th:action="@{/verified(id=${msg.messageBody}, ban=true)}" method="post">
                                     <input  class="btn btn-warning" type="submit" value="Ban User" />
                                 </form> 
                             </div>
                             <div class = "col">
-                                <span th:text="${msg.message}">text </span> by   <span class="fw-bold" th:text="${msg.userName}"> user</span>
+                                <span th:text="${msg.messageBody}">text </span> by   <span class="fw-bold" th:text="${msg.userName}"> user</span>
                             </div>
                         </div>
                     </li>

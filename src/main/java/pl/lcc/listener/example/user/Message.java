@@ -28,7 +28,7 @@ public class Message {
         return createTime;
     }
 
-    public String getMessage() {
+    public String getMessageBody() {
         return messageBody;
     }
 

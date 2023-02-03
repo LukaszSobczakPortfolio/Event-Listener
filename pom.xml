@@ -15,9 +15,7 @@
     <description>Example for Event</description>
 
     <properties>
-        <java.version>11</java.version>
-        <sonar.organization>lukaszsobczakportfolio</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <java.version>17</java.version>
     </properties>
 
     <dependencies>
@@ -45,7 +43,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <!--  must be on the classpath  -->
             <groupId>org.jacoco</groupId>
             <artifactId>org.jacoco.agent</artifactId>
             <classifier>runtime</classifier>
