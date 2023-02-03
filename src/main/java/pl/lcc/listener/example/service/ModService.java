@@ -26,21 +26,12 @@ import pl.lcc.listener.module.interfaces.LccListenerClass;
 @LccListenerClass(targetEvent = BombModEvent.class)
 public class ModService implements VerificationService {
 
-  //  private final DispatcherInterface dispatcher;
-
     private final Queue<Message> toDecide;
 
     public ModService(DispatcherInterface dispatcher) {
 
-     //   this.dispatcher = dispatcher;
         toDecide = new ConcurrentLinkedQueue<>();
     }
-
-//    @Override
-//    @Deprecated(since = "for Command Line Runner . Load Fake Data")
-//    public void banUser(String name) {
-//        dispatcher.dispatch(new BanEvent(name));
-//    }
 
     @Override
     public String getInfo() {
