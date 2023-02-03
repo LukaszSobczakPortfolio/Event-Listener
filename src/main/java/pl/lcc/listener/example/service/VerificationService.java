@@ -20,6 +20,4 @@ public interface VerificationService extends LccEventListener<BombModEvent>{
     
     void removeMessageFromModeration(Message msg);
     
-    void banUser(String name);
-    
 }
