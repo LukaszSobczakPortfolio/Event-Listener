@@ -31,8 +31,7 @@ class LccPostProcessor implements ILccPostProcessor {
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
    
-        if (bean instanceof LccEventListener){
-            var listener = (LccEventListener) bean;
+        if (bean instanceof LccEventListener listener){
             storage.addListener(listener);
             log.info("lcc post processor - listener: " + bean.getClass().toGenericString());
         }
