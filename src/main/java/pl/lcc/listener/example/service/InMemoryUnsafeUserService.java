@@ -36,7 +36,7 @@ public class InMemoryUnsafeUserService implements UserService, LccEventListener<
             users.put(name, user);
            
             return Optional.of(user);
-        } else{
+        } else {
            return Optional.empty();
         }
         
