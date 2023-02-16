@@ -54,9 +54,9 @@ public class UserController {
         log.info(udto.toString());
         Optional<UserDetails> core;
         if (udto.isCreate() || udto.isAdmin()) {
-            core = uService.tryCreateUser(udto.name, udto.password, udto.isAdmin());
+            core = uService.tryCreateUser(udto.username, udto.password, udto.isAdmin());
         } else {
-            core = uService.tryGetUserCore(udto.name, udto.password);
+            core = uService.tryGetUserCore(udto.username, udto.password);
         }
         
         if (core.isEmpty()) {
@@ -70,7 +70,7 @@ public class UserController {
     }
 
     private String repeatLogin(UDTO udto, Model model) {
-        model.addAttribute("udto", new UDTO().setName(udto.getName()));
+        model.addAttribute("udto", new UDTO().setUsername(udto.getUsername()));
         return "Login";
     }
     
@@ -105,17 +105,17 @@ public class UserController {
 //User DTO for catching data from login form
 class UDTO {
 
-    String name;
+    String username;
     String password;
     boolean admin = false;
     boolean create = false;
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public UDTO setName(String name) {
-        this.name = name;
+    public UDTO setUsername(String name) {
+        this.username = name;
         return this;
     }
 
@@ -148,7 +148,7 @@ class UDTO {
 
     @Override
     public String toString() {
-        return "UDTO{" + "name=" + name + ", password=" + password + ", admin=" + admin + ", create=" + create + '}';
+        return "UDTO{" + "name=" + username + ", password=" + password + ", admin=" + admin + ", create=" + create + '}';
     }
 
 }
