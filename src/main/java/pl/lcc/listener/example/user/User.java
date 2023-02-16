@@ -16,13 +16,13 @@ import org.springframework.web.context.annotation.SessionScope;
 @SessionScope
 public class User{
     
-    UserDetails core;
+    SecuredUserDetails core;
 
     public User() {
         log.info("new User");
     } 
     
-    public User setCore (UserDetails core){
+    public User setCore (SecuredUserDetails core){
         this.core = core;
         return this;
     }

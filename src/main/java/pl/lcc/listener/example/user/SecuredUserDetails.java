@@ -10,7 +10,7 @@ import java.util.Objects;
  * Value class. User name, password, privilaedges
  * @author Nauczyciel
  */
-public class UserDetails {
+public class SecuredUserDetails {
 
    private String name;
    
@@ -18,7 +18,7 @@ public class UserDetails {
    
    private boolean admin; 
 
-    public UserDetails(String name) {
+    public SecuredUserDetails(String name) {
         this.name = name;
         banned = false;
         admin = false;
@@ -73,7 +73,7 @@ public class UserDetails {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final UserDetails other = (UserDetails) obj;
+        final SecuredUserDetails other = (SecuredUserDetails) obj;
         if (this.banned != other.banned) {
             return false;
         }

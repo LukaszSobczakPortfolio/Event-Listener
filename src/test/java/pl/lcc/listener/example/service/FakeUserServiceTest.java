@@ -6,7 +6,7 @@ package pl.lcc.listener.example.service;
 
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
-import pl.lcc.listener.example.user.UserDetails;
+import pl.lcc.listener.example.user.SecuredUserDetails;
 
 /**
  *
@@ -22,7 +22,7 @@ public class FakeUserServiceTest {
         
        var result = service.tryCreateUser("kilo", "kolo");
         
-       assertThat(result.get()).isEqualTo(new UserDetails("kilo"));
+       assertThat(result.get()).isEqualTo(new SecuredUserDetails("kilo"));
     }
     
     @Test
@@ -44,6 +44,6 @@ public class FakeUserServiceTest {
        assertThat(service.tryGetUserCore("wrong", "kolo")).isEmpty();
        assertThat(service.tryGetUserCore("kilo", "wrong")).isEmpty();
        assertThat(service.tryGetUserCore("wrong", "wrong")).isEmpty();
-       assertThat(service.tryGetUserCore("kilo", "kolo").get()).isEqualTo(new UserDetails("kilo"));
+       assertThat(service.tryGetUserCore("kilo", "kolo").get()).isEqualTo(new SecuredUserDetails("kilo"));
     }
 }

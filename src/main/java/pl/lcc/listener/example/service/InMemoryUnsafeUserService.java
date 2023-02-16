@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import pl.lcc.listener.example.events.BanEvent;
-import pl.lcc.listener.example.user.UserDetails;
+import pl.lcc.listener.example.user.SecuredUserDetails;
 import pl.lcc.listener.module.interfaces.LccEventListener;
 import pl.lcc.listener.module.interfaces.LccListenerClass;
 
@@ -24,14 +24,14 @@ import pl.lcc.listener.module.interfaces.LccListenerClass;
 public class InMemoryUnsafeUserService implements UserService, LccEventListener<BanEvent>{
 
     Map<String, String> passwords = new ConcurrentHashMap<>();
-    Map<String, UserDetails> users = new ConcurrentHashMap<>();
+    Map<String, SecuredUserDetails> users = new ConcurrentHashMap<>();
     
     
     @Override
-    public Optional<UserDetails> tryCreateUser(String name, String password, boolean isAdmin) {
+    public Optional<SecuredUserDetails> tryCreateUser(String name, String password, boolean isAdmin) {
         if (!hasExist(name)){        
             passwords.put(name, password);
-            UserDetails user = new UserDetails(name);
+            SecuredUserDetails user = new SecuredUserDetails(name);
                     user.setAdmin(isAdmin);
             users.put(name, user);
            
@@ -48,7 +48,7 @@ public class InMemoryUnsafeUserService implements UserService, LccEventListener<
     }
 
     @Override
-    public Optional<UserDetails> tryGetUserCore(String name, String password) {
+    public Optional<SecuredUserDetails> tryGetUserCore(String name, String password) {
       return password.equals(passwords.get(name)) 
               ? Optional.of(users.get(name)) 
               : Optional.empty();
@@ -56,7 +56,7 @@ public class InMemoryUnsafeUserService implements UserService, LccEventListener<
     }
 
     @Override
-    public Optional<UserDetails> tryCreateUser(String name, String password) {
+    public Optional<SecuredUserDetails> tryCreateUser(String name, String password) {
         return tryCreateUser(name, password, false);
     }
 

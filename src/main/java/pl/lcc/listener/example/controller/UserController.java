@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import pl.lcc.listener.example.service.UserService;
 import pl.lcc.listener.example.user.Message;
 import pl.lcc.listener.example.user.User;
-import pl.lcc.listener.example.user.UserDetails;
+import pl.lcc.listener.example.user.SecuredUserDetails;
 
 /**
  * Login and user (not mod) interactions
@@ -52,7 +52,7 @@ public class UserController {
     public String greetingSubmit(@ModelAttribute("udto") UDTO udto, Model model) {
         log.info("login/post on thread:" + Thread.currentThread().getName());
         log.info(udto.toString());
-        Optional<UserDetails> core;
+        Optional<SecuredUserDetails> core;
         if (udto.isCreate() || udto.isAdmin()) {
             core = uService.tryCreateUser(udto.username, udto.password, udto.isAdmin());
         } else {
