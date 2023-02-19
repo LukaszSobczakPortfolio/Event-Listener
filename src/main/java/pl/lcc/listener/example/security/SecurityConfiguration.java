@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package pl.lcc.listener.example.configuration;
+package pl.lcc.listener.example.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -46,7 +48,7 @@ public class SecurityConfiguration {
 		return http.build();
 	}
         
-        @Bean
+       
 	public UserDetailsService userDetailsService() {
                 System.out.println("User Details Service!!!!");
 		UserDetails user =
@@ -58,5 +60,10 @@ public class SecurityConfiguration {
 
 		return new InMemoryUserDetailsManager(user);
 	}
+        
+        @Bean
+        PasswordEncoder encoder(){
+            return NoOpPasswordEncoder.getInstance();
+        }
     
 }
