@@ -10,7 +10,25 @@ import org.springframework.security.core.GrantedAuthority;
  *
  * @author Nauczyciel
  */
-public class Authorities {
+public class Authority {
+    
+    private static GrantedAuthority user;
+    private static GrantedAuthority mod;
+    
+    public static GrantedAuthority user(){
+        if (user == null){
+            user = new User();
+        }
+        return user;
+    }
+    
+     public static GrantedAuthority mod(){
+        if (mod == null){
+            mod = new Mod();
+        }
+        return mod;
+    }
+    
     
     public static class User implements GrantedAuthority{
 

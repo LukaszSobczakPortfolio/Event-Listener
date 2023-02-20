@@ -24,7 +24,7 @@ public class UserManegementService implements UserDetailsService, UserDetailsMan
     public UserManegementService() {
         System.out.println("--- created UMS ---");
         users = new ConcurrentHashMap<>();
-        users.put("test", new SecuredUser("test", "pass"));
+        createUser(new SecuredUser("test", "pass"));
     }
 
     @Override

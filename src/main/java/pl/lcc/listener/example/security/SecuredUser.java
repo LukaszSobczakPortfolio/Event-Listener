@@ -5,8 +5,10 @@
 package pl.lcc.listener.example.security;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +22,7 @@ public class SecuredUser implements UserDetails, Cloneable {
 
     String userName;
     String password;
-    List<GrantedAuthority> auths;
+    Set<GrantedAuthority> auths;
     boolean nonLocked;
 
     public SecuredUser(String userName, String password) {
@@ -28,12 +30,12 @@ public class SecuredUser implements UserDetails, Cloneable {
         this.userName = userName;
         this.password = password;
         nonLocked = true;
-        auths = new LinkedList<>();
-        auths.add(new Authorities.User());
+        auths = new HashSet<>();
+        auths.add(new Authority.User());
     }
 
     public SecuredUser setAuthorities(List<GrantedAuthority> auths) {
-        this.auths = auths;
+        this.auths.addAll(auths);
         return this;
     }
 
@@ -44,7 +46,7 @@ public class SecuredUser implements UserDetails, Cloneable {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return auths;
+        return new LinkedList(auths);
     }
 
     @Override
@@ -81,7 +83,7 @@ public class SecuredUser implements UserDetails, Cloneable {
     public SecuredUser clone() {
         try {
            var clone = (SecuredUser) super.clone();
-           clone.setAuthorities(new LinkedList(clone.getAuthorities()));
+           clone.auths = new HashSet<>(clone.getAuthorities());
            return clone; }
         catch (CloneNotSupportedException ex){
             log.info("clone Faile for SecuredUser " + userName);

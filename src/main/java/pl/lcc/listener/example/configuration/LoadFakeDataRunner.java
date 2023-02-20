@@ -5,13 +5,16 @@
 package pl.lcc.listener.example.configuration;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import pl.lcc.listener.example.events.BanEvent;
+import pl.lcc.listener.example.security.Authority;
+import pl.lcc.listener.example.security.SecuredUser;
+import pl.lcc.listener.example.security.UserManegementService;
 import pl.lcc.listener.example.service.MessageService;
-import pl.lcc.listener.example.service.UserService;
 import pl.lcc.listener.example.service.VerificationService;
 import pl.lcc.listener.example.user.Message;
 import pl.lcc.listener.module.interfaces.DispatcherInterface;
@@ -27,14 +30,14 @@ public class LoadFakeDataRunner implements CommandLineRunner {
 
     private final MessageService messageService;
     private final VerificationService modService;
-    private final UserService uService;
+    private final UserManegementService uService;
     private final DispatcherInterface dispatcher;
     
-    public LoadFakeDataRunner(MessageService userService, VerificationService modService, UserService uService, DispatcherInterface dispatcher) {
+    public LoadFakeDataRunner(MessageService userService, VerificationService modService, UserManegementService uService, DispatcherInterface dispatcher) {
         this.messageService = userService;
         this.modService = modService;
         this.uService = uService;
-         this.dispatcher = dispatcher;
+        this.dispatcher = dispatcher;
     }
 
     @Override
@@ -42,10 +45,13 @@ public class LoadFakeDataRunner implements CommandLineRunner {
         
         log.info("Fake Data Runner Supplied database");
         
-        uService.tryCreateUser("test", "pass");
-        uService.tryCreateUser("enthalpy", "entropy");
-        uService.tryCreateUser("bomber-man", "bomb");
-        uService.tryCreateUser("admin", "admin",true);
+        var userAuthority = List.of(Authority.user());
+        var modAuthority = List.of(Authority.user(), Authority.mod());
+        
+        uService.createUser(new SecuredUser("test", "pass").setAuthorities(userAuthority));
+        uService.createUser(new SecuredUser("enthalpy", "entropy").setAuthorities(userAuthority));
+        uService.createUser(new SecuredUser("bomber-man", "bomb").setAuthorities(userAuthority));
+        uService.createUser(new SecuredUser("admin", "admin").setAuthorities(modAuthority));
         
         messageService
                 .addMessage(new Message(LocalDateTime.MIN, "Minimum minimorum", "test"))
@@ -53,7 +59,7 @@ public class LoadFakeDataRunner implements CommandLineRunner {
                 .addMessage(new Message(LocalDateTime.now(), "This is calorimetric bomb!", "enthalpy"))
                 .addMessage(new Message(LocalDateTime.now(), "I made a Bomb!", "bomber-man"));
         
-        dispatcher.dispatch(new BanEvent("bomber-man"));
+    //TODO    dispatcher.dispatch(new BanEvent("bomber-man"));
     }
 
 }
