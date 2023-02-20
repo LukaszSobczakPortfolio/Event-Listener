@@ -10,42 +10,78 @@ import org.springframework.security.core.GrantedAuthority;
  *
  * @author Nauczyciel
  */
-public class Authority {
+public enum Authority implements GrantedAuthority{
     
-    private static GrantedAuthority user;
-    private static GrantedAuthority mod;
+    USER("role-user"),
+    MOD("role-mod");
     
-    public static GrantedAuthority user(){
-        if (user == null){
-            user = new User();
-        }
-        return user;
-    }
-    
-     public static GrantedAuthority mod(){
-        if (mod == null){
-            mod = new Mod();
-        }
-        return mod;
-    }
+    String role;
     
     
-    public static class User implements GrantedAuthority{
+    
+//    
+//    private static GrantedAuthority user;
+//    private static GrantedAuthority mod;
+//    
+//    public static GrantedAuthority user(){
+//        if (user == null){
+//            user = new User();
+//        }
+//        return user;
+//    }
+//    
+//     public static GrantedAuthority mod(){
+//        if (mod == null){
+//            mod = new Mod();
+//        }
+//        return mod;
+//    }
+//    
+//    
+//    public static class User implements GrantedAuthority{
+//
+//        @Override
+//        public String getAuthority() {
+//            return "User_Role";
+//        }
+//
+//        @Override
+//        public String toString() {
+//            return "User{" +  '}';
+//        }
+//        
+//    }
+//    
+//    public static class Mod implements GrantedAuthority{
+//
+//        @Override
+//        public String getAuthority() {
+//            return "User_Mod";
+//        }
+//
+//        @Override
+//        public String toString() {
+//            return "Mod{" + '}';
+//        }
+//        
+//        
 
-        @Override
-        public String getAuthority() {
-            return "User_Role";
-        }
+    private Authority(String role) {
+        this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "Authority{" + "role=" + role + '}';
+    }
+
+    @Override
+    public String getAuthority() {
+        return role;
+    }
+    
+    
         
     }
     
-    public static class Mod implements GrantedAuthority{
 
-        @Override
-        public String getAuthority() {
-            return "User_Mod";
-        }
-        
-    }
-    
-}

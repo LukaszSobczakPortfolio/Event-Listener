@@ -31,7 +31,6 @@ public class SecuredUser implements UserDetails, Cloneable {
         this.password = password;
         nonLocked = true;
         auths = new HashSet<>();
-        auths.add(new Authority.User());
     }
 
     public SecuredUser setAuthorities(List<GrantedAuthority> auths) {

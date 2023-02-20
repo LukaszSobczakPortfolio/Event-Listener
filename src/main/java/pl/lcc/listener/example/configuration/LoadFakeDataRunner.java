@@ -9,6 +9,7 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 import pl.lcc.listener.example.events.BanEvent;
 import pl.lcc.listener.example.security.Authority;
@@ -21,6 +22,7 @@ import pl.lcc.listener.module.interfaces.DispatcherInterface;
 
 /**
  * Loads some data, for manual app testing
+ *
  * @author Nauczyciel
  */
 @Slf4j
@@ -32,7 +34,7 @@ public class LoadFakeDataRunner implements CommandLineRunner {
     private final VerificationService modService;
     private final UserManegementService uService;
     private final DispatcherInterface dispatcher;
-    
+
     public LoadFakeDataRunner(MessageService userService, VerificationService modService, UserManegementService uService, DispatcherInterface dispatcher) {
         this.messageService = userService;
         this.modService = modService;
@@ -42,24 +44,24 @@ public class LoadFakeDataRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        
+
         log.info("Fake Data Runner Supplied database");
-        
-        var userAuthority = List.of(Authority.user());
-        var modAuthority = List.of(Authority.user(), Authority.mod());
-        
+
+        List<GrantedAuthority> userAuthority = List.of(Authority.USER);
+        List<GrantedAuthority> modAuthority = List.of(Authority.USER, Authority.MOD);
+
         uService.createUser(new SecuredUser("test", "pass").setAuthorities(userAuthority));
         uService.createUser(new SecuredUser("enthalpy", "entropy").setAuthorities(userAuthority));
         uService.createUser(new SecuredUser("bomber-man", "bomb").setAuthorities(userAuthority));
         uService.createUser(new SecuredUser("admin", "admin").setAuthorities(modAuthority));
-        
+
         messageService
                 .addMessage(new Message(LocalDateTime.MIN, "Minimum minimorum", "test"))
                 .addMessage(new Message(LocalDateTime.now(), "Tester created", "test"))
                 .addMessage(new Message(LocalDateTime.now(), "This is calorimetric bomb!", "enthalpy"))
                 .addMessage(new Message(LocalDateTime.now(), "I made a Bomb!", "bomber-man"));
-        
-    //TODO    dispatcher.dispatch(new BanEvent("bomber-man"));
+
+        dispatcher.dispatch(new BanEvent("bomber-man"));
     }
 
 }

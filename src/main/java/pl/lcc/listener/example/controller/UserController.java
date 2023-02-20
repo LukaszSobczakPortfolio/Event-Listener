@@ -6,7 +6,6 @@ package pl.lcc.listener.example.controller;
 
 import pl.lcc.listener.example.service.MessageService;
 import java.time.LocalDateTime;
-import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,10 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.lcc.listener.example.service.UserService;
 import pl.lcc.listener.example.user.Message;
 import pl.lcc.listener.example.user.User;
-import pl.lcc.listener.example.user.SecuredUserDetails;
 
 /**
  * Login and user (not mod) interactions
@@ -32,45 +29,15 @@ public class UserController {
 
     private final MessageService mService;
 
-    private final UserService uService;
-
-    public UserController(MessageService mService, UserService uService) {
+    public UserController(MessageService mService) {
         log.info("WebController Constructor");
         this.mService = mService;
-        this.uService = uService;
     }
 
     //Display Login Screen
     @GetMapping("/login")
     public String index(@ModelAttribute("udto") UDTO udto, Model model) {
         log.info("login/get on thread: " + Thread.currentThread().getName());
-        return "Login";
-    }
-
-    //can be 1) login action, 2) create new user, 3) create new Admin 
-    @PostMapping("/login")
-    public String greetingSubmit(@ModelAttribute("udto") UDTO udto, Model model) {
-        log.info("login/post on thread:" + Thread.currentThread().getName());
-        log.info(udto.toString());
-        Optional<SecuredUserDetails> core;
-        if (udto.isCreate() || udto.isAdmin()) {
-            core = uService.tryCreateUser(udto.username, udto.password, udto.isAdmin());
-        } else {
-            core = uService.tryGetUserCore(udto.username, udto.password);
-        }
-        
-        if (core.isEmpty()) {
-            return repeatLogin(udto, model);
-        } else {
-            user.setCore(core.get());
-            prepareModerForNewMessage(model);
-            return "redirect:/addMessage";
-        }
-
-    }
-
-    private String repeatLogin(UDTO udto, Model model) {
-        model.addAttribute("udto", new UDTO().setUsername(udto.getUsername()));
         return "Login";
     }
     
