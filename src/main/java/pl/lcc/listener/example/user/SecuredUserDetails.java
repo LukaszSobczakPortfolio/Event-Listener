@@ -73,7 +73,7 @@ public class SecuredUserDetails {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final SecuredUserDetails other = (SecuredUserDetails) obj;
+        SecuredUserDetails other = (SecuredUserDetails) obj;
         if (this.banned != other.banned) {
             return false;
         }

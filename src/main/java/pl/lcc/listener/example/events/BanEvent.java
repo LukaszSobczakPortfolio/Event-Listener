@@ -44,7 +44,7 @@ public class BanEvent implements LccEvent{
         if (getClass() != other.getClass()) {
             return false;
         }
-        final BanEvent otherBanEvent = (BanEvent) other;
+        BanEvent otherBanEvent = (BanEvent) other;
         return Objects.equals(this.name, otherBanEvent.name);
     }
     

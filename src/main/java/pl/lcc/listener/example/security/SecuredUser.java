@@ -7,6 +7,7 @@ package pl.lcc.listener.example.security;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,7 +15,8 @@ import org.springframework.security.core.userdetails.UserDetails;
  *
  * @author Nauczyciel
  */
-public class SecuredUser implements UserDetails {
+@Slf4j
+public class SecuredUser implements UserDetails, Cloneable {
 
     String userName;
     String password;
@@ -75,4 +77,15 @@ public class SecuredUser implements UserDetails {
         return true;
     }
 
+    @Override
+    public SecuredUser clone() {
+        try {
+           var clone = (SecuredUser) super.clone();
+           clone.setAuthorities(new LinkedList(clone.getAuthorities()));
+           return clone; }
+        catch (CloneNotSupportedException ex){
+            log.info("clone Faile for SecuredUser " + userName);
+            throw new RuntimeException("Should definitely not happen. clone Faile for SecuredUser " + userName);
+        }
+    }
 }

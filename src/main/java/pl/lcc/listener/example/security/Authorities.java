@@ -12,7 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
  */
 public class Authorities {
     
-    static public class User implements GrantedAuthority{
+    public static class User implements GrantedAuthority{
 
         @Override
         public String getAuthority() {
@@ -21,7 +21,7 @@ public class Authorities {
         
     }
     
-    static public class Mod implements GrantedAuthority{
+    public static class Mod implements GrantedAuthority{
 
         @Override
         public String getAuthority() {
