@@ -5,8 +5,11 @@
 package pl.lcc.listener.example.user;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
+import pl.lcc.listener.example.security.Authority;
 /**
  * stores data required to display UserPanel
  * @author Nauczyciel
@@ -16,45 +19,35 @@ import org.springframework.web.context.annotation.SessionScope;
 @SessionScope
 public class User{
     
-    SecuredUserDetails core;
+    Authentication auth;
 
     public User() {
-        log.info("new User");
+        log.info("new User");  
+        
+        this.auth = SecurityContextHolder
+            .getContext()
+            .getAuthentication();
+        
+        System.out.println(auth);
+        System.out.println(auth.getName());
     } 
     
-    public User setCore (SecuredUserDetails core){
-        this.core = core;
-        return this;
-    }
-    
     public String getName() {
-        return core.getName();
+        return auth.getName();
     }
-
-    public void setName(String name) {
-        throw new UnsupportedOperationException("to do");    }
-
-        
     
     @Override
     public String toString() {
         return "User{" + "name=" + getName() + '}';
     }
 
+    //TODO
     public boolean isFlagged() {
-        return core.isBanned();
-    }
-    
-    public void setFlagged(boolean flagged) {
-         throw new UnsupportedOperationException("to do");
+        return false;
     }
 
      public boolean isAdmin() {
-        return core.isAdmin();
-    }
-    
-    public void setAdmin(boolean admin) {
-         throw new UnsupportedOperationException("to do");
+        return auth.getAuthorities().contains(Authority.MOD);
     }
     
 }

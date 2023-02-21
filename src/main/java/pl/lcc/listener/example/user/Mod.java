@@ -5,6 +5,8 @@
 package pl.lcc.listener.example.user;
 
 import java.util.List;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 import pl.lcc.listener.example.events.BanEvent;
@@ -13,6 +15,7 @@ import pl.lcc.listener.module.interfaces.DispatcherInterface;
 
 /**
  * stores data required to display UserPanel
+ *
  * @author Nauczyciel
  */
 @Component
@@ -23,12 +26,14 @@ public class Mod {
 
     private List<Message> messagesForVerification;
 
-    private String name;
+    Authentication auth;
 
     private final DispatcherInterface dispatcher;
 
     public Mod(VerificationService service, DispatcherInterface dispatcher) {
-        name = "mod";
+       this.auth = SecurityContextHolder
+            .getContext()
+            .getAuthentication();
         this.service = service;
         this.dispatcher = dispatcher;
         messagesForVerification = service.getMessageForModeration();
@@ -36,7 +41,7 @@ public class Mod {
 
     @Override
     public String toString() {
-        return name + " :message: " + messagesForVerification.toString();
+        return auth.getName() + " :message: " + messagesForVerification.toString();
     }
 
     public boolean okMessage(Message msg) {
@@ -70,12 +75,8 @@ public class Mod {
         return messagesForVerification;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getName() {
-        return name;
+        return auth.getName();
     }
 
     public void setMessageForVerification(List<Message> messageForVerification) {
