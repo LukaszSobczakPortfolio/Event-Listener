@@ -6,6 +6,7 @@ package pl.lcc.listener.example.security;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,20 +17,21 @@ import org.springframework.stereotype.Component;
  *
  * @author Nauczyciel
  */
+@Slf4j
 @Component
 public class UserManegementService implements UserDetailsService, UserDetailsManager {
 
     Map<String, UserDetails> users;
 
     public UserManegementService() {
-        System.out.println("--- created UMS ---");
+        log.info("--- created UMS ---");
         users = new ConcurrentHashMap<>();
         createUser(new SecuredUser("test", "pass"));
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("--- try to load User: " + username + "---");
+        log.info("--- try to load User: " + username + "---");
 
         if (users.containsKey(username)) {
             return ((SecuredUser) users.get(username)).clone();

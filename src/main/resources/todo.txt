@@ -10,11 +10,19 @@
 
 (X) Fix Listener Structure
 
+(x) Fix Component Scan (scan one configuration file in EExampleApplication)
+
 Fix Listener tests Structure
 
-Project Description
+Project Description (Mermaid)
 
-(x) Fix Component Scan (scan one configuration file in EExampleApplication)
+Messages for login
+
+add Warning - as pre-ban
+
+logout
+
+Make new User
 
 
 

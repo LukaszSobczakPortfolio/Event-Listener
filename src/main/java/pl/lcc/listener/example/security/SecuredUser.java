@@ -20,13 +20,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Slf4j
 public class SecuredUser implements UserDetails, Cloneable {
 
-    String userName;
-    String password;
-    Set<GrantedAuthority> auths;
-    boolean nonLocked;
+    private String userName;
+    private String password;
+    private Set<GrantedAuthority> auths;
+    private boolean nonLocked;
 
     public SecuredUser(String userName, String password) {
-        System.out.println("SU -> create " + userName);
+        log.info("SU -> create " + userName);
         this.userName = userName;
         this.password = password;
         nonLocked = true;
@@ -45,7 +45,7 @@ public class SecuredUser implements UserDetails, Cloneable {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new LinkedList(auths);
+        return new LinkedList<>(auths);
     }
 
     @Override
