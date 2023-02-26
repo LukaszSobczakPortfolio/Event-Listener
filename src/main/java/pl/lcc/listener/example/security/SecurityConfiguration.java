@@ -4,6 +4,7 @@
  */
 package pl.lcc.listener.example.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,19 +25,37 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests((requests) -> requests
-                    .antMatchers("/login*")
-                        .permitAll()
-                .anyRequest().authenticated())
-                .formLogin((form) -> form
-                          .loginPage("/login")
-                          .permitAll()
-                )
-                .logout((logout) -> logout.permitAll());
+    @Autowired
+    LoginFailureHandler loginFailureHandler;
 
+    @Autowired
+    LoggingLogoutHandler loggingLogoutHandler;
+
+    @Bean
+    public SecurityFilterChain securityFilterChain2(HttpSecurity http) throws Exception {
+
+        http
+                .authorizeRequests()
+                    .antMatchers("/login").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
+                .formLogin()
+                    .loginPage("/login")
+                    .failureHandler(loginFailureHandler)
+                    .and()
+                .logout()
+                    .invalidateHttpSession(true)
+                    .deleteCookies("JSESSIONID")
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login?logout")
+                    .addLogoutHandler(loggingLogoutHandler)
+                    .permitAll()
+                    .and()
+                .exceptionHandling()
+                    .accessDeniedPage("/403")
+                    .and()
+                .sessionManagement()
+                    .invalidSessionUrl("/login?expired");
         return http.build();
     }
 

@@ -52,7 +52,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     </li>
                 </ul>
                 <div class="text-center mx-auto">
-                    <a  href="/login"> <button class="btn btn-dark">  Logout </button>  </a>
+                    <form th:action="@{/logout}" method="post">
+                        <input class="btn btn-dark" type="submit" value="Logout" />
+                    </form>
+
                 </div>
 
             </div>

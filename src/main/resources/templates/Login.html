@@ -12,6 +12,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </head>
     <body>
         <h2 class="text-center my-4" >Login please</h2>
+        <div th:if="${param.error}" class="alert alert-danger" th:text="${session.errorMessage}"></div>
+        <div th:if="${param.logout}" class="alert alert-danger" th:text="'Thank you for using The Perfect App'"></div>
         <form action="#" th:action="@{/login}" th:object="${udto}" method="post">
             <div class="row justify-content-center">
                 <div class="col-3">
