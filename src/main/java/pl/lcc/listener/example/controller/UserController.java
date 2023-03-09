@@ -41,6 +41,13 @@ public class UserController {
         return "Login";
     }
     
+    @PostMapping("/createuser")
+    public String createUser(@ModelAttribute("udto") UDTO udto, Model model){
+        log.info("login/get on thread: " + Thread.currentThread().getName());
+        System.out.println("Create user - udto: " + udto);
+        return "Login";
+    }
+    
     //display user panel
     @GetMapping("/addMessage")
     public String showUserPanel(@ModelAttribute Message msg, Model model) {

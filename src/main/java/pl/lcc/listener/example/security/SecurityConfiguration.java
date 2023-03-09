@@ -9,13 +9,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  *
@@ -30,7 +28,8 @@ public class SecurityConfiguration {
 
     @Autowired
     LoggingLogoutHandler loggingLogoutHandler;
-
+    
+    
     @Bean
     public SecurityFilterChain securityFilterChain2(HttpSecurity http) throws Exception {
 
@@ -55,7 +54,12 @@ public class SecurityConfiguration {
                     .accessDeniedPage("/403")
                     .and()
                 .sessionManagement()
-                    .invalidSessionUrl("/login?expired");
+                    .invalidSessionUrl("/login?expired")
+                .and()
+                .addFilterBefore(new LoggingFilter(), ChannelProcessingFilter.class);
+               
+                    
+
         return http.build();
     }
 
