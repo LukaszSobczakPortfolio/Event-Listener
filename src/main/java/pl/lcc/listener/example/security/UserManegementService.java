@@ -26,7 +26,6 @@ public class UserManegementService implements UserDetailsService, UserDetailsMan
     public UserManegementService() {
         log.info("--- created UMS ---");
         users = new ConcurrentHashMap<>();
-        createUser(new SecuredUser("test", "pass"));
     }
 
     @Override
@@ -42,7 +41,11 @@ public class UserManegementService implements UserDetailsService, UserDetailsMan
 
     @Override
     public void createUser(UserDetails user) {
-        users.put(user.getUsername(), user);
+        if (userExists(user.getUsername())) {
+            throw new IllegalArgumentException("User Already Exist");
+        } else {
+            users.put(user.getUsername(), user);
+        }
     }
 
     @Override

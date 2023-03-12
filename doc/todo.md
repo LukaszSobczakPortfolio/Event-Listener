@@ -7,6 +7,7 @@
     - [ ] Make new User
     - [x] authentication
     - [ ] authorisation
+        - [ ] migrate enpoint to \user\* , \mod\*
   - [x] Messages for login
   - [x] Fix Listener Structure
   - [x] Fix Component Scan (scan one configuration file in EExampleApplication)

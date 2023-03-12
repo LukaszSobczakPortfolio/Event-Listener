@@ -41,11 +41,18 @@ public class UserController {
         return "Login";
     }
     
-    @PostMapping("/createuser")
+    @PostMapping("/create")
     public String createUser(@ModelAttribute("udto") UDTO udto, Model model){
-        log.info("login/get on thread: " + Thread.currentThread().getName());
-        System.out.println("Create user - udto: " + udto);
-        return "Login";
+        log.info("create/post on thread: " + Thread.currentThread().getName());
+        System.out.println("Post Create user - udto: " + udto);
+        return "Create";
+    }
+    
+    @GetMapping("/create")
+    public String createUserPanel( @ModelAttribute("udto") UDTO udto, Model model){
+        log.info("create/get on thread: " + Thread.currentThread().getName());
+        System.out.println("Get Create user - udto: " + udto);
+        return "Create";
     }
     
     //display user panel
@@ -76,53 +83,4 @@ public class UserController {
                 .addAttribute("newMessage", new Message(null, null, user.getName()));
     }
 }
-//User DTO for catching data from login form
-class UDTO {
 
-    String username;
-    String password;
-    boolean admin = false;
-    boolean create = false;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public UDTO setUsername(String name) {
-        this.username = name;
-        return this;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public UDTO setPassword(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public boolean isAdmin() {
-        return admin;
-    }
-
-    public UDTO setAdmin(boolean admin) {
-        this.admin = admin;
-        return this;
-    }
-
-    public boolean isCreate() {
-        return create;
-    }
-
-    public UDTO setCreate(boolean create) {
-        this.create = create;
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return "UDTO{" + "name=" + username + ", password=" + password + ", admin=" + admin + ", create=" + create + '}';
-    }
-
-}

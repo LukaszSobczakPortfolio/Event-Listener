@@ -7,6 +7,7 @@ package pl.lcc.listener.example.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -36,6 +37,9 @@ public class SecurityConfiguration {
         http
                 .authorizeRequests()
                     .antMatchers("/login").permitAll()
+                    .antMatchers("/create").permitAll()
+                    .mvcMatchers("/mod").hasAuthority(Authority.MOD.getAuthority())
+                    .mvcMatchers("/verified").hasAuthority(Authority.MOD.getAuthority())
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
