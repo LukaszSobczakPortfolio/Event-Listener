@@ -6,7 +6,7 @@ package pl.lcc.listener.example.controller;
 
 //User DTO for catching data from login form
 
-class UDTO {
+public class UDTO {
 
     String username;
     String password;

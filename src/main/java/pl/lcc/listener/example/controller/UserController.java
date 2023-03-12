@@ -34,26 +34,7 @@ public class UserController {
         this.mService = mService;
     }
 
-    //Display Login Screen
-    @GetMapping("/login")
-    public String index(@ModelAttribute("udto") UDTO udto, Model model) {
-        log.info("login/get on thread: " + Thread.currentThread().getName());
-        return "Login";
-    }
     
-    @PostMapping("/create")
-    public String createUser(@ModelAttribute("udto") UDTO udto, Model model){
-        log.info("create/post on thread: " + Thread.currentThread().getName());
-        System.out.println("Post Create user - udto: " + udto);
-        return "Create";
-    }
-    
-    @GetMapping("/create")
-    public String createUserPanel( @ModelAttribute("udto") UDTO udto, Model model){
-        log.info("create/get on thread: " + Thread.currentThread().getName());
-        System.out.println("Get Create user - udto: " + udto);
-        return "Create";
-    }
     
     //display user panel
     @GetMapping("/addMessage")

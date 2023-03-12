@@ -13,6 +13,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <body>
          <form action="#" th:action="@{/create}" th:object="${udto}" method="post">
              <h3 class="row justify-content-center"> Create User</h3>
+             <div th:if="${error}">
+                 <p class="alert alert-danger text-center">There is problem: <span th:text="${error}"></span></p>
+             </div>
             <div class="row justify-content-center">
                 <div class="col-3">
                     <p>Name: <input class="form-control" type="text" th:field="*{username}" /></p>
