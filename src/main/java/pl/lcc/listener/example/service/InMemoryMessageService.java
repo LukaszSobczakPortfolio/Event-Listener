@@ -10,6 +10,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import pl.lcc.listener.example.events.BombModEvent;
@@ -19,6 +21,7 @@ import pl.lcc.listener.module.interfaces.DispatcherInterface;
 
 /**
  * includes in Memory storarge
+ *
  * @author Nauczyciel
  */
 @Slf4j
@@ -26,11 +29,13 @@ import pl.lcc.listener.module.interfaces.DispatcherInterface;
 public class InMemoryMessageService implements MessageService {
 
     private final DispatcherInterface dispatcher;
-    
+
     private final UserManegementService uService;
-    
+
     private final Map<String, List<Message>> db;
-    
+
+    private final MessageCache publicMessagesQueue;
+
     private final List<Message> DEFAULT_MESSAGE_LIST = List.of(new Message(LocalDateTime.now(), "Write some messages", ""));
 
     public InMemoryMessageService(DispatcherInterface dis, UserManegementService uService) {
@@ -39,12 +44,13 @@ public class InMemoryMessageService implements MessageService {
         db = new HashMap<>();
         log.info("Fake msg service");
         log.info(Arrays.toString(this.getClass().getAnnotations()));
+        publicMessagesQueue = new MessageCache();
     }
 
     @Override
     public MessageService addMessage(Message msg) {
         var userName = msg.getUserName();
-        if(!uService.userExists(userName)){
+        if (!uService.userExists(userName)) {
             throw new SecurityException("Message with illegal user: " + userName);
         }
         autoCheckMessageService(msg);
@@ -54,6 +60,10 @@ public class InMemoryMessageService implements MessageService {
                     prev.add(msg);
                     return prev;
                 });
+        if (msg.isPublic()) {
+            publicMessagesQueue.addMessage(msg);
+        }
+
         return this;
     }
 
@@ -65,26 +75,50 @@ public class InMemoryMessageService implements MessageService {
 
     @Override
     public List<Message> getMessages(String userName) {
-         if(!uService.userExists(userName)){
+        if (!uService.userExists(userName)) {
             throw new SecurityException("Request for messages for illegal user: " + userName);
         }
         return db.getOrDefault(userName, DEFAULT_MESSAGE_LIST);
     }
 
-    private void autoCheckMessageService(Message msg) {
-            log.info("testing for possible Illegal Bomb: " + msg.getUserName());
-            log.info("message is: " + msg.getMessageBody());
-            if (msg.getMessageBody().toLowerCase().contains("bomb")){
-                log.info("!!!!!!!!!!!BOMB!!!!!!!!!!!!! in message " + msg.toString());
-                dispatcher.dispatch(new BombModEvent(msg.getUserName(), msg));
-            }
+    public List<Message> getPublicMessages() {
+        return new ArrayList(publicMessagesQueue.getList());
     }
 
-    @Deprecated(since="for testing noly")
+    private void autoCheckMessageService(Message msg) {
+        log.info("testing for possible Illegal Bomb: " + msg.getUserName());
+        log.info("message is: " + msg.getMessageBody());
+        if (msg.getMessageBody().toLowerCase().contains("bomb")) {
+            log.info("!!!!!!!!!!!BOMB!!!!!!!!!!!!! in message " + msg.toString());
+            dispatcher.dispatch(new BombModEvent(msg.getUserName(), msg));
+        }
+    }
+
+    @Deprecated(since = "for testing noly")
     public void resetDB() {
         db.clear();
     }
-    
-    
+
+    static class MessageCache {
+
+        private final Queue<Message> queue;
+
+        int MAX_SIZE = 3;
+
+        public MessageCache() {
+            queue = new LinkedBlockingQueue<>();
+        }
+
+        void addMessage(Message msg) {
+            if (queue.size() >= MAX_SIZE) {
+                queue.poll();
+            }
+            queue.offer(msg);
+        }
+
+        List<Message> getList() {
+            return new ArrayList(queue);
+        }
+    }
 
 }

@@ -18,6 +18,7 @@ import pl.lcc.listener.example.security.UserManegementService;
 import pl.lcc.listener.example.service.MessageService;
 import pl.lcc.listener.example.service.VerificationService;
 import pl.lcc.listener.example.user.Message;
+import pl.lcc.listener.example.user.MsgStatus;
 import pl.lcc.listener.module.interfaces.DispatcherInterface;
 
 /**
@@ -57,9 +58,12 @@ public class LoadFakeDataRunner implements CommandLineRunner {
 
         messageService
                 .addMessage(new Message(LocalDateTime.MIN, "Minimum minimorum", "test"))
-                .addMessage(new Message(LocalDateTime.now(), "Tester created", "test"))
+                .addMessage(new Message(LocalDateTime.now(), "By Tester created", "test"))
                 .addMessage(new Message(LocalDateTime.now(), "This is calorimetric bomb!", "enthalpy"))
-                .addMessage(new Message(LocalDateTime.now(), "I made a Bomb!", "bomber-man"));
+                .addMessage(new Message(LocalDateTime.now(), "I made a Bomb!", "bomber-man"))
+                .addMessage(new Message(LocalDateTime.now(), "Public One", "test", MsgStatus.PUBLIC))
+                .addMessage(new Message(LocalDateTime.now(), "Another public one ", "test", MsgStatus.PUBLIC))
+                .addMessage(new Message(LocalDateTime.now(), "Science is fun, bomb calorimeter is essentioal", "enthalpy", MsgStatus.PUBLIC));
 
         dispatcher.dispatch(new BanEvent("bomber-man"));
     }
