@@ -27,9 +27,8 @@ public class User{
         this.auth = SecurityContextHolder
             .getContext()
             .getAuthentication();
-        
-        System.out.println(auth);
-        System.out.println(auth.getName());
+    
+        log.info("The User created with auth: " + auth.getName());
     } 
     
     public String getName() {
@@ -41,7 +40,7 @@ public class User{
         return "User{" + "name=" + getName() + '}';
     }
 
-    //TODO
+    //TODO - waiting for warning stuff
     public boolean isFlagged() {
         return false;
     }

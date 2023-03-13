@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -25,17 +24,14 @@ import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-    @Autowired
-    LoginFailureHandler loginFailureHandler;
-
-    @Autowired
-    LoggingLogoutHandler loggingLogoutHandler;
-
-    @Autowired
-    UserManegementService umService;
+//    @Autowired
+//    UserManegementService umService;
 
     @Bean
-    public SecurityFilterChain securityFilterChain2(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http, 
+            LoggingLogoutHandler loggingLogoutHandler, 
+            LoginFailureHandler loginFailureHandler) throws Exception {
 
         http
                 .authorizeRequests()

@@ -64,7 +64,7 @@ public class CreateController {
     @GetMapping("/create")
     public String createUserPanel(@ModelAttribute("udto") UDTO udto, Model model) {
         log.info("create/get on thread: " + Thread.currentThread().getName());
-        System.out.println("Get Create user - udto: " + udto);
+        log.info("Get Create user - udto: " + udto);
         return "Create";
     }
 

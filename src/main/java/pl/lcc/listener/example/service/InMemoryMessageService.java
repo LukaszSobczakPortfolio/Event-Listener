@@ -82,7 +82,7 @@ public class InMemoryMessageService implements MessageService {
     }
 
     public List<Message> getPublicMessages() {
-        return new ArrayList(publicMessagesQueue.getList());
+        return new ArrayList<>(publicMessagesQueue.getList());
     }
 
     private void autoCheckMessageService(Message msg) {
@@ -103,7 +103,7 @@ public class InMemoryMessageService implements MessageService {
 
         private final Queue<Message> queue;
 
-        int MAX_SIZE = 3;
+        private final int MAX_SIZE = 3;
 
         public MessageCache() {
             queue = new LinkedBlockingQueue<>();
@@ -117,7 +117,7 @@ public class InMemoryMessageService implements MessageService {
         }
 
         List<Message> getList() {
-            return new ArrayList(queue);
+            return new ArrayList<>(queue);
         }
     }
 
