@@ -33,13 +33,13 @@ public class ModController {
         this.service = service;
     }
 
-    @GetMapping("/mod")
+    @GetMapping("/mod/mod")
     public String index(Model model) {
         prepareModel(model);
         return "Mod";
     }
 
-    @PostMapping("/verified")
+    @PostMapping("/mod/verified")
     public String verified(@RequestParam("id") String messageTextAsId, 
             @RequestParam("ban") Optional<Boolean> banned, Model model) {
 
@@ -52,7 +52,7 @@ public class ModController {
         }
 
         prepareModel(model);
-        return "redirect:/mod";
+        return "redirect:/mod/mod";
     }
 
     private void prepareModel(Model model) {

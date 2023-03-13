@@ -32,12 +32,10 @@ public class UserController {
     public UserController(MessageService mService) {
         log.info("WebController Constructor");
         this.mService = mService;
-    }
-
-    
+    }    
     
     //display user panel
-    @GetMapping("/addMessage")
+    @GetMapping("/user/panel")
     public String showUserPanel(@ModelAttribute Message msg, Model model) {
         log.info("addMessage/get on thread: " + Thread.currentThread().getName());
         prepareModerForNewMessage(model);
@@ -45,7 +43,7 @@ public class UserController {
     }
 
     //new messagre created
-    @PostMapping("/addMessage")
+    @PostMapping("/user/addMessage")
     public String addMessage(@ModelAttribute Message msg, Model model) {
         log.info("addMessage/post on thread: " + Thread.currentThread().getName());
         log.info("addMessage: " + msg.toString());
