@@ -17,5 +17,7 @@ public interface MessageService {
     MessageService addMessage(Message msg);
 
     List<Message> getMessages(String user);
+
+    List<Message> getPublicMessages();
     
 }

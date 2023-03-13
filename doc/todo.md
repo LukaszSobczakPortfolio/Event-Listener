@@ -22,9 +22,9 @@
     - [x] modify Message
     - [x] queue for few public messages
     - [x] add to Data Runner
-    - [ ] make place for display
-    - [ ] make post them
-    - [ ] modify personal stream to show "public" tick
+    - [x] make place for display
+    - [ ] make posting them
+    - [x] modify personal stream to show "public" tick
     - [ ] "publicity" turn on/off
     
 - ### Tests
@@ -39,7 +39,7 @@
   
   - [ ] add Friends
   - [ ] add tags
-  - [ ] add sql
+  - [ ] perhaps sql
   - [ ] validation somewhere
 
 ```mermaid

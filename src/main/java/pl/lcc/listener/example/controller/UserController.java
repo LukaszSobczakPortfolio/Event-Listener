@@ -59,6 +59,7 @@ public class UserController {
         model
                 .addAttribute("name", user.getName())
                 .addAttribute("messages", mService.getMessages(user.getName()))
+                .addAttribute("public", mService.getPublicMessages())
                 .addAttribute("banned", user.isFlagged())
                 .addAttribute("admin", user.isAdmin())
                 .addAttribute("newMessage", new Message(null, null, user.getName()));

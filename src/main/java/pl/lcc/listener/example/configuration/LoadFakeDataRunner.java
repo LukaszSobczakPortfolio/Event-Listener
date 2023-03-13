@@ -61,9 +61,9 @@ public class LoadFakeDataRunner implements CommandLineRunner {
                 .addMessage(new Message(LocalDateTime.now(), "By Tester created", "test"))
                 .addMessage(new Message(LocalDateTime.now(), "This is calorimetric bomb!", "enthalpy"))
                 .addMessage(new Message(LocalDateTime.now(), "I made a Bomb!", "bomber-man"))
-                .addMessage(new Message(LocalDateTime.now(), "Public One", "test", MsgStatus.PUBLIC))
-                .addMessage(new Message(LocalDateTime.now(), "Another public one ", "test", MsgStatus.PUBLIC))
-                .addMessage(new Message(LocalDateTime.now(), "Science is fun, bomb calorimeter is essentioal", "enthalpy", MsgStatus.PUBLIC));
+                .addMessage(new Message(LocalDateTime.now(), "Public One", "test").setPublic())
+                .addMessage(new Message(LocalDateTime.now(), "Another public one ", "test").setPublic())
+                .addMessage(new Message(LocalDateTime.now(), "Science is fun, bomb calorimeter is essentioal", "enthalpy").setPublic());
 
         dispatcher.dispatch(new BanEvent("bomber-man"));
     }
