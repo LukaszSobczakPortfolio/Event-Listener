@@ -2,12 +2,12 @@
 ## Todo List
  
 - ###  Main Program
-  - [ ] security
+  - [x] security
     - [x] logout
     - [x] Make new User
     - [x] authentication
     - [x] authorisation
-        - [ ] migrate enpoint to \user\* , \mod\*
+        - [x] migrate enpoint to \user\* , \mod\*
   - [x] Messages for login
   - [x] Fix Listener Structure
   - [x] Fix Component Scan (scan one configuration file in EExampleApplication)
@@ -25,7 +25,13 @@
     - [x] make place for display
     - [ ] make posting them
     - [x] modify personal stream to show "public" tick
-    - [ ] "publicity" turn on/off
+  - [ ] mod post "ad" to all users
+    - [ ] make "add info" default in listener
+    - [ ] "ad" object
+    - [ ] implement listener in User
+    - [ ] add button in mod template
+    - [ ] add loggic in Controller
+    
     
 - ### Tests
   - [ ] Fix Listener (module) tests Structure
@@ -36,7 +42,7 @@
   - [ ] Explain Weak List
   - [ ] Explain Security
 - ### Future ideas
-  
+  - [ ] "publicity" turn on/off for given message on user panel
   - [ ] add Friends
   - [ ] add tags
   - [ ] perhaps sql

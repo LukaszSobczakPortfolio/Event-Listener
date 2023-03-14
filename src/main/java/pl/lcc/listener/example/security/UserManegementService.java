@@ -33,7 +33,12 @@ public class UserManegementService implements UserDetailsService, UserDetailsMan
         log.info("--- try to load User: " + username + "---");
 
         if (users.containsKey(username)) {
-            return ((SecuredUser) users.get(username)).clone();
+//            return ((SecuredUser) users.get(username)).clone();
+            if (users.get(username) instanceof SecuredUser user) {
+                return SecuredUser.copy(user);
+            } else {
+                throw new IllegalStateException(" Should be SecuredUser class!!! But it is " + users.get(username).getClass().getName());
+            }
         } else {
             throw new UsernameNotFoundException("UMS: username not found: " + username);
         }
@@ -69,7 +74,7 @@ public class UserManegementService implements UserDetailsService, UserDetailsMan
 
     @Override
     public boolean userExists(String username) {
-       return users.containsKey(username);
+        return users.containsKey(username);
     }
 
 }

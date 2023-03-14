@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 import pl.lcc.listener.example.security.Authority;
+import pl.lcc.listener.example.security.SecuredUser;
 /**
  * stores data required to display UserPanel
  * @author Nauczyciel
@@ -19,20 +20,27 @@ import pl.lcc.listener.example.security.Authority;
 @SessionScope
 public class User{
     
-    Authentication auth;
+    SecuredUser principal;
 
     public User() {
         log.info("new User");  
-        
-        this.auth = SecurityContextHolder
+
+       var tmpPrincipal = SecurityContextHolder
             .getContext()
-            .getAuthentication();
+            .getAuthentication()
+               .getPrincipal();
+       if (tmpPrincipal instanceof SecuredUser securedUser){
+           this.principal = securedUser;
+           
+       } else {
+           throw new IllegalStateException("User Class works with Secured User!");
+       }
     
-        log.info("The User created with auth: " + auth.getName());
+        log.info("The User created with auth: " + principal.getUsername());
     } 
     
     public String getName() {
-        return auth.getName();
+        return principal.getUsername();
     }
     
     @Override
@@ -40,13 +48,12 @@ public class User{
         return "User{" + "name=" + getName() + '}';
     }
 
-    //TODO - waiting for warning stuff
     public boolean isFlagged() {
-        return false;
+       return principal.isAccountNonWarned();
     }
 
      public boolean isAdmin() {
-        return auth.getAuthorities().contains(Authority.MOD);
+        return principal.getAuthorities().contains(Authority.MOD);
     }
     
 }

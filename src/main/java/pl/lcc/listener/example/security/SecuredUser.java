@@ -18,12 +18,13 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @author Nauczyciel
  */
 @Slf4j
-public class SecuredUser implements UserDetails, Cloneable {
+public class SecuredUser implements UserDetails {
 
-    private String userName;
-    private String password;
+    private final String userName;
+    private final String password;
     private Set<GrantedAuthority> auths;
     private boolean nonLocked;
+    private boolean nonWarned;
 
     public SecuredUser(String userName, String password) {
         log.info("SU -> create " + userName);
@@ -31,6 +32,15 @@ public class SecuredUser implements UserDetails, Cloneable {
         this.password = password;
         nonLocked = true;
         auths = new HashSet<>();
+    }
+    
+    public static SecuredUser copy(SecuredUser old){
+        log.info("secured user copied");
+        var result = new SecuredUser(old.getUsername(), old.getPassword());
+         result.auths = new HashSet<>(old.auths);
+         result.nonLocked = old.nonLocked;
+         result.nonWarned = old.nonWarned;
+         return result;
     }
 
     public SecuredUser setAuthorities(List<GrantedAuthority> auths) {
@@ -40,6 +50,11 @@ public class SecuredUser implements UserDetails, Cloneable {
 
     public SecuredUser lock() {
         nonLocked = false;
+        return this;
+    }
+    
+      public SecuredUser warn() {
+        nonWarned = false;
         return this;
     }
 
@@ -67,6 +82,10 @@ public class SecuredUser implements UserDetails, Cloneable {
     public boolean isAccountNonLocked() {
         return nonLocked;
     }
+    
+    public boolean isAccountNonWarned() {
+        return nonWarned;
+    }
 
     @Override
     public boolean isCredentialsNonExpired() {
@@ -78,15 +97,15 @@ public class SecuredUser implements UserDetails, Cloneable {
         return true;
     }
 
-    @Override
-    public SecuredUser clone() {
-        try {
-           var clone = (SecuredUser) super.clone();
-           clone.auths = new HashSet<>(clone.getAuthorities());
-           return clone; }
-        catch (CloneNotSupportedException ex){
-            log.info("clone Faile for SecuredUser " + userName);
-            throw new RuntimeException("Should definitely not happen. clone Faile for SecuredUser " + userName);
-        }
-    }
+//    @Override
+//    public SecuredUser clone() {
+//        try {
+//           var clone = (SecuredUser) super.clone();
+//           clone.auths = new HashSet<>(clone.getAuthorities());
+//           return clone; }
+//        catch (CloneNotSupportedException ex){
+//            log.info("clone Faile for SecuredUser " + userName);
+//            throw new RuntimeException("Should definitely not happen. clone Faile for SecuredUser " + userName);
+//        }
+//    }
 }
