@@ -11,6 +11,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.lcc.listener.example.events.BombModEvent;
+import pl.lcc.listener.example.events.ShutDownEvent;
 import pl.lcc.listener.example.user.Message;
 import pl.lcc.listener.module.interfaces.DispatcherInterface;
 import pl.lcc.listener.module.interfaces.LccListenerClass;
@@ -23,12 +24,14 @@ import pl.lcc.listener.module.interfaces.LccListenerClass;
 @Slf4j
 @Service
 @LccListenerClass(targetEvent = BombModEvent.class)
-public class ModService implements VerificationService {
+public class ModService implements VerificationService, SystemService, AdService {
 
     private final Queue<Message> toDecide;
-
+    private final DispatcherInterface dispatcher;
+    
+    
     public ModService(DispatcherInterface dispatcher) {
-
+        this.dispatcher = dispatcher;
         toDecide = new ConcurrentLinkedQueue<>();
     }
 
@@ -46,5 +49,10 @@ public class ModService implements VerificationService {
     public void removeMessageFromModeration(Message msg) {
         log.info("removed " + msg.toString());
         toDecide.remove(msg);
+    }
+
+    @Override
+    public void shutdown() {
+       dispatcher.dispatch(new ShutDownEvent());
     }
 }
