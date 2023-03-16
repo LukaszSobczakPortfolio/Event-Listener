@@ -28,11 +28,6 @@ public class ListenerForModifyUserEvents implements LccEventListener<BanEvent>{
     }
 
     @Override
-    public String getInfo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public void listenToEvent(BanEvent event) {
             
         log.info("got Ban event for: " + event.getName());

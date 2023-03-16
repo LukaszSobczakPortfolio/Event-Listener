@@ -33,11 +33,6 @@ public class ModService implements VerificationService {
     }
 
     @Override
-    public String getInfo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public void listenToEvent(BombModEvent event) {
         toDecide.offer(event.getMsg());
     }

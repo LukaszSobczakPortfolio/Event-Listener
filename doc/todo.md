@@ -14,7 +14,7 @@
   - [x] Fix commandLineRunner
   - [ ] add Warning - as pre-ban
     - [x] Secured User
-    - [ ] other secured stuff
+    - [ ] other security stuff
     - [ ] service can warn
     - [ ] mod see who is warned
     - [ ] user see he is warned
@@ -26,12 +26,14 @@
     - [x] make place for display
     - [ ] make posting them
     - [x] modify personal stream to show "public" tick
-  - [ ] mod post "ad" to all users
-    - [ ] make "ad info" default in listener
+  - [x] make "ad info" default in listener
+    - [ ] remove infos from unnecesary places
+  - [ ] mod post "ad" to all users    
     - [x] "ad" object
-    - [ ] implement listener in User
-    - [ ] add button in mod template
-    - [ ] add loggic in Controller
+    - [x] implement listener in User
+    - [ ] add ads in user template
+    - [ ] add form in mod template
+    - [ ] add logic in Controller
   - [ ] ShutDown as Event
     - [x] event
     - [ ] listenr
