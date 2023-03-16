@@ -10,8 +10,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
-import java.util.concurrent.LinkedBlockingQueue;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import pl.lcc.listener.example.events.BombModEvent;
@@ -34,17 +32,17 @@ public class InMemoryMessageService implements MessageService {
 
     private final Map<String, List<Message>> db;
 
-    private final MessageCache publicMessagesQueue;
+    private final MessageCache<Message> publicMessagesQueue;
 
     private final List<Message> DEFAULT_MESSAGE_LIST = List.of(new Message(LocalDateTime.now(), "Write some messages", ""));
 
-    public InMemoryMessageService(DispatcherInterface dis, UserManegementService uService) {
+    public InMemoryMessageService(DispatcherInterface dis, UserManegementService uService, MessageCache<Message> cache) {
         dispatcher = dis;
         this.uService = uService;
         db = new HashMap<>();
         log.info("Fake msg service");
         log.info(Arrays.toString(this.getClass().getAnnotations()));
-        publicMessagesQueue = new MessageCache();
+        publicMessagesQueue = cache;
     }
 
     @Override
@@ -97,28 +95,6 @@ public class InMemoryMessageService implements MessageService {
     @Deprecated(since = "for testing noly")
     public void resetDB() {
         db.clear();
-    }
-
-    static class MessageCache {
-
-        private final Queue<Message> queue;
-
-        private final int MAX_SIZE = 3;
-
-        public MessageCache() {
-            queue = new LinkedBlockingQueue<>();
-        }
-
-        void addMessage(Message msg) {
-            if (queue.size() >= MAX_SIZE) {
-                queue.poll();
-            }
-            queue.offer(msg);
-        }
-
-        List<Message> getList() {
-            return new ArrayList<>(queue);
-        }
     }
 
 }

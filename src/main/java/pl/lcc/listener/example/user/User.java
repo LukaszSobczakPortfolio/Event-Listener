@@ -12,6 +12,7 @@ import org.springframework.web.context.annotation.SessionScope;
 import pl.lcc.listener.example.events.AdEvent;
 import pl.lcc.listener.example.security.Authority;
 import pl.lcc.listener.example.security.SecuredUser;
+import pl.lcc.listener.example.service.MessageCache;
 import pl.lcc.listener.module.interfaces.LccEventListener;
 import pl.lcc.listener.module.interfaces.LccListenerClass;
 /**
@@ -26,9 +27,9 @@ public class User implements LccEventListener<AdEvent>{
     
     SecuredUser principal;
     
-    Message ads;
+    MessageCache<Message> ads;
 
-    public User() {
+    public User(MessageCache<Message> cache) {
         log.info("new User");  
 
        var tmpPrincipal = SecurityContextHolder
@@ -41,7 +42,7 @@ public class User implements LccEventListener<AdEvent>{
        } else {
            throw new IllegalStateException("User Class works with Secured User!");
        }
-    
+       ads = cache;
         log.info("The User created with auth: " + principal.getUsername());
     } 
     
@@ -64,7 +65,7 @@ public class User implements LccEventListener<AdEvent>{
 
     @Override
     public void listenToEvent(AdEvent event) {
-        ads = event.getMessage();
+        ads.addMessage(event.getMessage());
     }
     
 }
