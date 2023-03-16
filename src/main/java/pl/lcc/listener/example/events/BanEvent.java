@@ -16,20 +16,20 @@ import pl.lcc.listener.module.interfaces.LccEvent;
 
 public class BanEvent implements LccEvent{
     
-    private final String name;
+    private final String offenderName;
 
     public BanEvent(String name) {
-        this.name = name;
+        this.offenderName = name;
     }
 
     public String getName() {
-        return name;
+        return offenderName;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 11 * hash + Objects.hashCode(this.name);
+        hash = 11 * hash + Objects.hashCode(this.offenderName);
         return hash;
     }
 
@@ -45,7 +45,7 @@ public class BanEvent implements LccEvent{
             return false;
         }
         BanEvent otherBanEvent = (BanEvent) other;
-        return Objects.equals(this.name, otherBanEvent.name);
+        return Objects.equals(this.offenderName, otherBanEvent.offenderName);
     }
     
     

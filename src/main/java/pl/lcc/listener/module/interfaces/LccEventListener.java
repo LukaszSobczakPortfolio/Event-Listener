@@ -16,7 +16,9 @@ import java.util.EventListener;
 
 public interface LccEventListener <A extends LccEvent> extends EventListener {
    
-    public String getInfo();
+    public default String getInfo(){
+        return " This is default implementation of getInfo for: " + this.getClass().getName();
+    };
     
     public void listenToEvent(A event);
     

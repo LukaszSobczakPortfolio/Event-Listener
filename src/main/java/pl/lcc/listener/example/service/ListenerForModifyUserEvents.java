@@ -19,11 +19,11 @@ import pl.lcc.listener.module.interfaces.LccListenerClass;
 @Component
 @Slf4j
 @LccListenerClass(targetEvent = BanEvent.class)
-public class InMemoryUnsafeUserService implements LccEventListener<BanEvent>{
+public class ListenerForModifyUserEvents implements LccEventListener<BanEvent>{
     
     UserDetailsManager manager;
 
-    public InMemoryUnsafeUserService(UserDetailsManager manager) {
+    public ListenerForModifyUserEvents(UserDetailsManager manager) {
         this.manager = manager;
     }
 

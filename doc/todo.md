@@ -13,8 +13,9 @@
   - [x] Fix Component Scan (scan one configuration file in EExampleApplication)
   - [x] Fix commandLineRunner
   - [ ] add Warning - as pre-ban
-    - [ ] Secured User
+    - [x] Secured User
     - [ ] other secured stuff
+    - [ ] service can warn
     - [ ] mod see who is warned
     - [ ] user see he is warned
     - [ ] mod can warn
@@ -26,11 +27,15 @@
     - [ ] make posting them
     - [x] modify personal stream to show "public" tick
   - [ ] mod post "ad" to all users
-    - [ ] make "add info" default in listener
-    - [ ] "ad" object
+    - [ ] make "ad info" default in listener
+    - [x] "ad" object
     - [ ] implement listener in User
     - [ ] add button in mod template
     - [ ] add loggic in Controller
+  - [ ] ShutDown as Event
+    - [x] event
+    - [ ] listenr
+    - [ ] button in mod
     
     
 - ### Tests

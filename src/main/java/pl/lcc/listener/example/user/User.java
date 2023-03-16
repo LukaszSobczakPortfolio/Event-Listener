@@ -9,8 +9,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
+import pl.lcc.listener.example.events.AdEvent;
 import pl.lcc.listener.example.security.Authority;
 import pl.lcc.listener.example.security.SecuredUser;
+import pl.lcc.listener.module.interfaces.LccEventListener;
+import pl.lcc.listener.module.interfaces.LccListenerClass;
 /**
  * stores data required to display UserPanel
  * @author Nauczyciel
@@ -18,9 +21,12 @@ import pl.lcc.listener.example.security.SecuredUser;
 @Slf4j
 @Component
 @SessionScope
-public class User{
+@LccListenerClass(targetEvent = AdEvent.class)
+public class User implements LccEventListener<AdEvent>{
     
     SecuredUser principal;
+    
+    Message ads;
 
     public User() {
         log.info("new User");  
@@ -54,6 +60,11 @@ public class User{
 
      public boolean isAdmin() {
         return principal.getAuthorities().contains(Authority.MOD);
+    }
+
+    @Override
+    public void listenToEvent(AdEvent event) {
+        ads = event.getMessage();
     }
     
 }
