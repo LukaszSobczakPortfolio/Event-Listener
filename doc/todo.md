@@ -34,10 +34,11 @@
     - [ ] add ads in user template
     - [ ] add form in mod template
     - [ ] add logic in Controller
-  - [ ] ShutDown as Event
+  - [x] ShutDown as Event
     - [x] event
     - [x] listenr
-    - [ ] button in mod
+    - [x] button in mod
+  - [ ] top level /mod or /user in controleer
     
     
 - ### Tests
