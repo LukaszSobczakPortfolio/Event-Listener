@@ -27,7 +27,7 @@
     - [ ] make posting them
     - [x] modify personal stream to show "public" tick
   - [x] make "ad info" default in listener
-    - [ ] remove infos from unnecesary places
+    - [x] remove infos from unnecesary places
   - [ ] mod post "ad" to all users    
     - [x] "ad" object
     - [x] implement listener in User
