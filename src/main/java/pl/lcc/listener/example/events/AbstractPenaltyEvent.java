@@ -4,23 +4,22 @@
  */
 package pl.lcc.listener.example.events;
 
+import pl.lcc.listener.module.interfaces.LccEvent;
+
 /**
- * Receiver: UserService
- * Meaning: User get warning - before ban
- * Sender: Mod.class
- * 
+ *
  * @author Nauczyciel
  */
-public class WarnEvent {
+public abstract sealed class AbstractPenaltyEvent implements LccEvent permits BanEvent, WarningEvent{
 
-    private final String offenderName;
+    protected final String offenderName;
 
-    public WarnEvent(String offenderName) {
+    public AbstractPenaltyEvent(String offenderName) {
         this.offenderName = offenderName;
     }
-
+    
     public String getName() {
         return offenderName;
     }
-
+   
 }

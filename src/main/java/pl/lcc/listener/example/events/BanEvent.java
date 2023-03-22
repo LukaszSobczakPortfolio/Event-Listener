@@ -5,7 +5,6 @@
 package pl.lcc.listener.example.events;
 
 import java.util.Objects;
-import pl.lcc.listener.module.interfaces.LccEvent;
 
 /**
  * Receiver: UserService
@@ -14,16 +13,10 @@ import pl.lcc.listener.module.interfaces.LccEvent;
  * @author Nauczyciel
  */
 
-public class BanEvent implements LccEvent{
+public final class BanEvent extends AbstractPenaltyEvent{
     
-    private final String offenderName;
-
     public BanEvent(String name) {
-        this.offenderName = name;
-    }
-
-    public String getName() {
-        return offenderName;
+        super(name);
     }
 
     @Override
