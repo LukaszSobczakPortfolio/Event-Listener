@@ -31,6 +31,7 @@ public class SecuredUser implements UserDetails {
         this.userName = userName;
         this.password = password;
         nonLocked = true;
+        nonWarned = true;
         auths = new HashSet<>();
     }
     
