@@ -4,13 +4,11 @@
  */
 package pl.lcc.listener.example.events;
 
-import pl.lcc.listener.module.interfaces.LccEvent;
-
 /**
  *
  * @author Nauczyciel
  */
-public final class WarningEvent extends AbstractPenaltyEvent{
+public final class WarningEvent extends AbstractModerationEvent{
     
     public WarningEvent(String offenderName) {
         super(offenderName);

@@ -41,10 +41,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 </form>
                             </div> 
                             <div class = "col-2" >
-                                <form action="#" th:action="@{/mod/verified(id=${msg.messageBody}, ban=true)}" method="post">
-                                    <input  class="btn btn-warning" type="submit" value="Ban User" />
+                                <form action="#" th:action="@{/mod/verified(id=${msg.messageBody}, warning=true)}" method="post">
+                                    <input  class="btn btn-warning" type="submit" value="Warn User" />
                                 </form> 
                             </div>
+                            <div class = "col-2" >
+                                <form action="#" th:action="@{/mod/verified(id=${msg.messageBody}, ban=true)}" method="post">
+                                    <input  class="btn btn-danger" type="submit" value="Ban User" />
+                                </form> 
+                            </div>                            
                             <div class = "col">
                                 <span th:text="${msg.messageBody}">text </span> by   <span class="fw-bold" th:text="${msg.userName}"> user</span>
                             </div>

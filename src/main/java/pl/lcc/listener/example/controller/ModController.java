@@ -53,14 +53,18 @@ public class ModController {
     
     @PostMapping("/mod/verified")
     public String verified(@RequestParam("id") String messageTextAsId, 
-            @RequestParam("ban") Optional<Boolean> banned, Model model) {
+            @RequestParam("ban") Optional<Boolean> banned, 
+            @RequestParam("warning") Optional<Boolean> warned, Model model) {
 
-        log.info("message " + messageTextAsId + "moderated. Effect: " + banned);
+        log.info("message " + messageTextAsId + "moderated. banned: " + banned + " . Warned: " + warned);
 
-        if (banned.isEmpty() || !banned.get()) {
-            mod.okMessage(messageTextAsId);
-        } else {
+       // if (banned.isEmpty() || !banned.get()) {
+       if (banned.orElse(false)) {
             mod.itIsBomb(messageTextAsId);
+        } else if(warned.orElse(false)){
+            mod.itIsWarning(messageTextAsId);
+        }else {
+            mod.okMessage(messageTextAsId);
         }
 
         prepareModel(model);

@@ -7,7 +7,7 @@ package pl.lcc.listener.example.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Component;
-import pl.lcc.listener.example.events.AbstractPenaltyEvent;
+import pl.lcc.listener.example.events.AbstractModerationEvent;
 import pl.lcc.listener.example.events.BanEvent;
 import pl.lcc.listener.example.events.WarningEvent;
 import pl.lcc.listener.example.security.SecuredUser;
@@ -21,8 +21,8 @@ import pl.lcc.listener.module.interfaces.LccListenerClass;
  */
 @Component
 @Slf4j
-@LccListenerClass(targetEvent = AbstractPenaltyEvent.class)
-public class ListenerForModifyUserEvents implements LccEventListener<AbstractPenaltyEvent> {
+@LccListenerClass(targetEvent = AbstractModerationEvent.class)
+public class ListenerForModifyUserEvents implements LccEventListener<AbstractModerationEvent> {
 
     UserDetailsManager manager;
 
@@ -31,9 +31,9 @@ public class ListenerForModifyUserEvents implements LccEventListener<AbstractPen
     }
 
     @Override
-    public void listenToEvent(AbstractPenaltyEvent event) {
+    public void listenToEvent(AbstractModerationEvent event) {
 
-        log.info("listener got Ban event for: " + event.getName() + ". Evenr type: " + event.getClass().getSimpleName());
+        log.info("listener got Moderation event for: " + event.getName() + ". Evenr type: " + event.getClass().getSimpleName());
 
 //      still in preview 
 //      switch(event){

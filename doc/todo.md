@@ -14,7 +14,8 @@
   - [x] Fix commandLineRunner
   - [ ] add Warning - as pre-ban
     - [x] Secured User
-    - [ ] other security stuff
+    - [x] other security stuff
+    - [x] listener
     - [ ] service can warn
     - [ ] mod see who is warned
     - [ ] user see he is warned

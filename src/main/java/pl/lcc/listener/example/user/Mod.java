@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 import pl.lcc.listener.example.events.BanEvent;
+import pl.lcc.listener.example.events.WarningEvent;
 import pl.lcc.listener.example.service.VerificationService;
 import pl.lcc.listener.module.interfaces.DispatcherInterface;
 
@@ -44,24 +45,21 @@ public class Mod {
         return auth.getName() + " :message: " + messagesForVerification.toString();
     }
 
-    public boolean okMessage(Message msg) {
-        service.removeMessageFromModeration(msg);
-        return true;
+    public void okMessage(String messageBodyAsId) {
+        var message = processId(messageBodyAsId);
+        service.removeMessageFromModeration(message);
+    }
+    
+    public void itIsWarning(String messageBodyAsId) {
+        var message = processId(messageBodyAsId);
+        service.removeMessageFromModeration(message);
+        dispatcher.dispatch(new WarningEvent(message.getUserName()));
     }
 
-    public boolean itIsBomb(Message message) {
+    public boolean itIsBomb(String messageBodyAsId) {
+        var message = processId(messageBodyAsId);
         service.removeMessageFromModeration(message);
         dispatcher.dispatch(new BanEvent(message.getUserName()));
-        return false;
-    }
-
-    public boolean okMessage(String messageAsId) {
-        okMessage(processId(messageAsId));
-        return true;
-    }
-
-    public boolean itIsBomb(String messageAsId) {
-        itIsBomb(processId(messageAsId));
         return false;
     }
 
@@ -83,4 +81,5 @@ public class Mod {
         this.messagesForVerification = messageForVerification;
     }
 
+  
 }

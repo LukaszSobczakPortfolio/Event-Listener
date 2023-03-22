@@ -10,11 +10,11 @@ import pl.lcc.listener.module.interfaces.LccEvent;
  *
  * @author Nauczyciel
  */
-public abstract sealed class AbstractPenaltyEvent implements LccEvent permits BanEvent, WarningEvent{
+public abstract sealed class AbstractModerationEvent implements LccEvent permits BanEvent, WarningEvent{
 
     protected final String offenderName;
 
-    public AbstractPenaltyEvent(String offenderName) {
+    public AbstractModerationEvent(String offenderName) {
         this.offenderName = offenderName;
     }
     

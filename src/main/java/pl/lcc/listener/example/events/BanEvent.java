@@ -13,7 +13,7 @@ import java.util.Objects;
  * @author Nauczyciel
  */
 
-public final class BanEvent extends AbstractPenaltyEvent{
+public final class BanEvent extends AbstractModerationEvent{
     
     public BanEvent(String name) {
         super(name);
