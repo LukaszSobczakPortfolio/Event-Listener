@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 import pl.lcc.listener.example.events.BanEvent;
+import pl.lcc.listener.example.events.WarningEvent;
 import pl.lcc.listener.example.security.Authority;
 import pl.lcc.listener.example.security.SecuredUser;
 import pl.lcc.listener.example.security.UserManegementService;
@@ -66,6 +67,7 @@ public class LoadFakeDataRunner implements CommandLineRunner {
                 .addMessage(new Message(LocalDateTime.now(), "Science is fun, bomb calorimeter is essentioal", "enthalpy").setPublic());
 
         dispatcher.dispatch(new BanEvent("bomber-man"));
+        dispatcher.dispatch(new WarningEvent("enthalpy"));
     }
 
 }

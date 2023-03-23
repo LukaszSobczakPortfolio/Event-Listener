@@ -17,7 +17,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <!-- Hi to User -->
         <h3 class="text-center my-4" th:if="${admin}" th:text= "'You have admin rights, '  + ${name} " />
         <h3 class="text-center my-4" th:unless="${admin}" th:text= "'Hello '  + ${name} " />
-        <p th:if="${banned}" th:text="'You Are Banned!!!'" />
+        <div class="text-danger text-center">
+            <p th:unless="${warned}" th:text="'You were warned by Mods!!!'" />
+        </div>
         <div class="container">
             <div class="row gx-5">
                 <!-- List of Messages -->
@@ -26,7 +28,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <tr class="border border-primary my-1" th:each="message : ${messages}">
                             <td class="border border-primary p-1" th:text="${message.messageBody}"></td>
                             <td class="border border-primary m-1" th:text="${{message.createTime}}"></td>
-                            <td th:if = ${message.isPublic}> <span th:text="P"> </span> </td>
+                            <td th:if = ${message.isPublic}> <span class="bg-warning text-dark" th:text="P"> </span> </td>
                         </tr>
                     </table>
                 </div>

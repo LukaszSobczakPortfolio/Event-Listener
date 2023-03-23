@@ -16,10 +16,10 @@
     - [x] Secured User
     - [x] other security stuff
     - [x] listener
-    - [ ] service can warn
+    - [x] service sends warning
     - [ ] mod see who is warned
-    - [ ] user see he is warned
-    - [ ] mod can warn
+    - [x] user see he is warned
+    - [x] mod can warn
   - [ ] add public messages
     - [x] modify Message
     - [x] queue for few public messages
