@@ -27,7 +27,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </div>
             <div th:if="${list.size()==0}">                
                 <p class="col-4 mx-auto text-center bg-success text-white">
-                    No Problems, make a cofee 
+                    No Problems here, please make yourself a cofee! 
                 </p>
             </div>
 
@@ -51,7 +51,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 </form> 
                             </div>                            
                             <div class = "col">
-                                <span th:text="${msg.messageBody}">text </span> by   <span class="fw-bold" th:text="${msg.userName}"> user</span>
+                                <span th:text="${msg.messageBody}">text </span> by   <span class="fw-bold" th:text="${msg.userName}" th:classappend="${msg.isNotWarned}? bg-light : bg-warning"> user</span>
                             </div>
                         </div>
                     </li>

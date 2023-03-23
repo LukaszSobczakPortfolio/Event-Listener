@@ -13,6 +13,7 @@ import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import pl.lcc.listener.example.events.BombModEvent;
+import pl.lcc.listener.example.security.SecuredUser;
 import pl.lcc.listener.example.security.UserManegementService;
 import pl.lcc.listener.example.user.Message;
 import pl.lcc.listener.module.interfaces.DispatcherInterface;
@@ -79,6 +80,7 @@ public class InMemoryMessageService implements MessageService {
         return db.getOrDefault(userName, DEFAULT_MESSAGE_LIST);
     }
 
+    @Override
     public List<Message> getPublicMessages() {
         return new ArrayList<>(publicMessagesQueue.getList());
     }
@@ -88,7 +90,8 @@ public class InMemoryMessageService implements MessageService {
         log.info("message is: " + msg.getMessageBody());
         if (msg.getMessageBody().toLowerCase().contains("bomb")) {
             log.info("!!!!!!!!!!!BOMB!!!!!!!!!!!!! in message " + msg.toString());
-            dispatcher.dispatch(new BombModEvent(msg.getUserName(), msg));
+            if ( uService.loadUserByUsername(msg.getUserName()) instanceof SecuredUser user)
+            dispatcher.dispatch(new BombModEvent(user.getUsername(), msg, user.isAccountNonWarned()));
         }
     }
 

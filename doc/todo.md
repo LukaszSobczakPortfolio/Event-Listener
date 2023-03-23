@@ -12,12 +12,12 @@
   - [x] Fix Listener Structure
   - [x] Fix Component Scan (scan one configuration file in EExampleApplication)
   - [x] Fix commandLineRunner
-  - [ ] add Warning - as pre-ban
+  - [x] add Warning - as pre-ban
     - [x] Secured User
     - [x] other security stuff
     - [x] listener
     - [x] service sends warning
-    - [ ] mod see who is warned
+    - [x] mod see who is warned
     - [x] user see he is warned
     - [x] mod can warn
   - [ ] add public messages

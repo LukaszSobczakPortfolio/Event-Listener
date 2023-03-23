@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import pl.lcc.listener.example.events.BombModEvent;
 import pl.lcc.listener.example.events.ShutDownEvent;
 import pl.lcc.listener.example.user.Message;
+import pl.lcc.listener.example.user.ModeratedMessage;
 import pl.lcc.listener.module.interfaces.DispatcherInterface;
 import pl.lcc.listener.module.interfaces.LccListenerClass;
 
@@ -26,7 +27,7 @@ import pl.lcc.listener.module.interfaces.LccListenerClass;
 @LccListenerClass(targetEvent = BombModEvent.class)
 public class ModService implements VerificationService, SystemService, AdService {
 
-    private final Queue<Message> toDecide;
+    private final Queue<ModeratedMessage> toDecide;
     private final DispatcherInterface dispatcher;
     
     
@@ -37,16 +38,16 @@ public class ModService implements VerificationService, SystemService, AdService
 
     @Override
     public void listenToEvent(BombModEvent event) {
-        toDecide.offer(event.getMsg());
+       toDecide.offer(event.getMsg());
     }
 
     @Override
-    public List<Message> getMessageForModeration() {
+    public List<ModeratedMessage> getMessageForModeration() {
         return new ArrayList<>(toDecide);
     }
 
     @Override
-    public void removeMessageFromModeration(Message msg) {
+    public void removeMessageFromModeration(ModeratedMessage msg) {
         log.info("removed " + msg.toString());
         toDecide.remove(msg);
     }

@@ -25,7 +25,7 @@ public class Mod {
 
     private final VerificationService service;
 
-    private List<Message> messagesForVerification;
+    private List<ModeratedMessage> messagesForVerification;
 
     Authentication auth;
 
@@ -63,13 +63,13 @@ public class Mod {
         return false;
     }
 
-    private Message processId(String messageAsId) {
+    private ModeratedMessage processId(String messageAsId) {
         var targetMessage = messagesForVerification.stream().filter(m -> m.getMessageBody().equals(messageAsId)).findFirst().get();
         messagesForVerification.remove(targetMessage);
         return targetMessage;
     }
 
-    public List<Message> getMessageForVerification() {
+    public List<ModeratedMessage> getMessageForVerification() {
         return messagesForVerification;
     }
 
@@ -77,7 +77,7 @@ public class Mod {
         return auth.getName();
     }
 
-    public void setMessageForVerification(List<Message> messageForVerification) {
+    public void setMessageForVerification(List<ModeratedMessage> messageForVerification) {
         this.messagesForVerification = messageForVerification;
     }
 
