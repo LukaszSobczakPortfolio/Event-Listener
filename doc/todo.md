@@ -40,7 +40,7 @@
     - [x] listenr
     - [x] button in mod
   - [ ] top level /mod or /user in controler
-    
+  - [x] redirect to user panel or mod panel depending on role  
     
 - ### Tests
   - [ ] Fix Listener (module) tests Structure

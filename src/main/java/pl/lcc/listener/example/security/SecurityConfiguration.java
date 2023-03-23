@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
  *
@@ -24,25 +25,26 @@ import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-//    @Autowired
-//    UserManegementService umService;
-
     @Bean
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http, 
             LoggingLogoutHandler loggingLogoutHandler, 
-            LoginFailureHandler loginFailureHandler) throws Exception {
+            LoginFailureHandler loginFailureHandler,
+            AuthenticationSuccessHandler authenticationSuccessHandler
+    ) throws Exception {
 
         http
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/create").permitAll()
+                .antMatchers("/actuator/**").permitAll()
                 .mvcMatchers("/mod/**").hasAuthority(Authority.MOD.getAuthority())
-                .mvcMatchers("/verified").hasAuthority(Authority.MOD.getAuthority())
+                .mvcMatchers("/verified").hasAuthority(Authority.MOD.getAuthority()) //TODO shold delete?
                 .anyRequest().authenticated()
                 .and()
                     .formLogin()
                     .loginPage("/login")
+                    .successHandler(authenticationSuccessHandler)
                     .failureHandler(loginFailureHandler)
                 .and()
                     .logout()
@@ -59,7 +61,7 @@ public class SecurityConfiguration {
                     .sessionManagement()
                     .invalidSessionUrl("/login?expired")
                 .and()
-               //     .addFilterBefore(new LoggingFilter(), ChannelProcessingFilter.class)
+                    .addFilterBefore(new LoggingFilter(), ChannelProcessingFilter.class)
                 ;
 
         return http.build();
