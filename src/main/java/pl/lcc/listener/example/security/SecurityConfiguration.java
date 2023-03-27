@@ -61,7 +61,7 @@ public class SecurityConfiguration {
                     .sessionManagement()
                     .invalidSessionUrl("/login?expired")
                 .and()
-                    .addFilterBefore(new LoggingFilter(), ChannelProcessingFilter.class)
+                //    .addFilterBefore(new LoggingFilter(), ChannelProcessingFilter.class)
                 ;
 
         return http.build();

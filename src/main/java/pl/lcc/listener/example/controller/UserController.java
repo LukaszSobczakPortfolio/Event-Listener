@@ -6,6 +6,7 @@ package pl.lcc.listener.example.controller;
 
 import pl.lcc.listener.example.service.MessageService;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.lcc.listener.example.user.Message;
 import pl.lcc.listener.example.user.User;
 
@@ -44,12 +46,18 @@ public class UserController {
 
     //new messagre created
     @PostMapping("/user/addMessage")
-    public String addMessage(@ModelAttribute Message msg, Model model) {
+    public String addMessage(@ModelAttribute Message msg, @RequestParam Optional<Boolean> privateCheckBox) {
         log.info("addMessage/post on thread: " + Thread.currentThread().getName());
         log.info("addMessage: " + msg.toString());
-        mService.addMessage(new Message(LocalDateTime.now(), msg.getMessageBody(), user.getName()));
-        prepareModerForNewMessage(model);
-        return "UserPanel";
+        log.info("bool" + privateCheckBox);
+        
+        var MessageToPersist = setPrivacy(new Message(LocalDateTime.now(), msg.getMessageBody(), user.getName()), privateCheckBox) ;
+        mService.addMessage(MessageToPersist);
+        return "redirect:/user/panel";
+    }
+
+    private Message setPrivacy( Message toSend,Optional<Boolean> privateCheckBox) {
+       return privateCheckBox.orElse(Boolean.FALSE) ? toSend.setPrivate() : toSend.setPublic();
     }
 
     private void prepareModerForNewMessage(Model model) {
@@ -60,7 +68,9 @@ public class UserController {
                 .addAttribute("public", mService.getPublicMessages())
                 .addAttribute("warned", user.isFlagged())
                 .addAttribute("admin", user.isAdmin())
+                .addAttribute("publicCheckBox", false)
                 .addAttribute("newMessage", new Message(null, null, user.getName()));
+        
     }
 }
 

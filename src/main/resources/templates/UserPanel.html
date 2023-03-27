@@ -36,7 +36,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <div class="col gy-1" th:unless="${banned}">
                     <h1>New Message:</h1>
                     <form action="#" th:action="@{/user/addMessage}" th:object="${newMessage}" method="post">
-                        <p>Name: <input type="text" th:field="*{messageBody}" /></p>       
+                        <p>Name: <input type="text" th:field="*{messageBody}" /> Private: <input type="checkbox" name="privateCheckBox"> </p>       
                         <p><input type="submit" value="Post Message" /> <input type="reset" value="Clear Message" /></p>
                     </form>
                 </div> 

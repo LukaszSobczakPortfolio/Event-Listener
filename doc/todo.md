@@ -20,12 +20,12 @@
     - [x] mod see who is warned
     - [x] user see he is warned
     - [x] mod can warn
-  - [ ] add public messages
+  - [x] add public messages
     - [x] modify Message
     - [x] queue for few public messages
     - [x] add to Data Runner
     - [x] make place for display
-    - [ ] make posting them
+    - [x] make posting them
     - [x] modify personal stream to show "public" tick
   - [x] make "ad info" default in listener
     - [x] remove infos from unnecesary places
