@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 public class MessageCache <E> {
     
     private final Queue<E> queue;
-    private final int MAX_SIZE = 3;
+    private static final int MAX_SIZE = 3;
 
     public MessageCache() {
         queue = new LinkedBlockingQueue<>();

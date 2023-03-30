@@ -98,15 +98,4 @@ public class SecuredUser implements UserDetails {
         return true;
     }
 
-//    @Override
-//    public SecuredUser clone() {
-//        try {
-//           var clone = (SecuredUser) super.clone();
-//           clone.auths = new HashSet<>(clone.getAuthorities());
-//           return clone; }
-//        catch (CloneNotSupportedException ex){
-//            log.info("clone Faile for SecuredUser " + userName);
-//            throw new RuntimeException("Should definitely not happen. clone Faile for SecuredUser " + userName);
-//        }
-//    }
 }

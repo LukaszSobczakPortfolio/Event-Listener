@@ -51,8 +51,8 @@ public class UserController {
         log.info("addMessage: " + msg.toString());
         log.info("bool" + privateCheckBox);
         
-        var MessageToPersist = setPrivacy(new Message(LocalDateTime.now(), msg.getMessageBody(), user.getName()), privateCheckBox) ;
-        mService.addMessage(MessageToPersist);
+        var messageToPersist = setPrivacy(new Message(LocalDateTime.now(), msg.getMessageBody(), user.getName()), privateCheckBox) ;
+        mService.addMessage(messageToPersist);
         return "redirect:/user/panel";
     }
 

@@ -35,17 +35,11 @@ public class ListenerForModifyUserEvents implements LccEventListener<AbstractMod
 
         log.info("listener got Moderation event for: " + event.getName() + ". Evenr type: " + event.getClass().getSimpleName());
 
-//      still in preview 
-//      switch(event){
-//            case BanEvent b -> banUser(b);
-//            case WarningEvent w -> warnUser(w);
-
         if (event instanceof BanEvent ban) {
             banUser(ban);
         } else if (event instanceof WarningEvent warning) {
             warnUser(warning);
         }
-
     }
 
     private void banUser(BanEvent event) {

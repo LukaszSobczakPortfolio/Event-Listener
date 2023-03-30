@@ -14,7 +14,7 @@ public abstract sealed class AbstractModerationEvent implements LccEvent permits
 
     protected final String offenderName;
 
-    public AbstractModerationEvent(String offenderName) {
+    protected AbstractModerationEvent(String offenderName) {
         this.offenderName = offenderName;
     }
     

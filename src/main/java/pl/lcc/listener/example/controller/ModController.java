@@ -65,7 +65,6 @@ public class ModController {
 
         log.info("message " + messageTextAsId + "moderated. banned: " + banned + " . Warned: " + warned);
 
-       // if (banned.isEmpty() || !banned.get()) {
        if (banned.orElse(false)) {
             mod.itIsBomb(messageTextAsId);
         } else if(warned.orElse(false)){

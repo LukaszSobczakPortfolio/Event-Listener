@@ -90,8 +90,9 @@ public class InMemoryMessageService implements MessageService {
         log.info("message is: " + msg.getMessageBody());
         if (msg.getMessageBody().toLowerCase().contains("bomb")) {
             log.info("!!!!!!!!!!!BOMB!!!!!!!!!!!!! in message " + msg.toString());
-            if ( uService.loadUserByUsername(msg.getUserName()) instanceof SecuredUser user)
-            dispatcher.dispatch(new BombModEvent(user.getUsername(), msg, user.isAccountNonWarned()));
+            if (uService.loadUserByUsername(msg.getUserName()) instanceof SecuredUser user) {
+                dispatcher.dispatch(new BombModEvent(user.getUsername(), msg, user.isAccountNonWarned()));
+            }
         }
     }
 

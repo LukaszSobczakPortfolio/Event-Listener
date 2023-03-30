@@ -5,7 +5,6 @@
 package pl.lcc.listener.example.security;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -60,11 +59,16 @@ public class SecurityConfiguration {
                 .and()
                     .sessionManagement()
                     .invalidSessionUrl("/login?expired")
-                .and()
-                //    .addFilterBefore(new LoggingFilter(), ChannelProcessingFilter.class)
-                ;
+                .and();
+                    
+                turnOnLogger(http, false);
 
         return http.build();
+    }
+    
+    private HttpSecurity turnOnLogger(HttpSecurity http, boolean enabled){
+        if (enabled) {http.addFilterBefore(new LoggingFilter(), ChannelProcessingFilter.class);}
+        return http;
     }
 
     @Bean

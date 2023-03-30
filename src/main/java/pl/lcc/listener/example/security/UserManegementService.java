@@ -33,7 +33,6 @@ public class UserManegementService implements UserDetailsService, UserDetailsMan
         log.info("--- try to load User: " + username + "---");
 
         if (users.containsKey(username)) {
-//            return ((SecuredUser) users.get(username)).clone();
             if (users.get(username) instanceof SecuredUser user) {
                 return SecuredUser.copy(user);
             } else {
