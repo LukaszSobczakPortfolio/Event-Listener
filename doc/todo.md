@@ -32,6 +32,7 @@
   - [ ] mod post "ad" to all users    
     - [x] "ad" object
     - [x] implement listener in User
+    - [x] implement AdService
     - [ ] add ads in user template
     - [ ] add form in mod template
     - [ ] add logic in Controller

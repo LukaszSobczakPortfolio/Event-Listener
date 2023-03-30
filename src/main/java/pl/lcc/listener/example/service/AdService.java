@@ -10,4 +10,6 @@ package pl.lcc.listener.example.service;
  */
 public interface AdService {
     
+    void postAd(String message);
+    
 }

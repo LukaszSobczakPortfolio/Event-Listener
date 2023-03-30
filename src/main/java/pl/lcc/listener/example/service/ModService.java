@@ -4,12 +4,14 @@
  */
 package pl.lcc.listener.example.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import pl.lcc.listener.example.events.AdEvent;
 import pl.lcc.listener.example.events.BombModEvent;
 import pl.lcc.listener.example.events.ShutDownEvent;
 import pl.lcc.listener.example.user.Message;
@@ -55,5 +57,11 @@ public class ModService implements VerificationService, SystemService, AdService
     @Override
     public void shutdown() {
        dispatcher.dispatch(new ShutDownEvent());
+    }
+
+    @Override
+    public void postAd(String message) {
+        var msg = new Message(LocalDateTime.now(), message, "ADVERTISEMENT");
+        dispatcher.dispatch(new AdEvent(msg));
     }
 }
