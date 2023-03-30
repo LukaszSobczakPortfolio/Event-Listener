@@ -68,6 +68,7 @@ public class UserController {
                 .addAttribute("public", mService.getPublicMessages())
                 .addAttribute("warned", user.isFlagged())
                 .addAttribute("admin", user.isAdmin())
+                .addAttribute("ads", user.getMessages())
                 .addAttribute("publicCheckBox", false)
                 .addAttribute("newMessage", new Message(null, null, user.getName()));
         

@@ -56,6 +56,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         </div>
                     </li>
                 </ul>
+
+                <div class="text-center mx-auto">
+                    Send message for all logged-in users:
+                     <form action="#" th:action="@{/mod/ad}"  method="post">
+                        <p>Advert: <input type="text" name="adMessage" /> </p>       
+                        <p><input type="submit" value="Post Message" /> <input type="reset" value="Clear Message" /></p>
+                    </form>
+                </div>
+
+                
                 <div class="text-center mx-auto">
                     <form th:action="@{/logout}" method="post">
                         <input class="btn btn-dark" type="submit" value="Logout" />
@@ -68,6 +78,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </div>
 
             </div>
+
+
+
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

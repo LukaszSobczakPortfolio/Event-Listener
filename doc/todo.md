@@ -29,18 +29,18 @@
     - [x] modify personal stream to show "public" tick
   - [x] make "ad info" default in listener
     - [x] remove infos from unnecesary places
-  - [ ] mod post "ad" to all users    
+  - [x] mod post "ad" to all users    
     - [x] "ad" object
     - [x] implement listener in User
     - [x] implement AdService
-    - [ ] add ads in user template
-    - [ ] add form in mod template
-    - [ ] add logic in Controller
+    - [x] add ads in user template
+    - [x] add form in mod template
+    - [x] add logic in Controller
   - [x] ShutDown as Event
     - [x] event
     - [x] listenr
     - [x] button in mod
-  - [ ] top level /mod or /user in controler
+ 
   - [x] redirect to user panel or mod panel depending on role  
     
 - ### Tests
@@ -57,7 +57,7 @@
   - [ ] add tags
   - [ ] perhaps sql
   - [ ] validation somewhere
-
+  - [ ] top level /mod or /user in controler
 ```mermaid
 flowchart LR
 

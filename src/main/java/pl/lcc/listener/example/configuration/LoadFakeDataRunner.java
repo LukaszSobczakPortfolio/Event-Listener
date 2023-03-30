@@ -68,6 +68,8 @@ public class LoadFakeDataRunner implements CommandLineRunner {
 
         dispatcher.dispatch(new BanEvent("bomber-man"));
         dispatcher.dispatch(new WarningEvent("enthalpy"));
+        
+        log.info("--------------Fake Users Database Loaded!!!");
     }
 
 }

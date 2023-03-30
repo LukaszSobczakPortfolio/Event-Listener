@@ -20,6 +20,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <div class="text-danger text-center">
             <p th:unless="${warned}" th:text="'You were warned by Mods!!!'" />
         </div>
+        
+        <!--- Definitely ads are on Top -->
+        <div >
+            <table class="table table-bordered table-striped text-center mx-auto w-auto">
+                <tr class="border border-primary my-1" th:each="ad : ${ads}">
+                    <td class="border border-primary p-1" >Advertisement!!!</td>
+                    <td class="border border-primary p-1" th:text="${ad.messageBody}"></td>
+                    <td class="border border-primary m-1" th:text="${{ad.createTime}}"></td>
+                </tr>
+            </table>
+        </div>
+        
         <div class="container">
             <div class="row gx-5">
                 <!-- List of Messages -->

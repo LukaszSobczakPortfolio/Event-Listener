@@ -51,6 +51,13 @@ public class ModController {
         return "redirect:/mod/mod";
     }
     
+    @PostMapping("/mod/ad")
+    public String postAd(@RequestParam String adMessage){
+        log.info("posting ad: " + adMessage);
+        adService.postAd(adMessage);
+        return "redirect:/mod/mod";
+    }
+    
     @PostMapping("/mod/verified")
     public String verified(@RequestParam("id") String messageTextAsId, 
             @RequestParam("ban") Optional<Boolean> banned, 

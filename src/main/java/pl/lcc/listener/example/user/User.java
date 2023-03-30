@@ -4,8 +4,8 @@
  */
 package pl.lcc.listener.example.user;
 
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
@@ -66,6 +66,10 @@ public class User implements LccEventListener<AdEvent>{
     @Override
     public void listenToEvent(AdEvent event) {
         ads.addMessage(event.getMessage());
+    }
+    
+    public List<Message> getMessages(){
+       return ads.getList();
     }
     
 }
