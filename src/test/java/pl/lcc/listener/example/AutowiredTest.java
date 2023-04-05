@@ -18,7 +18,7 @@ class AutowiredTest {
     @Autowired
     ApplicationContext ctx;
     
-    // test if all beans are present
+    // test if all important beans are present
     @Test
     public void contextLoads() {
         SoftAssertions softly = new SoftAssertions();

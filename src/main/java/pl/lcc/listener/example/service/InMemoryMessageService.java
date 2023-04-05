@@ -96,7 +96,7 @@ public class InMemoryMessageService implements MessageService {
         }
     }
 
-    @Deprecated(since = "for testing noly")
+    @Deprecated(since = "for testing only")
     public void resetDB() {
         db.clear();
     }

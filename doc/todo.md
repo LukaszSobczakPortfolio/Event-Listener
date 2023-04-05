@@ -46,6 +46,31 @@
 - ### Tests
   - [ ] Fix Listener (module) tests Structure
   - [ ] Fix integration tests
+    - [ ] login
+        - [ ] user
+        - [ ] admin
+        - [ ] failed
+        - [ ] failed - suspended
+    - [ ] user
+        - [ ] is warned
+        - [ ] is not warned
+        - [ ] post public message
+            - [ ] seen by other
+        - [ ] post private message
+            - [ ] not seen by other
+        - [ ] logout
+        - [ ] admin not visible
+        - [ ] admin not reachable
+    - [ ] admin
+        - [ ] warn user
+        - [ ] ban user
+        - [ ] post ad
+        - [ ] change to user
+        - [ ] change beck to admin
+        - [ ] logout
+    - [ ] adding user
+        - [ ] user
+        - [ ] mod
   - [ ] Fix ModTests
 - ### Docs
   - [ ] Project Description (Mermaid)

@@ -12,15 +12,15 @@ import pl.lcc.listener.example.user.SecuredUserDetails;
  * @author Nauczyciel
  */
 
-public interface UserService {
-    
-    Optional<SecuredUserDetails> tryCreateUser (String name, String password);
-    
-    Optional<SecuredUserDetails>  tryCreateUser  (String name, String password, boolean isAdmin);
-    
-    boolean hasExist(String name);
-    
-    Optional<SecuredUserDetails> tryGetUserCore (String name, String password);
-    
-    
-}
+//public interface UserService {
+//    
+//    Optional<SecuredUserDetails> tryCreateUser (String name, String password);
+//    
+//    Optional<SecuredUserDetails>  tryCreateUser  (String name, String password, boolean isAdmin);
+//    
+//    boolean hasExist(String name);
+//    
+//    Optional<SecuredUserDetails> tryGetUserCore (String name, String password);
+//    
+//    
+//}
