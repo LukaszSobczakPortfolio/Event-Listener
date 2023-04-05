@@ -9,21 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 /**
  *
  * @author Nauczyciel
  */
-@ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
-public class LoginTest {
+public class AccessTest {
 
     @Autowired
     private MockMvc mvc;
@@ -45,6 +42,34 @@ public class LoginTest {
     @Test
     public void testloginUnauthenticated() throws Exception {
         mvc.perform(get("/login"))
+                .andExpect(status().isOk());
+    }
+    
+    @Test
+    @WithUserDetails("test")
+    public void testUserWithUser() throws Exception {
+        mvc.perform(get("/user/panel"))
+                .andExpect(status().isOk());
+    }
+    
+    @Test
+    @WithUserDetails("admin")
+    public void testUserWithMod() throws Exception {
+        mvc.perform(get("/user/panel"))
+               .andExpect(status().isOk());
+    }
+    
+    @Test
+    @WithUserDetails("test")
+    public void testModWithUser() throws Exception {
+        mvc.perform(get("/mod/mod"))                
+                .andExpect(status().is4xxClientError());
+    }
+    
+    @Test
+    @WithUserDetails("admin")
+    public void testModWithMod() throws Exception {
+        mvc.perform(get("/mod/mod"))
                 .andExpect(status().isOk());
     }
 }
