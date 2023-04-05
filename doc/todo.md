@@ -51,9 +51,9 @@
         - [x] user
         - [x] mod
     - [ ] login
-        - [ ] user
-        - [ ] admin
-        - [ ] failed
+        - [x] user
+        - [x] admin
+        - [x] failed
         - [ ] failed - suspended
     - [ ] user
         - [ ] is warned

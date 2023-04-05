@@ -5,6 +5,7 @@
 package pl.lcc.listener.example.controller;
 
 import java.util.List;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -66,5 +67,21 @@ public class LoginTest {
             .andExpect(authenticated().withUsername("admin").withAuthorities(List.of(Authority.MOD, Authority.USER)));
     }        
     
+    @Test
+    void bannedUserLoginTest() throws Exception{
+        var login = formLogin()
+            .user("bomber-man")
+            .password("bomb");
+        
+       var result = mvc.perform(login)
+            .andExpect(status().is3xxRedirection())
+            .andExpect(redirectedUrl("/login?error"))
+            .andExpect(unauthenticated())
+               .andReturn();
+       var myAttribute = result.getRequest().getSession().getAttribute("errorMessage");
+       assertThat(myAttribute.toString()).isEqualTo("Account Disabled");
+       
+                
+    }  
     
 }
