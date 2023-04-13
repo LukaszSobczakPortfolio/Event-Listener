@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 
 /**
- *
+ * Tests access to pages, with different credentioals - Data taken from LoadFakeDataRunner. 
  * @author Nauczyciel
  */
 @SpringBootTest
@@ -26,49 +26,49 @@ public class AccessTest {
     private MockMvc mvc;
 
     @Test
-    public void testModUnauthenticated() throws Exception {
+    public void testAccesModPageUnauthenticated() throws Exception {
         mvc.perform(get("/mod/mod"))
                 .andExpect(redirectedUrl("http://localhost/login"))
                 .andExpect(status().is3xxRedirection());
     }
 
     @Test
-    public void testUserUnauthenticated() throws Exception {
+    public void testAccesUserPageUnauthenticated() throws Exception {
         mvc.perform(get("/user/panel"))
                 .andExpect(redirectedUrl("http://localhost/login"))
                 .andExpect(status().is3xxRedirection());
     }
 
     @Test
-    public void testloginUnauthenticated() throws Exception {
+    public void testAccessLoginUnauthenticated() throws Exception {
         mvc.perform(get("/login"))
                 .andExpect(status().isOk());
     }
     
     @Test
     @WithUserDetails("test")
-    public void testUserWithUser() throws Exception {
+    public void testUserPageWithUserPrivileges() throws Exception {
         mvc.perform(get("/user/panel"))
                 .andExpect(status().isOk());
     }
     
     @Test
     @WithUserDetails("admin")
-    public void testUserWithMod() throws Exception {
+    public void testUserPageWithModPrivileges() throws Exception {
         mvc.perform(get("/user/panel"))
                .andExpect(status().isOk());
     }
     
     @Test
     @WithUserDetails("test")
-    public void testModWithUser() throws Exception {
+    public void testModPageWithUserPrivileges() throws Exception {
         mvc.perform(get("/mod/mod"))                
                 .andExpect(status().is4xxClientError());
     }
     
     @Test
     @WithUserDetails("admin")
-    public void testModWithMod() throws Exception {
+    public void testModPageWithModPriviledges() throws Exception {
         mvc.perform(get("/mod/mod"))
                 .andExpect(status().isOk());
     }

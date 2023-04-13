@@ -50,21 +50,24 @@
         - [x] unauthorized
         - [x] user
         - [x] mod
-    - [ ] login
+    - [x] login
         - [x] user
         - [x] admin
         - [x] failed
-        - [ ] failed - suspended
+        - [x] failed - suspended
     - [ ] user
-        - [ ] is warned
-        - [ ] is not warned
-        - [ ] post public message
-            - [ ] seen by other
+        - [x] is warned
+        - [x] is not warned
+        - [ ] public message
+            - [x] seen by user
+            - [x] seen by other
+            - [ ] can post
         - [ ] post private message
-            - [ ] not seen by other
+            - [x] seen by user
+            - [x] not seen by other
+            - [ ] can post
         - [ ] logout
-        - [ ] admin not visible
-        - [ ] admin not reachable
+        - [x] admin not visible
     - [ ] admin
         - [ ] warn user
         - [ ] ban user

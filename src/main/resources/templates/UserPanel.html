@@ -66,7 +66,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </div>
             </div>
         </div>
-        <!-- Go to Mod Panel If Admin, Logout -->
+        <!-- Switch Mod panel If Admin, Logout -->
         <a th:if="${admin}" href="/mod/mod"> <button>  Go to Mod Panel </button>  </a>
         <div class="text-center mx-auto">
             <form th:action="@{/logout}" method="post">

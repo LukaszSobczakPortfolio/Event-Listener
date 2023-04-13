@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import pl.lcc.listener.example.security.Authority;
 
 /**
- *
+ * Tests Login only - Data taken from LoadFakeDataRunner. 
  * @author Nauczyciel
  */
 @SpringBootTest
