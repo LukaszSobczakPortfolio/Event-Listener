@@ -58,14 +58,14 @@
     - [ ] user
         - [x] is warned
         - [x] is not warned
-        - [ ] public message
+        - [x] public message
             - [x] seen by user
             - [x] seen by other
-            - [ ] can post
-        - [ ] post private message
+            - [x] can post
+        - [x] post private message
             - [x] seen by user
             - [x] not seen by other
-            - [ ] can post
+            - [x] can post
         - [ ] logout
         - [x] admin not visible
     - [ ] admin

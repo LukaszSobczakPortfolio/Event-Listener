@@ -20,4 +20,6 @@ public interface MessageService {
 
     List<Message> getPublicMessages();
     
+    @Deprecated(since = "for testing only")
+    public void resetDB();
 }

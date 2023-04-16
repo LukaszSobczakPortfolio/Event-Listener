@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -97,4 +98,6 @@ public class NewUserScenariosTest {
         assertThat(result.getResponse().getContentAsString())
                 .doesNotContainPattern("Go to Mod Panel");
     }
+    
+
 }

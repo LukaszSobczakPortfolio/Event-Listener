@@ -72,4 +72,12 @@ public class LoadFakeDataRunner implements CommandLineRunner {
         log.info("--------------Fake Users Database Loaded!!!");
     }
 
+    public void clearDb(){
+        messageService.resetDB();
+        modService.getMessageForModeration()
+                .forEach(msg -> modService.removeMessageFromModeration(msg));
+        List.<String>of("test","enthalpy","bomber-man","admin")
+            .forEach(name -> uService.deleteUser(name));
+    }
+    
 }
