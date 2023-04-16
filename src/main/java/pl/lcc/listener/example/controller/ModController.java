@@ -63,7 +63,7 @@ public class ModController {
             @RequestParam("ban") Optional<Boolean> banned, 
             @RequestParam("warning") Optional<Boolean> warned, Model model) {
 
-        log.info("message " + messageTextAsId + "moderated. banned: " + banned + " . Warned: " + warned);
+        log.info("message " + messageTextAsId + " moderated. banned: " + banned + " . Warned: " + warned);
 
        if (banned.orElse(false)) {
             mod.itIsBomb(messageTextAsId);

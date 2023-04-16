@@ -69,8 +69,8 @@
         - [ ] logout
         - [x] admin not visible
     - [ ] admin
-        - [ ] warn user
-        - [ ] ban user
+        - [x] warn user
+        - [x] ban user
         - [ ] post ad
         - [ ] change to user
         - [ ] change beck to admin
