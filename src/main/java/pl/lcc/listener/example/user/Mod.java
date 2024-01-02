@@ -22,13 +22,9 @@ import pl.lcc.listener.module.interfaces.DispatcherInterface;
 @Component
 @SessionScope
 public class Mod {
-
     private final VerificationService service;
-
     private List<ModeratedMessage> messagesForVerification;
-
-    Authentication auth;
-
+    private final Authentication auth;
     private final DispatcherInterface dispatcher;
 
     public Mod(VerificationService service, DispatcherInterface dispatcher) {
@@ -56,11 +52,10 @@ public class Mod {
         dispatcher.dispatch(new WarningEvent(message.getUserName()));
     }
 
-    public boolean itIsBomb(String messageBodyAsId) {
+    public void itIsBomb(String messageBodyAsId) {
         var message = processId(messageBodyAsId);
         service.removeMessageFromModeration(message);
         dispatcher.dispatch(new BanEvent(message.getUserName()));
-        return false;
     }
 
     private ModeratedMessage processId(String messageAsId) {

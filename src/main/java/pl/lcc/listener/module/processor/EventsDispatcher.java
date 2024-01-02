@@ -6,6 +6,8 @@
 package pl.lcc.listener.module.processor;
 
 import pl.lcc.listener.module.processor.storage.IEventStorage;
+
+import java.util.List;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -31,9 +33,11 @@ public class EventsDispatcher implements InternalDispatcherInterface{
     @Override
     public void dispatch(LccEvent event) {
         log.info("looking for dispatch " + event.toString());
-        var listeners = eventMapper.getListenersForEvent(event);
+        List<LccEventListener<? extends LccEvent>> listeners = eventMapper.getListenersForEvent(event);
         log.info("found : " + listeners.size() + " : " + listeners.toString());
-        listeners.forEach(listener->((LccEventListener<LccEvent>)listener).listenToEvent(event));
+        for (LccEventListener<? extends LccEvent> listener : listeners) {
+            ((LccEventListener<LccEvent>) listener).listenToEvent(event);
+        }
     }
     
     @Override
@@ -45,10 +49,7 @@ public class EventsDispatcher implements InternalDispatcherInterface{
     public String getAllListenersInfo() {
        return eventMapper
                .getStreamOfListenersDescription()
-               .collect(Collectors.joining("\n"));                
-       
+               .collect(Collectors.joining(System.lineSeparator()));
     }
-    
-    
-    
+
 }
