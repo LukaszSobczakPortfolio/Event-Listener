@@ -3,7 +3,7 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <title>Mod Panel</title>
         <meta charset="UTF-8">
@@ -27,7 +27,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </div>
             <div th:if="${list.size()==0}">                
                 <p class="col-4 mx-auto text-center bg-success text-white">
-                    No Problems, make a cofee 
+                    No Problems here, please make yourself a cofee! 
                 </p>
             </div>
 
@@ -36,26 +36,51 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <li class="mx-auto" th:each="msg : ${list}">
                         <div class="row py-1 mx-auto">                            
                             <div class = "col-1 mx-auto" > 
-                                <form action="#" th:action="@{/verified(id=${msg.messageBody})}" method="post">
+                                <form action="#" th:action="@{/mod/verified(id=${msg.messageBody})}" method="post">
                                     <input class="btn btn-primary" type="submit" value="It is OK" />
                                 </form>
                             </div> 
                             <div class = "col-2" >
-                                <form action="#" th:action="@{/verified(id=${msg.messageBody}, ban=true)}" method="post">
-                                    <input  class="btn btn-warning" type="submit" value="Ban User" />
+                                <form action="#" th:action="@{/mod/verified(id=${msg.messageBody}, warning=true)}" method="post">
+                                    <input  class="btn btn-warning" type="submit" value="Warn User" />
                                 </form> 
                             </div>
+                            <div class = "col-2" >
+                                <form action="#" th:action="@{/mod/verified(id=${msg.messageBody}, ban=true)}" method="post">
+                                    <input  class="btn btn-danger" type="submit" value="Ban User" />
+                                </form> 
+                            </div>                            
                             <div class = "col">
-                                <span th:text="${msg.messageBody}">text </span> by   <span class="fw-bold" th:text="${msg.userName}"> user</span>
+                                <span th:text="${msg.messageBody}">text </span> by   <span class="fw-bold" th:text="${msg.userName}" th:classappend="${msg.isNotWarned}? bg-light : bg-warning"> user</span>
                             </div>
                         </div>
                     </li>
                 </ul>
+
                 <div class="text-center mx-auto">
-                    <a  href="/login"> <button class="btn btn-dark">  Logout </button>  </a>
+                    Send message for all logged-in users:
+                     <form action="#" th:action="@{/mod/ad}"  method="post">
+                        <p>Advert: <input type="text" name="adMessage" /> </p>       
+                        <p><input type="submit" value="Post Message" /> <input type="reset" value="Clear Message" /></p>
+                    </form>
+                </div>
+
+                
+                <div class="text-center mx-auto">
+                    <form th:action="@{/logout}" method="post">
+                        <input class="btn btn-dark" type="submit" value="Logout" />
+                    </form>
+                </div>
+                <div class="text-center mx-auto">
+                    <form th:action="@{/mod/shut}" method="post">
+                        <input class="btn btn-dark" type="submit" value="Shut Down Tomcat" />
+                    </form>
                 </div>
 
             </div>
+
+
+
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

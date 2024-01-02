@@ -112,6 +112,7 @@ public class TestListeners {
         }
 
     }
+    
 
     @LccListenerClass(targetEvent = TestEvents.EmptyEvent.class)
     public static class SingletonListener implements LccEventListener<TestEvents.EmptyEvent> {

@@ -5,7 +5,6 @@
 package pl.lcc.listener.example.events;
 
 import java.util.Objects;
-import pl.lcc.listener.module.interfaces.LccEvent;
 
 /**
  * Receiver: UserService
@@ -14,22 +13,16 @@ import pl.lcc.listener.module.interfaces.LccEvent;
  * @author Nauczyciel
  */
 
-public class BanEvent implements LccEvent{
+public final class BanEvent extends AbstractModerationEvent{
     
-    private final String name;
-
     public BanEvent(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
+        super(name);
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 11 * hash + Objects.hashCode(this.name);
+        hash = 11 * hash + Objects.hashCode(this.offenderName);
         return hash;
     }
 
@@ -44,8 +37,8 @@ public class BanEvent implements LccEvent{
         if (getClass() != other.getClass()) {
             return false;
         }
-        final BanEvent otherBanEvent = (BanEvent) other;
-        return Objects.equals(this.name, otherBanEvent.name);
+        BanEvent otherBanEvent = (BanEvent) other;
+        return Objects.equals(this.offenderName, otherBanEvent.offenderName);
     }
     
     

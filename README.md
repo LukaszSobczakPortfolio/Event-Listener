@@ -1,3 +1,5 @@
+[![Java CI with Maven - auto created](https://github.com/LukaszSobczakPortfolio/Event-Listener/actions/workflows/maven.yml/badge.svg)](https://github.com/LukaszSobczakPortfolio/Event-Listener/actions/workflows/maven.yml)
+
 # Event-Listener
 Playground for Java and Spring Boot. 
 ## Features:

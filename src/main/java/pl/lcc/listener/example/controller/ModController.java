@@ -12,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.lcc.listener.example.service.AdService;
 import pl.lcc.listener.example.service.VerificationService;
+import pl.lcc.listener.example.service.SystemService;
 import pl.lcc.listener.example.user.Mod;
 
 /**
@@ -26,33 +28,53 @@ public class ModController {
     @Autowired
     private Mod mod;
 
-    VerificationService service;
+    private final VerificationService service;
+    private final SystemService sysService;
+    private final AdService adService;
 
-    public ModController(VerificationService service) {
+    public ModController(VerificationService service, AdService adService, SystemService sysService ) {
         log.info("Mod Controller");
         this.service = service;
+        this.sysService = sysService;
+        this.adService = adService;        
     }
 
-    @GetMapping("/mod")
+    @GetMapping("/mod/mod")
     public String index(Model model) {
         prepareModel(model);
         return "Mod";
     }
 
-    @PostMapping("/verified")
+    @PostMapping("/mod/shut")
+    public String shutDown(){
+        sysService.shutdown();
+        return "redirect:/mod/mod";
+    }
+    
+    @PostMapping("/mod/ad")
+    public String postAd(@RequestParam String adMessage){
+        log.info("posting ad: " + adMessage);
+        adService.postAd(adMessage);
+        return "redirect:/mod/mod";
+    }
+    
+    @PostMapping("/mod/verified")
     public String verified(@RequestParam("id") String messageTextAsId, 
-            @RequestParam("ban") Optional<Boolean> banned, Model model) {
+            @RequestParam("ban") Optional<Boolean> banned, 
+            @RequestParam("warning") Optional<Boolean> warned, Model model) {
 
-        log.info("message " + messageTextAsId + "moderated. Effect: " + banned);
+        log.info("message " + messageTextAsId + " moderated. banned: " + banned + " . Warned: " + warned);
 
-        if (banned.isEmpty() || !banned.get()) {
-            mod.okMessage(messageTextAsId);
-        } else {
+       if (banned.orElse(false)) {
             mod.itIsBomb(messageTextAsId);
+        } else if(warned.orElse(false)){
+            mod.itIsWarning(messageTextAsId);
+        }else {
+            mod.okMessage(messageTextAsId);
         }
 
         prepareModel(model);
-        return "redirect:/mod";
+        return "redirect:/mod/mod";
     }
 
     private void prepareModel(Model model) {

@@ -6,6 +6,7 @@ package pl.lcc.listener.example.events;
 
 import lombok.extern.slf4j.Slf4j;
 import pl.lcc.listener.example.user.Message;
+import pl.lcc.listener.example.user.ModeratedMessage;
 import pl.lcc.listener.module.interfaces.LccEvent;
 
 /**
@@ -17,22 +18,22 @@ import pl.lcc.listener.module.interfaces.LccEvent;
 @Slf4j
 public class BombModEvent implements LccEvent{
 
-    private final Message msg;
+    private final ModeratedMessage msg;
     
-    String user;
+    private final String user;
 
-    public BombModEvent(String user, Message msg) {
+    public BombModEvent(String user, Message msg, boolean isNotWarned) {
         log.info("Event send to moderation: " + msg.toString());
-        this.msg = msg;
+        this.msg = new ModeratedMessage(msg, isNotWarned);
         this.user = user;
     }
 
-    public Message getMsg() {
+    public ModeratedMessage getMsg() {
         return msg;
     }
 
     public String getUser() {
         return user;
     }
-    
+
 }

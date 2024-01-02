@@ -4,9 +4,17 @@
  */
 package pl.lcc.listener.example.user;
 
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
+import pl.lcc.listener.example.events.AdEvent;
+import pl.lcc.listener.example.security.Authority;
+import pl.lcc.listener.example.security.SecuredUser;
+import pl.lcc.listener.example.service.MessageCache;
+import pl.lcc.listener.module.interfaces.LccEventListener;
+import pl.lcc.listener.module.interfaces.LccListenerClass;
 /**
  * stores data required to display UserPanel
  * @author Nauczyciel
@@ -14,27 +22,33 @@ import org.springframework.web.context.annotation.SessionScope;
 @Slf4j
 @Component
 @SessionScope
-public class User{
+@LccListenerClass(targetEvent = AdEvent.class)
+public class User implements LccEventListener<AdEvent>{
     
-    UserDetails core;
+    SecuredUser principal;
+    
+    MessageCache<Message> ads;
 
-    public User() {
-        log.info("new User");
+    public User(MessageCache<Message> cache) {
+        log.info("new User");  
+
+       var tmpPrincipal = SecurityContextHolder
+            .getContext()
+            .getAuthentication()
+               .getPrincipal();
+       if (tmpPrincipal instanceof SecuredUser securedUser){
+           this.principal = securedUser;
+           
+       } else {
+           throw new IllegalStateException("User Class works with Secured User!");
+       }
+       ads = cache;
+        log.info("The User created with auth: " + principal.getUsername());
     } 
     
-    public User setCore (UserDetails core){
-        this.core = core;
-        return this;
-    }
-    
     public String getName() {
-        return core.getName();
+        return principal.getUsername();
     }
-
-    public void setName(String name) {
-        throw new UnsupportedOperationException("to do");    }
-
-        
     
     @Override
     public String toString() {
@@ -42,19 +56,20 @@ public class User{
     }
 
     public boolean isFlagged() {
-        return core.isBanned();
-    }
-    
-    public void setFlagged(boolean flagged) {
-         throw new UnsupportedOperationException("to do");
+       return principal.isAccountNonWarned();
     }
 
      public boolean isAdmin() {
-        return core.isAdmin();
+        return principal.getAuthorities().contains(Authority.MOD);
+    }
+
+    @Override
+    public void listenToEvent(AdEvent event) {
+        ads.addMessage(event.getMessage());
     }
     
-    public void setAdmin(boolean admin) {
-         throw new UnsupportedOperationException("to do");
+    public List<Message> getMessages(){
+       return ads.getList();
     }
     
 }

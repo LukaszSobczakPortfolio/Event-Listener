@@ -14,10 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.lcc.listener.example.service.UserService;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.lcc.listener.example.user.Message;
 import pl.lcc.listener.example.user.User;
-import pl.lcc.listener.example.user.UserDetails;
 
 /**
  * Login and user (not mod) interactions
@@ -32,50 +31,13 @@ public class UserController {
 
     private final MessageService mService;
 
-    private final UserService uService;
-
-    public UserController(MessageService mService, UserService uService) {
+    public UserController(MessageService mService) {
         log.info("WebController Constructor");
         this.mService = mService;
-        this.uService = uService;
-    }
-
-    //Display Login Screen
-    @GetMapping("/login")
-    public String index(@ModelAttribute("udto") UDTO udto, Model model) {
-        log.info("login/get on thread: " + Thread.currentThread().getName());
-        return "Login";
-    }
-
-    //can be 1) login action, 2) create new user, 3) create new Admin 
-    @PostMapping("/login")
-    public String greetingSubmit(@ModelAttribute("udto") UDTO udto, Model model) {
-        log.info("login/post on thread:" + Thread.currentThread().getName());
-        log.info(udto.toString());
-        Optional<UserDetails> core;
-        if (udto.isCreate() || udto.isAdmin()) {
-            core = uService.tryCreateUser(udto.name, udto.password, udto.isAdmin());
-        } else {
-            core = uService.tryGetUserCore(udto.name, udto.password);
-        }
-        
-        if (core.isEmpty()) {
-            return repeatLogin(udto, model);
-        } else {
-            user.setCore(core.get());
-            prepareModerForNewMessage(model);
-            return "redirect:/addMessage";
-        }
-
-    }
-
-    private String repeatLogin(UDTO udto, Model model) {
-        model.addAttribute("udto", new UDTO().setName(udto.getName()));
-        return "Login";
-    }
+    }    
     
     //display user panel
-    @GetMapping("/addMessage")
+    @GetMapping("/user/panel")
     public String showUserPanel(@ModelAttribute Message msg, Model model) {
         log.info("addMessage/get on thread: " + Thread.currentThread().getName());
         prepareModerForNewMessage(model);
@@ -83,13 +45,19 @@ public class UserController {
     }
 
     //new messagre created
-    @PostMapping("/addMessage")
-    public String addMessage(@ModelAttribute Message msg, Model model) {
+    @PostMapping("/user/addMessage")
+    public String addMessage(@ModelAttribute Message msg, @RequestParam Optional<Boolean> privateCheckBox) {
         log.info("addMessage/post on thread: " + Thread.currentThread().getName());
         log.info("addMessage: " + msg.toString());
-        mService.addMessage(new Message(LocalDateTime.now(), msg.getMessageBody(), user.getName()));
-        prepareModerForNewMessage(model);
-        return "UserPanel";
+        log.info("bool" + privateCheckBox);
+        
+        var messageToPersist = setPrivacy(new Message(LocalDateTime.now(), msg.getMessageBody(), user.getName()), privateCheckBox) ;
+        mService.addMessage(messageToPersist);
+        return "redirect:/user/panel";
+    }
+
+    private Message setPrivacy( Message toSend,Optional<Boolean> privateCheckBox) {
+       return privateCheckBox.orElse(Boolean.FALSE) ? toSend.setPrivate() : toSend.setPublic();
     }
 
     private void prepareModerForNewMessage(Model model) {
@@ -97,58 +65,13 @@ public class UserController {
         model
                 .addAttribute("name", user.getName())
                 .addAttribute("messages", mService.getMessages(user.getName()))
-                .addAttribute("banned", user.isFlagged())
+                .addAttribute("public", mService.getPublicMessages())
+                .addAttribute("warned", user.isFlagged())
                 .addAttribute("admin", user.isAdmin())
+                .addAttribute("ads", user.getMessages())
+                .addAttribute("publicCheckBox", false)
                 .addAttribute("newMessage", new Message(null, null, user.getName()));
+        
     }
 }
-//User DTO for catching data from login form
-class UDTO {
 
-    String name;
-    String password;
-    boolean admin = false;
-    boolean create = false;
-
-    public String getName() {
-        return name;
-    }
-
-    public UDTO setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public UDTO setPassword(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public boolean isAdmin() {
-        return admin;
-    }
-
-    public UDTO setAdmin(boolean admin) {
-        this.admin = admin;
-        return this;
-    }
-
-    public boolean isCreate() {
-        return create;
-    }
-
-    public UDTO setCreate(boolean create) {
-        this.create = create;
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return "UDTO{" + "name=" + name + ", password=" + password + ", admin=" + admin + ", create=" + create + '}';
-    }
-
-}

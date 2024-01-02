@@ -5,22 +5,22 @@
 package pl.lcc.listener.example.service;
 
 import java.util.Optional;
-import pl.lcc.listener.example.user.UserDetails;
+import pl.lcc.listener.example.user.SecuredUserDetails;
 
 /**
  * Logic for create and retrieve user data
  * @author Nauczyciel
  */
 
-public interface UserService {
-    
-    Optional<UserDetails> tryCreateUser (String name, String password);
-    
-    Optional<UserDetails>  tryCreateUser  (String name, String password, boolean isAdmin);
-    
-    boolean hasExist(String name);
-    
-    Optional<UserDetails> tryGetUserCore (String name, String password);
-    
-    
-}
+//public interface UserService {
+//    
+//    Optional<SecuredUserDetails> tryCreateUser (String name, String password);
+//    
+//    Optional<SecuredUserDetails>  tryCreateUser  (String name, String password, boolean isAdmin);
+//    
+//    boolean hasExist(String name);
+//    
+//    Optional<SecuredUserDetails> tryGetUserCore (String name, String password);
+//    
+//    
+//}
